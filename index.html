@@ -369,55 +369,105 @@
             }
         };
 
+        // (*** ĐÃ CẬP NHẬT CHI TIẾT ***)
         // Giải thích chi tiết về kỹ năng
         const skillDetails = {
             'sql': {
-                description: "Ngôn ngữ truy vấn có cấu trúc (SQL) là công cụ nền tảng để làm việc với bất kỳ cơ sở dữ liệu quan hệ nào.",
-                howItHelps: "Cho phép bạn tự mình lấy và xác minh dữ liệu, kiểm tra các giả thuyết nghiệp vụ, và hiểu sâu về cấu trúc data thay vì phải chờ đợi developer. Đây là kỹ năng phân biệt một BA 'tốt' và một BA 'xuất sắc'."
+                description: "Ngôn ngữ truy vấn có cấu trúc (SQL) là công cụ nền tảng để làm việc với bất kỳ cơ sở dữ liệu quan hệ nào (như MySQL, PostgreSQL, Oracle).",
+                howItHelps: "Cho phép bạn *tự mình* lấy và xác minh dữ liệu ngay lập tức mà không cần chờ Dev. Bạn có thể kiểm tra giả thuyết nghiệp vụ (ví dụ: 'Bao nhiêu % người dùng đã bỏ giỏ hàng?'), hiểu sâu về cấu trúc data, và viết báo cáo chính xác. Đây là kỹ năng phân biệt một BA 'tốt' và một BA 'xuất sắc'."
             },
             'power bi': {
-                description: "Một công cụ trực quan hóa dữ liệu của Microsoft, giúp biến dữ liệu thô thành các biểu đồ và dashboard tương tác.",
-                howItHelps: "Giúp bạn trình bày kết quả phân tích một cách trực quan và thuyết phục. Thay vì gửi file Excel, bạn gửi một dashboard động. Điều này giúp các sếp (stakeholders) ra quyết định nhanh hơn và chính xác hơn."
+                description: "Một công cụ trực quan hóa dữ liệu (Data Visualization) của Microsoft, giúp biến dữ liệu thô từ Excel/SQL thành biểu đồ và dashboard tương tác.",
+                howItHelps: "Giúp bạn trình bày kết quả phân tích một cách trực quan và *thuyết phục*. Thay vì gửi file Excel 10,000 dòng, bạn gửi một dashboard động cho phép sếp của bạn tự lọc/xem. Điều này giúp các stakeholders ra quyết định nhanh hơn và chính xác hơn."
             },
             'tableau': {
-                description: "Tương tự Power BI, Tableau là một công cụ trực quan hóa dữ liệu hàng đầu, rất mạnh về đồ họa và tính tương tác.",
-                howItHelps: "Giúp bạn khám phá và trình bày dữ liệu. Việc biết cả Power BI và Tableau là một lợi thế lớn, vì các công ty khác nhau sử dụng các công cụ khác nhau."
+                description: "Tương tự Power BI, Tableau là một công cụ trực quan hóa dữ liệu hàng đầu, rất mạnh về đồ họa và tính tương tác linh hoạt.",
+                howItHelps: "Giúp bạn khám phá và trình bày dữ liệu. Việc biết cả Power BI và Tableau là một lợi thế lớn, vì các công ty khác nhau sử dụng các công cụ khác nhau. Nếu bạn đã biết SQL, học công cụ này sẽ rất nhanh."
             },
             'ai': {
-                description: "Trí tuệ nhân tạo (AI) đang dần được tích hợp vào các công cụ BA để phân tích dự đoán, nhận diện mẫu và tự động hóa.",
-                howItHelps: "Là một BA hiểu về AI, bạn có thể đề xuất các giải pháp thông minh hơn (ví dụ: chatbot, hệ thống gợi ý sản phẩm) thay vì chỉ các tính năng cơ bản. Đây là kỹ năng 'đón đầu' giúp bạn có lợi thế cạnh tranh rất lớn."
+                description: "Trí tuệ nhân tạo (AI) và Học máy (ML) đang dần được tích hợp vào các sản phẩm để phân tích dự đoán, nhận diện mẫu và tự động hóa.",
+                howItHelps: "Là một BA hiểu về AI, bạn có thể đề xuất các giải pháp *thông minh hơn* (ví dụ: chatbot hỗ trợ khách hàng, hệ thống gợi ý sản phẩm như Shopee, Netflix) thay vì chỉ các tính năng cơ bản. Đây là kỹ năng 'đón đầu' giúp bạn có lợi thế cạnh tranh rất lớn."
             },
             'english': {
                 description: "Ngoại ngữ, đặc biệt là tiếng Anh, là kỹ năng quan trọng nhất theo dữ liệu (88 lượt đề cập).",
-                howItHelps: "Toàn bộ tài liệu chuyên ngành, tài liệu API, các khóa học tốt nhất (IIBA, PMI) đều bằng tiếng Anh. Giỏi tiếng Anh giúp bạn tiếp cận nguồn tri thức vô tận và làm việc với các đối tác, khách hàng global."
+                howItHelps: "Toàn bộ tài liệu chuyên ngành (BABOK), tài liệu API kỹ thuật, các khóa học tốt nhất (IIBA, PMI) đều bằng tiếng Anh. Giỏi tiếng Anh giúp bạn tiếp cận nguồn tri thức vô tận, tự đọc tài liệu và làm việc trực tiếp với các đối tác, khách hàng global mà không cần phiên dịch."
             },
             'agile': {
-                description: "Là một phương pháp luận phát triển phần mềm linh hoạt, tập trung vào việc lặp lại (iteration) và phản hồi liên tục.",
-                howItHelps: "Hầu hết các công ty công nghệ hiện nay đều chạy Agile/Scrum. Hiểu Agile giúp bạn hòa nhập ngay lập tức vào quy trình làm việc, biết cách viết User Story, tham gia các buổi họp (Sprint Planning, Retrospective) và giao sản phẩm nhanh chóng."
+                description: "Là một *phương pháp luận* (mindset) phát triển phần mềm linh hoạt, tập trung vào việc lặp lại (iteration) và phản hồi liên tục, thay vì làm toàn bộ dự án trong 1 năm (Waterfall).",
+                howItHelps: "Hầu hết các công ty công nghệ hiện nay đều chạy Agile. Hiểu Agile giúp bạn hòa nhập ngay lập tức vào quy trình, biết cách viết User Story, tham gia các buổi họp (Sprint Planning, Retrospective) và giao sản phẩm nhanh chóng, giảm rủi ro làm sai yêu cầu."
             },
             'scrum': {
-                description: "Một 'framework' (khung làm việc) cụ thể và phổ biến nhất trong Agile, với các vai trò (Scrum Master, Product Owner) và sự kiện rõ ràng.",
-                howItHelps: "Biết Scrum giúp bạn hiểu rõ vai trò của mình trong 'guồng máy' của team, cách team cam kết công việc, và làm thế nào để tối ưu hóa việc chuyển giao giá trị sau mỗi Sprint."
+                description: "Một 'framework' (khung làm việc) *cụ thể* và phổ biến nhất trong Agile, với các vai trò (Scrum Master, Product Owner, Dev Team) và sự kiện (Daily, Sprint, Review...) rõ ràng.",
+                howItHelps: "Biết Scrum (vốn là con của Agile) giúp bạn hiểu rõ vai trò của mình trong 'guồng máy' của team, cách team cam kết công việc, và làm thế nào để tối ưu hóa việc chuyển giao giá trị cho khách hàng sau mỗi 1-2 tuần (Sprint)."
             },
             'communication': {
-                description: "Kỹ năng giao tiếp là khả năng truyền đạt, lắng nghe và thấu hiểu thông tin một cách hiệu quả.",
-                howItHelps: "Đây là 'dầu bôi trơn' cho mọi hoạt động của BA. Bạn dùng nó để phỏng vấn stakeholder, đàm phán yêu cầu, giải quyết xung đột, và trình bày giải pháp. Không có kỹ năng này, mọi kỹ thuật khác đều vô nghĩa."
+                description: "Kỹ năng giao tiếp là khả năng truyền đạt, lắng nghe, đặt câu hỏi và thấu hiểu thông tin một cách hiệu quả.",
+                howItHelps: "Đây là 'dầu bôi trơn' cho mọi hoạt động của BA. Bạn dùng nó để *phỏng vấn* stakeholder tìm ra 'nỗi đau', *đàm phán* yêu cầu khi có xung đột, *giải quyết xung đột* giữa các phòng ban, và *trình bày* giải pháp. Không có kỹ năng này, mọi kỹ thuật khác đều vô nghĩa."
             },
             'python': {
-                description: "Ngôn ngữ lập trình đa năng, rất mạnh trong mảng Phân tích Dữ liệu và AI.",
-                howItHelps: "Đối với Technical BA, Python giúp bạn làm những việc mà SQL/Excel không làm được: tự động hóa các tác vụ lặp lại (ví dụ: lấy dữ liệu từ web), xử lý các tập dữ liệu cực lớn, và thậm chí xây dựng các mô hình AI/ML đơn giản."
+                description: "Ngôn ngữ lập trình đa năng, rất mạnh trong mảng Phân tích Dữ liệu, Tự động hóa và AI.",
+                howItHelps: "Đối với Technical BA, Python giúp bạn làm những việc mà SQL/Excel không làm được: tự động hóa các tác vụ lặp lại (ví dụ: tự động lấy dữ liệu từ web), xử lý các tập dữ liệu cực lớn, và thậm chí xây dựng các mô hình AI/ML đơn giản để phân tích dự đoán."
             },
             'requirements': {
-                description: "Kỹ năng khơi gợi (Elicitation) và quản lý yêu cầu là cốt lõi của nghề BA.",
-                howItHelps: "Giúp bạn đặt đúng câu hỏi để tìm ra nhu cầu 'chìm' (ẩn) của người dùng, phân biệt giữa 'Muốn' (Want) và 'Cần' (Need), và viết ra các yêu cầu rõ ràng, không mập mờ, để developer có thể lập trình đúng ngay từ đầu."
+                description: "Kỹ năng khơi gợi (Elicitation) và quản lý yêu cầu là cốt lõi của nghề BA. Đây là việc tìm ra stakeholder muốn gì, cần gì.",
+                howItHelps: "Giúp bạn đặt đúng câu hỏi (ví dụ: 5 Whys) để tìm ra nhu cầu *'chìm'* (ẩn) của người dùng, phân biệt giữa 'Muốn' (Want) và 'Cần' (Need), và viết ra các yêu cầu rõ ràng, không mập mờ, để developer có thể lập trình đúng ngay từ đầu, tránh làm lại."
             },
             'bpmn': {
-                description: "Business Process Model and Notation là một tiêu chuẩn vàng để vẽ sơ đồ quy trình nghiệp vụ.",
-                howItHelps: "Giúp bạn mô hình hóa các quy trình phức tạp một cách trực quan và đồng nhất. Một biểu đồ BPMN chuẩn có thể được hiểu bởi cả sếp nghiệp vụ (để thấy luồng đi) và dev kỹ thuật (để cấu hình hệ thống)."
+                description: "Business Process Model and Notation là một *tiêu chuẩn vàng* (ngôn ngữ chung) để vẽ sơ đồ quy trình nghiệp vụ.",
+                howItHelps: "Giúp bạn mô hình hóa các quy trình phức tạp (ví dụ: quy trình duyệt nghỉ phép) một cách trực quan và đồng nhất. Một biểu đồ BPMN chuẩn có thể được hiểu bởi cả sếp nghiệp vụ (để thấy luồng đi) và dev kỹ thuật (để cấu hình hệ thống), tránh hiểu lầm."
             },
             'management': {
-                description: "Kỹ năng quản lý, bao gồm quản lý thời gian, phạm vi (scope) và con người.",
-                howItHelps: "Khi bạn lên cấp (Senior/Lead), bạn không chỉ làm BA mà còn phải quản lý dự án. Kỹ năng này giúp bạn lập kế hoạch, theo dõi tiến độ, ngăn chặn 'scope creep' (yêu cầu phát sinh) và đảm bảo dự án đi đúng hướng."
+                description: "Kỹ năng quản lý, bao gồm quản lý thời gian, phạm vi (scope) dự án và quản lý con người/kỳ vọng.",
+                howItHelps: "Khi bạn lên cấp (Senior/Lead), bạn không chỉ làm BA mà còn phải quản lý. Kỹ năng này giúp bạn lập kế hoạch cho team BA, theo dõi tiến độ, *ngăn chặn 'scope creep'* (yêu cầu phát sinh vô tội vạ) và đảm bảo dự án/sản phẩm đi đúng hướng, đúng hẹn."
+            },
+            // (MỚI BỔ SUNG)
+            'jira': {
+                description: "Là công cụ (tool) phổ biến nhất để quản lý dự án Agile/Scrum. Nó giúp theo dõi User Story, bugs, và tiến độ công việc.",
+                howItHelps: "Biết Jira là điều gần như bắt buộc. Nó giúp bạn tạo và quản lý 'backlog' (danh sách yêu cầu), gán việc cho Dev, theo dõi trạng thái (To Do, In Progress, Done) và tạo báo cáo tiến độ Sprint. Đây là công cụ làm việc hàng ngày của BA."
+            },
+            'confluence': {
+                description: "Là một công cụ 'wiki' (tương tự Google Docs) thường đi chung với Jira. Đây là nơi lưu trữ tài liệu, tài liệu đặc tả (BRD), và kiến thức dự án.",
+                howItHelps: "Giúp bạn tổ chức và chia sẻ tài liệu một cách tập trung. Thay vì gửi file Word qua email, mọi tài liệu (đặc tả yêu cầu, hướng dẫn sử dụng, biên bản họp) đều nằm trên Confluence, giúp mọi người trong team (kể cả người mới) dễ dàng tìm kiếm và tra cứu."
+            },
+            'analytical': {
+                description: "Kỹ năng phân tích là khả năng chia nhỏ một vấn đề lớn, phức tạp thành các phần nhỏ hơn để hiểu và giải quyết nó.",
+                howItHelps: "Đây là 'bộ não' của BA. Khi sếp nói 'Doanh thu đang giảm', kỹ năng này giúp bạn đặt câu hỏi: 'Giảm ở đâu? Khi nào? Tại sao?'. Bạn sẽ dùng nó để phân tích dữ liệu, quy trình, tìm ra *nguyên nhân gốc rễ* của vấn đề thay vì chỉ xử lý triệu chứng."
+            },
+            'excel': {
+                description: "Microsoft Excel không chỉ là bảng tính, mà là công cụ phân tích dữ liệu nhanh và mạnh mẽ nhất (với Pivot Table, VLOOKUP, Power Query).",
+                howItHelps: "Trước khi cần đến SQL hay Power BI, Excel là công cụ nhanh nhất để bạn xử lý, làm sạch và phân tích các bộ dữ liệu nhỏ/trung bình. Bạn sẽ dùng nó hàng ngày để tạo báo cáo nhanh, lập danh sách yêu cầu, và trình bày các phân tích đơn giản."
+            },
+            'figma': {
+                description: "Công cụ thiết kế giao diện (UI/UX) hàng đầu, cho phép BA tạo ra các bản 'mockup' (thiết kế) và 'prototype' (mẫu thử tương tác được).",
+                howItHelps: "Giúp bạn biến ý tưởng và yêu cầu thành một bản thiết kế trực quan. Thay vì mô tả bằng lời, bạn cho stakeholder *thấy* sản phẩm sẽ trông như thế nào. Một prototype tốt (dù chỉ là trắng đen) có giá trị hơn 10 trang tài liệu mô tả."
+            },
+            'uml': {
+                description: "Ngôn ngữ mô hình hóa thống nhất (UML) là một bộ các biểu đồ chuẩn (như Use Case, Sequence, Class Diagram) để mô tả hệ thống.",
+                howItHelps: "Giúp bạn mô tả hệ thống ở nhiều góc nhìn. Bạn dùng 'Use Case Diagram' để chỉ ra ai làm gì với hệ thống. Bạn dùng 'Sequence Diagram' (quan trọng với Technical BA) để chỉ ra các hệ thống 'nói chuyện' với nhau như thế nào. Đây là ngôn ngữ chung giữa BA và Dev."
+            },
+            'stakeholder management': {
+                description: "Kỹ năng quản lý các bên liên quan, tức là xác định, phân tích và làm việc hiệu quả với tất cả những người bị ảnh hưởng bởi dự án.",
+                howItHelps: "Một dự án luôn có nhiều người (Sếp, User, Dev, Tester...). Mỗi người có một mong muốn và quyền lực khác nhau. Kỹ năng này giúp bạn biết ai là người 'gật đầu' cuối cùng, ai cần được báo cáo hàng ngày, ai chỉ cần thông báo, từ đó đảm bảo mọi người đều ủng hộ dự án."
+            },
+            'presentation': {
+                description: "Kỹ năng thuyết trình là khả năng trình bày thông tin, giải pháp một cách rõ ràng và thuyết phục trước đám đông (stakeholders, team).",
+                howItHelps: "BA thường xuyên phải 'demo' sản phẩm cho khách hàng, trình bày giải pháp cho sếp, hoặc đào tạo (training) cho người dùng. Một bài thuyết trình tốt sẽ giúp 'bán' ý tưởng của bạn, nhận được sự đồng thuận và làm cho người dùng cuối hào hứng với sản phẩm mới."
+            },
+            'database': {
+                description: "Hiểu biết về cơ sở dữ liệu (CSDL) là hiểu cách dữ liệu được tổ chức, lưu trữ và mối quan hệ giữa chúng (ví dụ: 1 khách hàng có nhiều đơn hàng).",
+                howItHelps: "Đây là *nền tảng* để học SQL. Khi bạn hiểu về 'primary key', 'foreign key', bạn sẽ biết cách 'JOIN' các bảng lại với nhau. Nó giúp bạn hiểu hệ thống ở mức sâu hơn, biết dữ liệu nằm ở đâu và tại sao nó lại như vậy."
+            },
+            'api': {
+                description: "Giao diện lập trình ứng dụng (API) là cách để hai hệ thống phần mềm 'nói chuyện' với nhau (ví dụ: app Shopee gọi API của ngân hàng để thanh toán).",
+                howItHelps: "Là một Technical BA, bạn sẽ phải đọc tài liệu API (để hiểu cách gửi/nhận dữ liệu) và viết đặc tả API. Đây là kỹ năng mấu chốt khi làm việc với các hệ thống phức tạp, có nhiều tích hợp (integration)."
+            },
+            'erp': {
+                description: "Hệ thống hoạch định nguồn lực doanh nghiệp (ERP) là một phần mềm khổng lồ quản lý *mọi thứ* trong công ty (Kế toán, Nhân sự, Kho, Bán hàng...). SAP là một ví dụ.",
+                howItHelps: "Nếu bạn làm BA cho mảng ERP, bạn sẽ làm việc với các quy trình nghiệp vụ *cực kỳ* phức tạp và cốt lõi của doanh nghiệp. Đây là một mảng BA có tính đặc thù cao, đòi hỏi sự hiểu biết nghiệp vụ sâu sắc."
+            },
+            'banking': {
+                description: "Kỹ năng lĩnh vực (domain) về Ngân hàng, bao gồm hiểu biết về các sản phẩm (thẻ, vay, tiền gửi) và quy trình (core banking, thanh toán).",
+                howItHelps: "Giúp bạn nói 'chung ngôn ngữ' với nghiệp vụ ngân hàng. Bạn sẽ hiểu ngay các thuật ngữ như 'CIF', 'tất toán', 'lãi suất thả nổi' là gì mà không cần hỏi lại, giúp việc khơi gợi yêu cầu nhanh và chính xác hơn rất nhiều. Đây là một lĩnh vực 'hot' cho BA."
             }
         };
 
@@ -432,15 +482,16 @@
             'database': ['sql', 'data warehouse', 'etl']
         };
 
-        // (MỚI) "Bộ não" Phụ thuộc (Học A TRƯỚC B)
+        // "Bộ não" Phụ thuộc (Học A TRƯỚC B)
         // Định nghĩa: 'A': ['B', 'C'] có nghĩa là A là điều kiện tiên quyết cho B và C.
         // B và C nên được học SAU A.
         const skillPrereqs = {
             'sql': ['power bi', 'tableau', 'etl', 'data warehouse', 'ai', 'python'], // Cần SQL trước khi học những cái này
             'agile': ['scrum', 'jira', 'confluence', 'product owner'], // Cần Agile trước
-            'requirements': ['uml', 'bpmn', 'user stories'], // Cần hiểu về 'requirements' nói chung
+            'requirements': ['uml', 'bpmn', 'user stories', 'business analysis'], // Cần hiểu về 'requirements' nói chung
             'python': ['ai'], // Python là nền tảng cho AI
-            'database': ['sql'] // Hiểu về DB trước khi học SQL
+            'database': ['sql'], // Hiểu về DB trước khi học SQL
+            'communication': ['stakeholder management', 'presentation', 'negotiation'] // Giao tiếp là nền tảng
         };
         
         // Biến toàn cục
@@ -471,10 +522,12 @@
             for (const category of categoryOrder) {
                 if (!skillsByCategory[category]) continue;
 
+                // Sắp xếp kỹ năng theo số lượt (count) giảm dần
                 const skills = skillsByCategory[category].sort((a,b) => b.count - a.count);
                 const section = document.createElement('div');
                 section.className = 'border border-gray-200 rounded-lg';
 
+                // Tạo header cho accordion
                 const header = document.createElement('button');
                 header.className = 'w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition rounded-t-lg';
                 header.innerHTML = `
@@ -482,6 +535,7 @@
                     <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 `;
 
+                // Tạo nội dung (danh sách checkbox)
                 const content = document.createElement('div');
                 content.className = 'p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 border-t border-gray-200 hidden';
                 
@@ -495,6 +549,7 @@
                     content.appendChild(label);
                 });
 
+                // Thêm sự kiện click để mở/đóng
                 header.addEventListener('click', () => {
                     content.classList.toggle('hidden');
                     header.querySelector('svg').classList.toggle('rotate-180');
@@ -506,11 +561,11 @@
             }
         }
 
-        // Hàm tìm kỹ năng bằng ID
+        // Hàm tìm kỹ năng bằng ID (cập nhật để xử lý tốt hơn)
         function findSkillById(id) {
             const skill = allSkillsData.find(s => s.id === id);
             if (!skill) {
-                // Xử lý các trường hợp đặc biệt không có trong allSkillsData nhưng có trong logic
+                // Xử lý các trường hợp đặc biệt (kỹ năng logic) không có trong allSkillsData
                 const exceptions = {
                     'stakeholder management': { id: 'stakeholder management', name: 'Stakeholder Management', count: 9, category: "Kỹ Năng Mềm" },
                     'user stories': { id: 'user stories', name: 'User Stories', count: 0, category: "Kỹ Năng Nghiệp Vụ" }, // Giả định count = 0 nếu không có
@@ -526,6 +581,7 @@
             const modal = document.getElementById('summary-modal');
             const modalContent = document.getElementById('modal-content');
 
+            // Lấy dữ liệu từ form
             const selectedPersonaValue = document.querySelector('input[name="persona"]:checked').value;
             const selectedPersonaLabel = document.querySelector(`input[value="${selectedPersonaValue}"]`).closest('label').querySelector('strong').textContent;
             const userSkills = new Set();
@@ -535,6 +591,7 @@
                 userSkillNames.push(cb.nextElementSibling.textContent.split(' (')[0]);
             });
 
+            // Lưu dữ liệu vào biến toàn cục để chuẩn bị tạo kế hoạch
             currentPlanData = {
                 selectedPersona: selectedPersonaValue,
                 userSkills: userSkills, // Đây là một Set() chứa các ID
@@ -542,6 +599,7 @@
                 userSkillNames: userSkillNames.sort()
             };
 
+            // Hiển thị dữ liệu lên modal
             document.getElementById('modal-persona').textContent = selectedPersonaLabel;
             const skillsListContainer = document.getElementById('modal-skills-list');
             document.getElementById('modal-skill-count').textContent = userSkillNames.length;
@@ -558,6 +616,7 @@
                 skillsListContainer.innerHTML = '<span class="text-gray-500 italic">Bạn chưa chọn kỹ năng nào.</span>';
             }
 
+            // Hiệu ứng mở modal
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
@@ -578,7 +637,7 @@
 
         function confirmAndGenerate() {
             hideSummaryModal();
-            setTimeout(runPlanGeneration, 300);
+            setTimeout(runPlanGeneration, 300); // Chờ modal đóng rồi mới chạy
         }
 
         // === HÀM ĐIỀU HƯỚNG TRANG CHÍNH ===
@@ -602,7 +661,7 @@
                     document.getElementById('persona-detail-page').classList.remove('hidden');
                     break;
                 case 'skill-group-detail':
-                    // (MỚI) Truyền userSkills vào để kiểm tra logic
+                    // Truyền userSkills vào để kiểm tra logic
                     buildSkillGroupDetailPage(data.title, data.skills, data.color, currentPlanData.userSkills);
                     document.getElementById('skill-group-detail-page').classList.remove('hidden');
                     break;
@@ -615,15 +674,16 @@
             const loader = document.getElementById('loader-container');
             const { selectedPersona, userSkills } = currentPlanData;
             
+            // Hiển thị loader
             loader.classList.remove('hidden');
             loader.classList.add('flex');
             document.getElementById('selection-page').classList.add('hidden');
 
-            // 1. Phân tích thiếu hụt
+            // 1. Phân tích thiếu hụt (Gap Analysis)
             const coreGap = coreSkillIds
-                .filter(id => !userSkills.has(id))
-                .map(findSkillById)
-                .sort((a,b) => b.count - a.count);
+                .filter(id => !userSkills.has(id)) // Lọc ra ID chưa có
+                .map(findSkillById) // Chuyển ID thành đối tượng skill
+                .sort((a,b) => b.count - a.count); // Sắp xếp theo độ phổ biến
 
             const emergingGap = emergingSkillIds
                 .filter(id => !userSkills.has(id))
@@ -644,7 +704,7 @@
                 personaDef
             };
 
-            // 3. Giả lập thời gian
+            // 3. Giả lập thời gian xử lý
             setTimeout(() => {
                 // 4. Xây dựng trang Hub
                 buildReportHubPage();
@@ -793,7 +853,7 @@
             addNavigationListeners(); // Gắn sự kiện cho nút "Quay Về"
         }
         
-        // (MỚI) Hàm kiểm tra điều kiện tiên quyết
+        // (ĐÃ CẬP NHẬT) Hàm kiểm tra điều kiện tiên quyết
         function getPrerequisiteStatus(skillId, userSkills) {
             let missingPrereqs = [];
             let foundation = true; // Giả sử là nền tảng
@@ -814,14 +874,16 @@
                 }
             }
 
+            // Trả về kết quả
             if (foundation) {
                 return { 
                     priority: 1, 
                     label: "Ưu Tiên 1: Nền Tảng",
-                    reason: "Đây là kỹ năng cốt lõi, làm nền tảng cho nhiều kỹ năng khác.",
+                    reason: "Đây là kỹ năng cốt lõi, làm nền tảng cho nhiều kỹ năng khác. Bạn nên bắt đầu từ đây.",
                     tagColor: "bg-green-100 text-green-800"
                 };
             } else if (missingPrereqs.length > 0) {
+                // Nếu thiếu điều kiện
                 return {
                     priority: 3,
                     label: "Ưu Tiên 3: Học Sau",
@@ -829,17 +891,18 @@
                     tagColor: "bg-red-100 text-red-800"
                 };
             } else {
+                // Nếu đủ điều kiện
                 return {
                     priority: 2,
                     label: "Ưu Tiên 2: Bước Tiếp Theo",
-                    reason: "Bạn đã có đủ nền tảng. Đây là kỹ năng tiếp theo để phát triển.",
+                    reason: "Bạn đã có đủ nền tảng (ví dụ: " + Object.keys(skillPrereqs).filter(key => skillPrereqs[key].includes(skillId)).map(s_id => findSkillById(s_id).name).join(', ') + "). Đây là kỹ năng tiếp theo để phát triển.",
                     tagColor: "bg-sky-100 text-sky-800"
                 };
             }
         }
 
 
-        // (MỚI) Xây dựng Trang Chi tiết Nhóm Kỹ Năng (LOGIC MỚI)
+        // (ĐÃ CẬP NHẬT) Xây dựng Trang Chi tiết Nhóm Kỹ Năng (LOGIC MỚI)
         function buildSkillGroupDetailPage(title, skills, color, userSkills) {
             const page = document.getElementById('skill-group-detail-page');
             const colors = {
@@ -849,6 +912,7 @@
             };
             const theme = colors[color] || { text: 'text-gray-700', bg: 'bg-gray-100', border: 'border-gray-200' };
 
+            // Header của trang chi tiết
             let html = `
                 <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b-2 border-slate-200 pb-4 mb-8 gap-4">
                     <button class="nav-button bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition" data-page="hub">
@@ -861,7 +925,7 @@
             if (skills.length === 0) {
                 html += `<p class="text-emerald-700 font-medium text-lg bg-emerald-50 p-6 rounded-lg">Tuyệt vời! Bạn đã hoàn thiện các kỹ năng trong nhóm này.</p>`;
             } else {
-                // (MỚI) Sắp xếp lại kỹ năng dựa trên logic ưu tiên
+                // Sắp xếp lại kỹ năng dựa trên logic ưu tiên (1, 2, 3)
                 const sortedSkills = skills.map(skill => {
                     return {
                         ...skill,
@@ -872,25 +936,28 @@
 
                 html += `<div class="space-y-6">`;
                 sortedSkills.forEach((skill, index) => {
-                    const detail = skillDetails[skill.id] || { description: "N/A", howItHelps: "Không có mô tả chi tiết." };
+                    const detail = skillDetails[skill.id] || { description: "Chưa có mô tả chi tiết.", howItHelps: "Chưa có mô tả chi tiết." };
                     const synergy = skillSynergies[skill.id];
                     const status = skill.status;
 
                     html += `
                         <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm animate-slide-in-right" style="animation-delay: ${index * 100}ms;">
+                            <!-- Header của thẻ kỹ năng -->
                             <div class="p-4 border-b ${theme.border} ${theme.bg} flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                                 <h3 class="text-xl font-bold ${theme.text}">${skill.name}</h3>
-                                <span class_name="text-sm font-bold px-3 py-1 rounded-full ${status.tagColor}">
+                                <span class="text-sm font-bold px-3 py-1 rounded-full ${status.tagColor} shrink-0">
                                     ${status.label}
                                 </span>
                             </div>
+                            <!-- Nội dung thẻ kỹ năng -->
                             <div class="p-6">
-                                <!-- (MỚI) Thêm giải thích 'Vì Sao' -->
+                                <!-- Thêm giải thích 'Vì Sao' -->
                                 <div class="bg-slate-50 border-l-4 border-slate-400 text-slate-700 p-4 rounded-r-lg mb-6">
-                                    <p class="font-semibold">Vì sao?</p>
-                                    <p class_name="text-sm">${status.reason}</p>
+                                    <p class="font-semibold">Lý Do Ưu Tiên:</p>
+                                    <p class="text-sm">${status.reason}</p>
                                 </div>
                                 
+                                <!-- Chi tiết -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <h4 class="font-semibold text-gray-700 mb-2">Mô Tả Kỹ Năng</h4>
@@ -902,6 +969,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Chân trang (Bổ trợ) -->
                             ${synergy ? `
                             <div class="p-4 bg-slate-50 border-t border-slate-200">
                                 <p class="text-sm text-gray-600">
@@ -920,13 +988,14 @@
             addNavigationListeners(); // Gắn sự kiện cho nút "Quay Về"
         }
 
-        // Gắn sự kiện cho các nút điều hướng
+        // Gắn sự kiện cho các nút điều hướng (quan trọng)
         function addNavigationListeners() {
+            // Hủy sự kiện cũ và gắn lại để tránh lỗi
             document.querySelectorAll('.nav-button').forEach(button => {
-                // Hủy sự kiện cũ để tránh gắn lặp
                 button.replaceWith(button.cloneNode(true));
             });
             
+            // Gắn sự kiện mới
             document.querySelectorAll('.nav-button').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const page = e.currentTarget.dataset.page;
@@ -934,6 +1003,7 @@
                     
                     if (page === 'skill-group-detail') {
                         const { coreGap, personaGap, emergingGap } = currentPlanData.results;
+                        // Điều hướng đến trang chi tiết kỹ năng
                         if (group === 'core') {
                             navigateToPage('skill-group-detail', { title: 'Chi Tiết Kỹ Năng Cốt Lõi', skills: coreGap, color: 'yellow' });
                         } else if (group === 'persona') {
@@ -942,6 +1012,7 @@
                             navigateToPage('skill-group-detail', { title: 'Chi Tiết Kỹ Năng Mới Nổi', skills: emergingGap, color: 'indigo' });
                         }
                     } else {
+                        // Điều hướng đến các trang khác (hub, selection, persona-detail)
                         navigateToPage(page);
                     }
                 });
