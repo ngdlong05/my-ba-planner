@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoạch Định Kỹ Năng BA</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Sử dụng font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Tùy chỉnh thanh cuộn cho đẹp mắt */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            /* gray-300 */
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+            /* gray-400 */
+        }
+
+        /* Tùy chỉnh checkbox */
+        .skill-checkbox {
+            accent-color: #3b82f6;
+            /* blue-600 */
+        }
+
+        /* Tùy chỉnh radio */
+        .persona-radio {
+            accent-color: #10b981;
+            /* emerald-500 */
+        }
+
+        /* Lớp cho accordion content */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .accordion-content.open {
+            max-height: 500px;
+            /* Đặt một giá trị đủ lớn */
+        }
+
+        /* Hiệu ứng loading */
+        #loader {
+            border: 4px solid #f3f4f6;
+            /* gray-100 */
+            border-top: 4px solid #3b82f6;
+            /* blue-600 */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <!-- Tiêu đề -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-700">Công Cụ Hoạch Định Kỹ Năng Business Analyst</h1>
+            <p class="text-lg text-gray-600 mt-2">Xây dựng lộ trình phát triển của riêng bạn dựa trên dữ liệu thị trường.</p>
+        </header>
+
+        <!-- Khối chính -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- CỘT 1: LỰA CHỌN CỦA BẠN -->
+            <aside class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-xl space-y-8 sticky top-8">
+                <!-- Bước 1: Chọn Định Hướng -->
+                <section>
+                    <h2 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-4">
+                        <span class="bg-blue-600 text-white rounded-full w-7 h-7 inline-flex items-center justify-center mr-2">1</span>
+                        Chọn Định Hướng
+                    </h2>
+                    <div class="space-y-3" id="persona-selection">
+                        <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="persona" value="technical" class="persona-radio h-5 w-5" checked>
+                            <div class="ml-3">
+                                <strong class="font-semibold text-gray-900">BA Kỹ Thuật (Technical BA)</strong>
+                                <p class="text-sm text-gray-500">Thích làm việc với dữ liệu, SQL, Power BI và các hệ thống kỹ thuật.</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="persona" value="business" class="persona-radio h-5 w-5">
+                            <div class="ml-3">
+                                <strong class="font-semibold text-gray-900">BA Nghiệp Vụ (Business BA)</strong>
+                                <p class="text-sm text-gray-500">Tập trung vào quy trình, nghiệp vụ (ERP, Banking) và chiến lược.</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="persona" value="leader" class="persona-radio h-5 w-5">
+                            <div class="ml-3">
+                                <strong class="font-semibold text-gray-900">BA Lãnh Đạo (People BA)</strong>
+                                <p class="text-sm text-gray-500">Giỏi giao tiếp, quản lý stakeholder, thuyết trình và phát triển đội nhóm.</p>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Bước 2: Chọn Kỹ Năng -->
+                <section>
+                    <h2 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-4">
+                        <span class="bg-blue-600 text-white rounded-full w-7 h-7 inline-flex items-center justify-center mr-2">2</span>
+                        Chọn Kỹ Năng Hiện Có
+                    </h2>
+                    <p class="text-sm text-gray-500 mb-4">Đánh dấu vào tất cả kỹ năng bạn đã tự tin sử dụng.</p>
+                    <!-- Nơi render các nhóm kỹ năng -->
+                    <div id="skills-accordion" class="space-y-2">
+                        <!-- Sẽ được điền bằng JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Nút Tạo Kế Hoạch -->
+                <button id="generate-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-300 shadow-lg transform hover:scale-105">
+                    Tạo Kế Hoạch Phát Triển
+                </button>
+            </aside>
+
+            <!-- CỘT 2: KẾ HOẠCH CỦA BẠN -->
+            <main class="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl shadow-xl">
+                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-3 mb-6">
+                    <span class="bg-blue-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2 text-lg">3</span>
+                    Kế Hoạch Của Bạn
+                </h2>
+
+                <!-- Loading Spinner -->
+                <div id="loader-container" class="hidden justify-center items-center py-10 flex-col">
+                    <div id="loader"></div>
+                    <p class="text-gray-500 mt-4">Đang phân tích và xây dựng kế hoạch...</p>
+                </div>
+
+                <!-- Nơi Hiển Thị Kết Quả -->
+                <div id="results" class="space-y-6">
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+                        <h3 class="font-semibold text-lg text-blue-800">Bắt đầu ngay!</h3>
+                        <p class="text-blue-700">Hãy chọn định hướng và các kỹ năng bạn đã có ở cột bên trái, sau đó nhấn nút "Tạo Kế Hoạch" để xem kết quả phân tích được cá nhân hóa cho bạn.</p>
+                    </div>
+                </div>
+            </main>
+
+        </div> <!-- Hết grid chính -->
+
+        <!-- ===== MODAL TỔNG QUAN (MỚI) ===== -->
+        <div id="summary-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+            <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col scale-95 transform transition-transform duration-300" id="modal-content">
+                <div class="p-6 border-b">
+                    <h3 class="text-2xl font-bold text-gray-800">Tổng quan Lựa chọn của Bạn</h3>
+                </div>
+                <div class="p-6 space-y-6 overflow-y-auto">
+                    <!-- Persona -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-blue-700">1. Định Hướng (Tính Cách)</h4>
+                        <p id="modal-persona" class="text-gray-700 text-lg font-medium"></p>
+                    </div>
+                    <!-- Skills -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-blue-700">2. Kỹ Năng Hiện Có (<span id="modal-skill-count">0</span>)</h4>
+                        <div id="modal-skills-list" class="flex flex-wrap gap-2 mt-2 max-h-60 overflow-y-auto p-3 bg-gray-50 rounded-lg border">
+                            <!-- JS sẽ điền vào đây -->
+                            <span class="text-gray-500">Bạn chưa chọn kỹ năng nào.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 bg-gray-50 border-t rounded-b-2xl flex flex-col sm:flex-row justify-end gap-4">
+                    <button id="modal-close-btn" class="bg-gray-200 text-gray-700 font-bold py-2 px-5 rounded-lg hover:bg-gray-300 transition">
+                        Chỉnh Sửa Lại
+                    </button>
+                    <button id="modal-confirm-btn" class="bg-blue-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-blue-700 transition">
+                        Xác nhận & Tạo Lộ Trình
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- ===== HẾT MODAL ===== -->
+
+    </div> <!-- Hết container -->
+
+    <!-- Script chính của ứng dụng -->
+    <script>
+        // === DỮ LIỆU TỪ BÁO CÁO PHÂN TÍCH ===
+        // Dữ liệu này được trích xuất thủ công từ file final_analysis_report.txt và Skill_Details.csv
+        // Ta dùng ID là chữ thường, không dấu để dễ so sánh
+        const allSkills = {
+            technical: [{
+                id: 'sql',
+                name: 'SQL',
+                count: 50
+            },
+            {
+                id: 'power bi',
+                name: 'Power BI',
+                count: 25
+            },
+            {
+                id: 'tableau',
+                name: 'Tableau',
+                count: 17
+            },
+            {
+                id: 'ai',
+                name: 'AI',
+                count: 17
+            },
+            {
+                id: 'python',
+                name: 'Python',
+                count: 17
+            },
+            {
+                id: 'oracle',
+                name: 'Oracle',
+                count: 14
+            },
+            {
+                id: 'api',
+                name: 'API',
+                count: 13
+            },
+            {
+                id: 'etl',
+                name: 'ETL',
+                count: 12
+            },
+            {
+                id: 'database',
+                name: 'Database',
+                count: 10
+            },
+            {
+                id: 'azure',
+                name: 'Azure',
+                count: 9
+            },
+            ],
+            business: [{
+                id: 'agile',
+                name: 'Agile',
+                count: 64
+            },
+            {
+                id: 'scrum',
+                name: 'Scrum',
+                count: 44
+            },
+            {
+                id: 'jira',
+                name: 'Jira',
+                count: 28
+            },
+            {
+                id: 'requirements',
+                name: 'Requirements',
+                count: 26
+            },
+            {
+                id: 'business analysis',
+                name: 'Business Analysis',
+                count: 24
+            },
+            {
+                id: 'confluence',
+                name: 'Confluence',
+                count: 22
+            },
+            {
+                id: 'uml',
+                name: 'UML',
+                count: 18
+            },
+            {
+                id: 'bpmn',
+                name: 'BPMN',
+                count: 14
+            },
+            {
+                id: 'stakeholder',
+                name: 'Stakeholder',
+                count: 13
+            },
+            {
+                id: 'product owner',
+                name: 'Product Owner',
+                count: 10
+            },
+            ],
+            soft: [{
+                id: 'communication',
+                name: 'Communication',
+                count: 50
+            },
+            {
+                id: 'analytical',
+                name: 'Analytical',
+                count: 38
+            },
+            {
+                id: 'management',
+                name: 'Management',
+                count: 28
+            },
+            {
+                id: 'presentation',
+                name: 'Presentation',
+                count: 11
+            },
+            {
+                id: 'attention to detail',
+                name: 'Attention to Detail',
+                count: 10
+            },
+            {
+                id: 'collaboration',
+                name: 'Collaboration',
+                count: 9
+            },
+            {
+                id: 'critical thinking',
+                name: 'Critical Thinking',
+                count: 9
+            },
+            {
+                id: 'stakeholder management',
+                name: 'Stakeholder Management',
+                count: 9
+            },
+            {
+                id: 'negotiation',
+                name: 'Negotiation',
+                count: 7
+            },
+            {
+                id: 'mentoring',
+                name: 'Mentoring',
+                count: 5
+            },
+            ],
+            tools: [{
+                id: 'excel',
+                name: 'Excel',
+                count: 30
+            },
+            {
+                id: 'jira',
+                name: 'Jira',
+                count: 28
+            },
+            {
+                id: 'figma',
+                name: 'Figma',
+                count: 26
+            },
+            {
+                id: 'confluence',
+                name: 'Confluence',
+                count: 22
+            },
+            {
+                id: 'visio',
+                name: 'Visio',
+                count: 19
+            },
+            {
+                id: 'oracle',
+                name: 'Oracle',
+                count: 14
+            },
+            {
+                id: 'draw.io',
+                name: 'Draw.io',
+                count: 13
+            },
+            {
+                id: 'teams',
+                name: 'MS Teams',
+                count: 12
+            },
+            {
+                id: 'powerpoint',
+                name: 'PowerPoint',
+                count: 8
+            },
+            {
+                id: 'sap',
+                name: 'SAP',
+                count: 8
+            },
+            ],
+            domain: [{
+                id: 'erp',
+                name: 'ERP',
+                count: 24
+            },
+            {
+                id: 'banking',
+                name: 'Banking',
+                count: 17
+            },
+            {
+                id: 'crm',
+                name: 'CRM',
+                count: 16
+            },
+            {
+                id: 'fintech',
+                name: 'Fintech',
+                count: 13
+            },
+            {
+                id: 'finance',
+                name: 'Finance',
+                count: 13
+            },
+            {
+                id: 'education',
+                name: 'Education',
+                count: 9
+            },
+            {
+                id: 'sap',
+                name: 'SAP',
+                count: 8
+            },
+            {
+                id: 'logistics',
+                name: 'Logistics',
+                count: 7
+            },
+            ],
+            languages: [{
+                id: 'english',
+                name: 'English',
+                count: 88
+            },
+            {
+                id: 'japanese',
+                name: 'Japanese',
+                count: 4
+            },
+            {
+                id: 'chinese',
+                name: 'Chinese',
+                count: 2
+            },
+            ],
+        };
+
+        const categoryNames = {
+            technical: "Kỹ Năng Kỹ Thuật",
+            business: "Kỹ Năng Nghiệp Vụ",
+            soft: "Kỹ Năng Mềm",
+            tools: "Công Cụ & Nền Tảng",
+            domain: "Kiến Thức Tên Miền",
+            languages: "Ngoại Ngữ",
+        };
+
+        // Từ file Core_Skills.csv
+        const coreSkillIds = ['english', 'agile', 'sql', 'communication', 'scrum'];
+
+        // Từ file Emerging_Skills.csv
+        const emergingSkillIds = ['sql', 'power bi', 'ai'];
+
+        // Biến toàn cục để giữ dữ liệu cho modal
+        let currentPlanData = {};
+
+        // === KHỞI TẠO GIAO DIỆN ===
+        document.addEventListener('DOMContentLoaded', () => {
+            populateSkillsAccordion();
+            // Thay đổi: Nút "Tạo Kế Hoạch" giờ sẽ mở Modal
+            document.getElementById('generate-btn').addEventListener('click', showSummaryModal);
+
+            // Thêm sự kiện cho các nút trong Modal
+            document.getElementById('modal-close-btn').addEventListener('click', hideSummaryModal);
+            document.getElementById('modal-confirm-btn').addEventListener('click', confirmAndGenerate);
+        });
+
+        // Hàm điền các kỹ năng vào accordion
+        function populateSkillsAccordion() {
+            const accordionContainer = document.getElementById('skills-accordion');
+            accordionContainer.innerHTML = ''; // Xóa nội dung cũ
+
+            Object.keys(allSkills).forEach(categoryKey => {
+                const skills = allSkills[categoryKey];
+                const categoryName = categoryNames[categoryKey];
+
+                // Tạo phần tử cho accordion
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'border border-gray-200 rounded-lg overflow-hidden';
+
+                // Nút bấm để toggle
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-4 bg-gray-50 hover:bg-gray-100 font-semibold flex justify-between items-center';
+                button.innerHTML = `
+                    <span>${categoryName}</span>
+                    <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                `;
+
+                // Nội dung chứa checkbox
+                const content = document.createElement('div');
+                content.className = 'accordion-content bg-white p-4';
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-2 gap-x-4 gap-y-2 max-h-48 overflow-y-auto';
+
+                skills.sort((a, b) => b.count - a.count); // Sắp xếp theo độ phổ biến
+                skills.forEach(skill => {
+                    const label = document.createElement('label');
+                    label.className = 'flex items-center space-x-2 text-sm text-gray-700 font-medium cursor-pointer';
+                    label.innerHTML = `
+                        <input type="checkbox" class="skill-checkbox h-4 w-4 rounded" value="${skill.id}">
+                        <span>${skill.name} (${skill.count})</span>
+                    `;
+                    grid.appendChild(label);
+                });
+
+                content.appendChild(grid);
+                categoryDiv.appendChild(button);
+                categoryDiv.appendChild(content);
+                accordionContainer.appendChild(categoryDiv);
+
+                // Thêm sự kiện click cho nút
+                button.addEventListener('click', () => {
+                    content.classList.toggle('open');
+                    button.querySelector('svg').classList.toggle('rotate-180');
+                });
+            });
+        }
+
+        // Hàm tìm đối tượng skill đầy đủ từ ID
+        function findSkillById(id) {
+            for (const category in allSkills) {
+                const found = allSkills[category].find(skill => skill.id === id);
+                if (found) return found;
+            }
+            // Xử lý trường hợp đặc biệt (Jira, Confluence, Oracle... xuất hiện ở nhiều nhóm)
+            // Trong dữ liệu, Jira (business) và Jira (tools) có cùng count. 
+            // Ta chỉ cần trả về một cái tên là đủ.
+            const exceptions = {
+                'jira': { id: 'jira', name: 'Jira', count: 28 },
+                'confluence': { id: 'confluence', name: 'Confluence', count: 22 },
+                'oracle': { id: 'oracle', name: 'Oracle', count: 14 },
+                'sap': { id: 'sap', name: 'SAP', count: 8 },
+                'stakeholder': { id: 'stakeholder', name: 'Stakeholder (Mgmt)', count: 13 },
+            };
+            return exceptions[id] || { id: id, name: id, count: 'N/A' };
+        }
+
+
+        // === CÁC HÀM XỬ LÝ MODAL (MỚI) ===
+
+        // Hàm hiển thị Modal
+        function showSummaryModal() {
+            const modal = document.getElementById('summary-modal');
+            const modalContent = document.getElementById('modal-content');
+
+            // 1. Lấy dữ liệu
+            const selectedPersonaValue = document.querySelector('input[name="persona"]:checked').value;
+            const selectedPersonaLabel = document.querySelector(`input[value="${selectedPersonaValue}"]`).closest('label').querySelector('strong').textContent;
+
+            const userSkills = new Set();
+            const userSkillNames = [];
+            document.querySelectorAll('.skill-checkbox:checked').forEach(cb => {
+                userSkills.add(cb.value);
+                // Lấy tên từ (span) bên cạnh checkbox
+                userSkillNames.push(cb.nextElementSibling.textContent.split(' (')[0]);
+            });
+
+            // 2. Lưu dữ liệu vào biến toàn cục
+            currentPlanData = {
+                selectedPersona: selectedPersonaValue,
+                userSkills: userSkills
+            };
+
+            // 3. Điền dữ liệu vào Modal
+            document.getElementById('modal-persona').textContent = selectedPersonaLabel;
+            const skillsListContainer = document.getElementById('modal-skills-list');
+            document.getElementById('modal-skill-count').textContent = userSkillNames.length;
+
+            if (userSkillNames.length > 0) {
+                skillsListContainer.innerHTML = ''; // Xóa placeholder
+                userSkillNames.sort().forEach(name => {
+                    const skillTag = document.createElement('span');
+                    skillTag.className = 'bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full';
+                    skillTag.textContent = name;
+                    skillsListContainer.appendChild(skillTag);
+                });
+            } else {
+                skillsListContainer.innerHTML = '<span class="text-gray-500 italic">Bạn chưa chọn kỹ năng nào.</span>';
+            }
+
+            // 4. Hiển thị Modal với hiệu ứng
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10); // Đợi 1 frame
+        }
+
+        // Hàm ẩn Modal
+        function hideSummaryModal() {
+            const modal = document.getElementById('summary-modal');
+            const modalContent = document.getElementById('modal-content');
+
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // khớp với duration-300
+        }
+
+        // Hàm xác nhận và chạy
+        function confirmAndGenerate() {
+            hideSummaryModal();
+            // Đợi modal ẩn xong rồi mới chạy phân tích
+            setTimeout(() => {
+                runPlanGeneration(currentPlanData.selectedPersona, currentPlanData.userSkills);
+            }, 300);
+        }
+
+        // === HÀM TẠO KẾ HOẠCH ===
+        // Đổi tên: generatePlan -> runPlanGeneration
+        // Xóa phần lấy dữ liệu (đã làm ở showSummaryModal)
+        function runPlanGeneration(selectedPersona, userSkills) {
+            const loader = document.getElementById('loader-container');
+            const resultsContainer = document.getElementById('results');
+
+            // Hiển thị loading, ẩn kết quả cũ
+            loader.classList.remove('hidden');
+            loader.classList.add('flex');
+            resultsContainer.innerHTML = '';
+            resultsContainer.classList.add('hidden');
+
+            // 1. Lấy lựa chọn của người dùng (ĐÃ CÓ TỪ PARAMETER)
+            // const selectedPersona = ... (đã có)
+            // const userSkills = ... (đã có)
+
+            // 2. Phân tích thiếu hụt
+            const coreGap = coreSkillIds.filter(id => !userSkills.has(id)).map(findSkillById);
+            const emergingGap = emergingSkillIds.filter(id => !userSkills.has(id)).map(findSkillById);
+
+            // 3. Đề xuất theo định hướng (lấy top 5)
+            let personaRecs = [];
+            const personaCategories = {
+                technical: ['technical', 'tools'],
+                business: ['business', 'domain'],
+                leader: ['soft', 'business']
+            };
+
+            const targetCategories = personaCategories[selectedPersona];
+            let potentialRecs = [];
+            targetCategories.forEach(catKey => {
+                potentialRecs.push(
+                    ...allSkills[catKey].filter(skill => !userSkills.has(skill.id))
+                );
+            });
+            // Sắp xếp theo độ phổ biến và lấy 5
+            personaRecs = potentialRecs.sort((a, b) => b.count - a.count).slice(0, 5);
+
+
+            // Giả lập thời gian phân tích
+            setTimeout(() => {
+                // 4. Hiển thị kết quả
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+                resultsContainer.innerHTML = buildResultsHtml(coreGap, emergingGap, personaRecs, selectedPersona);
+                resultsContainer.classList.remove('hidden');
+                // Cuộn xuống kết quả
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 1500); // 1.5 giây
+        }
+
+        // Hàm xây dựng HTML kết quả
+        function buildResultsHtml(coreGap, emergingGap, personaRecs, persona) {
+            let html = `
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg mb-6">
+                    <h3 class="font-semibold text-lg text-blue-800">Lộ trình dành cho bạn</h3>
+                    <p class="text-blue-700">Dựa trên định hướng <strong class="capitalize">"${persona}"</strong> và các kỹ năng hiện có, đây là kế hoạch phát triển được đề xuất, ưu tiên từ trên xuống dưới.</p>
+                </div>
+            `;
+
+            // Phần 1: Kỹ Năng Cốt Lõi
+            html += `
+                <section class="border border-yellow-300 bg-yellow-50 rounded-lg p-6 shadow-sm">
+                    <h3 class="text-xl font-bold text-yellow-800 mb-3">
+                        <svg class="w-6 h-6 inline-block mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.107a.75.75 0 01.91-.506l6.54 2.87a.75.75 0 01.44 1.035l-3.379 6.758a.75.75 0 01-1.34.073l-1.91-3.82a.75.75 0 00-.41-.41l-3.82-1.91a.75.75 0 01.073-1.34l6.758-3.38zM9.75 12.5a.75.75 0 01.75-.75l6.54 2.87a.75.75 0 01.44 1.035l-3.379 6.758a.75.75 0 01-1.34.073l-1.91-3.82a.75.75 0 00-.41-.41l-3.82-1.91a.75.75 0 01.073-1.34l6.758-3.38z" clip-rule="evenodd"></path></svg>
+                        Ưu Tiên #1: Kỹ Năng Cốt Lõi
+                    </h3>
+            `;
+            if (coreGap.length > 0) {
+                html += `<p class="text-yellow-700 mb-4">Đây là những kỹ năng quan trọng nhất bạn cần trang bị ngay. Hơn <strong>${Math.min(...coreGap.map(s => s.count))}%</strong> tin tuyển dụng yêu cầu ít nhất một trong số này.</p>`;
+                html += '<div class="flex flex-wrap gap-3">';
+                coreGap.forEach(skill => {
+                    html += `<span class="skill-pill bg-yellow-200 text-yellow-800">${skill.name} <span class="font-normal opacity-75">(${skill.count} lượt)</span></span>`;
+                });
+                html += '</div>';
+            } else {
+                html += `<p class="text-green-700 font-medium">Tuyệt vời! Bạn đã nắm vững tất cả các kỹ năng cốt lõi. Hãy chuyển sang Ưu Tiên #2.</p>`;
+            }
+            html += '</section>';
+
+            // Phần 2: Kỹ Năng Mới Nổi
+            html += `
+                <section class="border border-indigo-300 bg-indigo-50 rounded-lg p-6 shadow-sm">
+                    <h3 class="text-xl font-bold text-indigo-800 mb-3">
+                        <svg class="w-6 h-6 inline-block mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-2.25 4.55-5.02.73a1 1 0 00-.554 1.705l3.63 3.54-.86 5.002a1 1 0 001.45 1.053L10 15.13l4.49 2.36a1 1 0 001.45-1.054l-.86-5.001 3.63-3.54a1 1 0 00-.554-1.705l-5.02-.73-2.25-4.55z"></path></svg>
+                        Ưu Tiên #2: Kỹ Năng Mới Nổi
+                    </h3>
+            `;
+            if (emergingGap.length > 0) {
+                html += `<p class="text-indigo-700 mb-4">Đây là các kỹ năng "tương lai" giúp bạn tăng tính cạnh tranh. <strong>${emergingGap.map(s => s.name).join(', ')}</strong> đang phát triển rất nhanh.</p>`;
+                html += '<div class="flex flex-wrap gap-3">';
+                emergingGap.forEach(skill => {
+                    html += `<span class="skill-pill bg-indigo-200 text-indigo-800">${skill.name} <span class="font-normal opacity-75">(${skill.count} lượt)</span></span>`;
+                });
+                html += '</div>';
+            } else {
+                html += `<p class="text-green-700 font-medium">Bạn đã đón đầu xu hướng! Bạn có đủ các kỹ năng mới nổi quan trọng.</p>`;
+            }
+            html += '</section>';
+
+            // Phần 3: Đề Xuất Theo Định Hướng
+            const personaText = {
+                technical: "Kỹ Thuật",
+                business: "Nghiệp Vụ",
+                leader: "Lãnh Đạo"
+            };
+            html += `
+                <section class="border border-emerald-300 bg-emerald-50 rounded-lg p-6 shadow-sm">
+                    <h3 class="text-xl font-bold text-emerald-800 mb-3">
+                        <svg class="w-6 h-6 inline-block mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a1 1 0 001 1h12a1 1 0 001-1V5a1 1 0 000-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zM7 9a1 1 0 10-2 0v2a1 1 0 102 0V9z" clip-rule="evenodd"></path></svg>
+                        Đề Xuất Cho Định Hướng "${personaText[persona]}"
+                    </h3>
+            `;
+            if (personaRecs.length > 0) {
+                html += `<p class="text-emerald-700 mb-4">Để phát triển theo định hướng đã chọn, đây là top 5 kỹ năng phổ biến nhất mà bạn chưa có:</p>`;
+                html += '<div class="flex flex-wrap gap-3">';
+                personaRecs.forEach(skill => {
+                    html += `<span class="skill-pill bg-emerald-200 text-emerald-800">${skill.name} <span class="font-normal opacity-75">(${skill.count} lượt)</span></span>`;
+                });
+                html += '</div>';
+            } else {
+                html += `<p class="text-green-700 font-medium">Xuất sắc! Bạn đã có hầu hết các kỹ năng quan trọng cho định hướng này.</p>`;
+            }
+            html += '</section>';
+
+            // Thêm định nghĩa CSS cho skill-pill
+            html += `
+                <style>
+                    .skill-pill {
+                        display: inline-block;
+                        padding: 0.5rem 1rem;
+                        border-radius: 9999px;
+                        font-weight: 600;
+                        font-size: 0.875rem;
+                        line-height: 1.25rem;
+                    }
+                </style>
+            `;
+
+            return html;
+        }
+    </script>
+
+</body>
+
+</html>
