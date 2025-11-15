@@ -7,15 +7,19 @@
     <title>Công Cụ Hoạch Định Kỹ Năng BA</title>
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tải Mermaid.js để vẽ sơ đồ -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <!-- Cấu hình Tailwind với font Inter -->
+    <!-- (ĐÃ XÓA) Mermaid.js không còn cần thiết -->
+    
+    <!-- Cấu hình Tailwind với font Inter và màu sắc thương hiệu -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-blue': '#2563eb', // blue-600
+                        'brand-indigo': '#4f46e5', // indigo-600
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-out',
@@ -40,21 +44,21 @@
             },
         };
     </script>
-    <!-- CSS cho Loader và Giao diện -->
+    <!-- CSS cho Loader và Giao diện (MỚI) -->
     <style>
         body {
-            background-color: #f3f4f6;
+            background-color: #f8fafc; /* Màu nền xám nhạt (Slate-50) */
         }
         /* Tùy chỉnh thanh cuộn */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8b2c1; }
         
         /* CSS cho Loader */
         #loader {
             border: 6px solid #f3f3f3;
-            border-top: 6px solid #3498db;
+            border-top: 6px solid #3b82f6; /* Blue-500 */
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -64,17 +68,37 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .mermaid {
-            display: flex;
-            justify-content: center;
-            margin: auto;
-        }
-        /* Style cho các "trang" con */
+
+        /* (MỚI) Style cho các "trang" con */
         .page-container {
             background-color: white;
-            padding: 1.5rem 2rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            padding: 2rem 2.5rem; /* Tăng padding */
+            border-radius: 1.5rem; /* bo tròn nhiều hơn */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0; /* border-slate-200 */
+        }
+
+        /* (MỚI) Style cho các thẻ Persona */
+        .persona-card {
+            border: 2px solid #e2e8f0; /* border-slate-200 */
+            transition: all 0.2s ease-in-out;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .persona-radio:checked + .persona-card {
+            border-color: #2563eb; /* brand-blue */
+            background-color: #eff6ff; /* blue-50 */
+            box-shadow: 0 4px 10px rgb(37 99 235 / 0.2);
+            transform: translateY(-2px);
+        }
+        .persona-radio:checked + .persona-card .persona-icon {
+            background-color: #2563eb;
+            color: white;
+        }
+        .persona-radio:not(:checked) + .persona-card:hover {
+            border-color: #94a3b8; /* slate-400 */
+        }
+        .persona-icon {
+            transition: all 0.2s ease-in-out;
         }
     </style>
 </head>
@@ -84,39 +108,65 @@
     <!-- Container chính -->
     <div class="container mx-auto max-w-7xl p-4 md:p-8">
 
-        <!-- Header -->
-        <header class="mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Công Cụ Hoạch Định Kỹ Năng BA</h1>
-            <p class="text-lg text-gray-600 mt-2">Xây dựng lộ trình nghề nghiệp Business Analyst của riêng bạn dựa trên dữ liệu thị trường.</p>
+        <!-- (MỚI) Header với Gradient -->
+        <header class="mb-10 p-8 rounded-3xl bg-gradient-to-r from-brand-blue to-brand-indigo shadow-lg text-white">
+            <div class="flex items-center gap-4">
+                <!-- Icon Logo -->
+                <svg class="h-12 w-12 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                </svg>
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold">Công Cụ Hoạch Định Kỹ Năng BA</h1>
+                    <p class="text-lg text-blue-100 mt-2 opacity-90">Xây dựng lộ trình nghề nghiệp Business Analyst của riêng bạn dựa trên dữ liệu thị trường.</p>
+                </div>
+            </div>
         </header>
 
         <!-- ===== TRANG LỰA CHỌN (BẮT ĐẦU) ===== -->
         <main id="selection-page" class="flex flex-col gap-8">
-            <!-- Bước 1: Chọn Định Hướng -->
-            <section class="page-container space-y-8">
+            <!-- (MỚI) Bước 1: Chọn Định Hướng (Thiết kế Card) -->
+            <section class="page-container space-y-6">
                 <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-3">
                     Bước 1: Chọn Định Hướng (Tính Cách)
                 </h2>
-                <div class="space-y-3">
-                    <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition cursor-pointer">
-                        <input type="radio" name="persona" value="technical" class="persona-radio h-5 w-5" checked>
-                        <div class="ml-3">
-                            <strong class="font-semibold text-gray-900">BA Kỹ Thuật (Technical BA)</strong>
-                            <p class="text-sm text-gray-500">Thích làm việc với dữ liệu, API, hệ thống.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1: Technical -->
+                    <label>
+                        <input type="radio" name="persona" value="technical" class="persona-radio sr-only" checked>
+                        <div class="persona-card flex flex-col items-center p-6 rounded-2xl cursor-pointer h-full">
+                            <div class="persona-icon bg-slate-100 text-slate-600 rounded-full p-3 mb-4">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5 0-4.5 16.5" />
+                                </svg>
+                            </div>
+                            <strong class="font-semibold text-lg text-gray-900 mb-1">BA Kỹ Thuật</strong>
+                            <p class="text-sm text-gray-500 text-center">Làm việc với dữ liệu, API, hệ thống.</p>
                         </div>
                     </label>
-                    <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition cursor-pointer">
-                        <input type="radio" name="persona" value="business" class="persona-radio h-5 w-5">
-                        <div class="ml-3">
-                            <strong class="font-semibold text-gray-900">BA Nghiệp Vụ (Business BA)</strong>
-                            <p class="text-sm text-gray-500">Thích làm việc với quy trình, nghiệp vụ (Banking, ERP...).</p>
+                    <!-- Card 2: Business -->
+                    <label>
+                        <input type="radio" name="persona" value="business" class="persona-radio sr-only">
+                        <div class="persona-card flex flex-col items-center p-6 rounded-2xl cursor-pointer h-full">
+                            <div class="persona-icon bg-slate-100 text-slate-600 rounded-full p-3 mb-4">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m3 0h-3m-2.25 0l-3 2.25 3 2.25m0-4.5h3m-3 1.5l3 2.25-3 2.25m0-4.5h3m6.75 0l3 2.25-3 2.25m3 0h-3m-2.25 0l-3 2.25 3 2.25m0-4.5h3m-3 1.5l3 2.25-3 2.25m0-4.5h3" />
+                                </svg>
+                            </div>
+                            <strong class="font-semibold text-lg text-gray-900 mb-1">BA Nghiệp Vụ</strong>
+                            <p class="text-sm text-gray-500 text-center">Làm việc với quy trình, nghiệp vụ.</p>
                         </div>
                     </label>
-                    <label class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition cursor-pointer">
-                        <input type="radio" name="persona" value="leader" class="persona-radio h-5 w-5">
-                        <div class="ml-3">
-                            <strong class="font-semibold text-gray-900">BA Lãnh Đạo (People BA)</strong>
-                            <p class="text-sm text-gray-500">Thích làm việc với con người, đàm phán, quản lý.</p>
+                    <!-- Card 3: Leader -->
+                    <label>
+                        <input type="radio" name="persona" value="leader" class="persona-radio sr-only">
+                        <div class="persona-card flex flex-col items-center p-6 rounded-2xl cursor-pointer h-full">
+                            <div class="persona-icon bg-slate-100 text-slate-600 rounded-full p-3 mb-4">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0-3.05-3.05m0 0a9.094 9.094 0 0 0-3.05-3.05m3.05 3.05a9.094 9.094 0 0 1-3.05 3.05m0 0a9.094 9.094 0 0 1-3.05-3.05m-3.05 0a9.094 9.094 0 0 0-3.05 3.05m3.05-3.05a9.094 9.094 0 0 1 3.05-3.05M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </div>
+                            <strong class="font-semibold text-lg text-gray-900 mb-1">BA Lãnh Đạo</strong>
+                            <p class="text-sm text-gray-500 text-center">Làm việc với con người, đàm phán.</p>
                         </div>
                     </label>
                 </div>
@@ -137,8 +187,8 @@
                 <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-3 mb-6">
                     Bước 3: Tạo Lộ Trình
                 </h2>
-                <p class="text-gray-600 mb-4">Sau khi hoàn thành Bước 1 và 2, hãy nhấn nút này để xem lộ trình phân tích dành riêng cho bạn.</p>
-                <button id="generate-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-5 rounded-lg hover:bg-blue-700 transition shadow-lg text-lg">
+                <p class="text-gray-600 mb-6">Sau khi hoàn thành Bước 1 và 2, hãy nhấn nút này để xem lộ trình phân tích dành riêng cho bạn.</p>
+                <button id="generate-btn" class="w-full bg-gradient-to-r from-brand-blue to-brand-indigo text-white font-bold py-4 px-6 rounded-xl hover:shadow-xl hover:opacity-90 transition shadow-lg text-lg transform hover:-translate-y-1">
                     Tạo Kế Hoạch Phát Triển
                 </button>
             </section>
@@ -170,22 +220,22 @@
             <div class="p-6 space-y-6 overflow-y-auto">
                 <!-- Persona -->
                 <div>
-                    <h4 class="text-lg font-semibold text-blue-700">1. Định Hướng (Tính Cách)</h4>
+                    <h4 class="text-lg font-semibold text-brand-blue">1. Định Hướng (Tính Cách)</h4>
                     <p id="modal-persona" class="text-gray-700 text-lg font-medium"></p>
                 </div>
                 <!-- Skills -->
                 <div>
-                    <h4 class="text-lg font-semibold text-blue-700">2. Kỹ Năng Hiện Có (<span id="modal-skill-count">0</span>)</h4>
-                    <div id="modal-skills-list" class="flex flex-wrap gap-2 mt-2 max-h-60 overflow-y-auto p-3 bg-gray-50 rounded-lg border">
+                    <h4 class="text-lg font-semibold text-brand-blue">2. Kỹ Năng Hiện Có (<span id="modal-skill-count">0</span>)</h4>
+                    <div id="modal-skills-list" class="flex flex-wrap gap-2 mt-2 max-h-60 overflow-y-auto p-3 bg-slate-50 rounded-lg border border-slate-200">
                         <span class="text-gray-500">Bạn chưa chọn kỹ năng nào.</span>
                     </div>
                 </div>
             </div>
-            <div class="p-6 bg-gray-50 border-t rounded-b-2xl flex flex-col sm:flex-row justify-end gap-4">
-                <button id="modal-close-btn" class="bg-gray-200 text-gray-700 font-bold py-2 px-5 rounded-lg hover:bg-gray-300 transition">
+            <div class="p-6 bg-slate-50 border-t rounded-b-2xl flex flex-col sm:flex-row justify-end gap-4">
+                <button id="modal-close-btn" class="bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition">
                     Chỉnh Sửa Lại
                 </button>
-                <button id="modal-confirm-btn" class="bg-blue-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-blue-700 transition">
+                <button id="modal-confirm-btn" class="bg-gradient-to-r from-brand-blue to-brand-indigo text-white font-bold py-2 px-5 rounded-lg hover:opacity-90 transition">
                     Xác nhận & Tạo Lộ Trình
                 </button>
             </div>
@@ -202,18 +252,7 @@
 
     <!-- Script chính của ứng dụng -->
     <script>
-        // (MỚI) Khởi tạo Mermaid
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: 'base',
-            themeVariables: {
-                'primaryColor': '#eff6ff', // bg-blue-50
-                'primaryBorderColor': '#93c5fd', // border-blue-300
-                'primaryTextColor': '#1e3a8a', // text-blue-900
-                'lineColor': '#9ca3af', // gray-400
-                'fontFamily': 'Inter, sans-serif'
-            }
-        });
+        // (ĐÃ XÓA) mermaid.initialize
 
         // === DỮ LIỆU TỪ BÁO CÁO PHÂN TÍCH ===
         const allSkillsData = [
@@ -425,7 +464,7 @@
                 section.className = 'border border-gray-200 rounded-lg';
 
                 const header = document.createElement('button');
-                header.className = 'w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition rounded-t-lg';
+                header.className = 'w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition rounded-t-lg';
                 header.innerHTML = `
                     <span class="font-semibold text-gray-700">${category}</span>
                     <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -436,9 +475,9 @@
                 
                 skills.forEach(skill => {
                     const label = document.createElement('label');
-                    label.className = 'flex items-center p-2 rounded hover:bg-gray-50 cursor-pointer';
+                    label.className = 'flex items-center p-2 rounded hover:bg-slate-50 cursor-pointer';
                     label.innerHTML = `
-                        <input type="checkbox" class="skill-checkbox h-4 w-4 rounded" value="${skill.id}">
+                        <input type="checkbox" class="skill-checkbox h-4 w-4 rounded text-brand-blue" value="${skill.id}">
                         <span class="ml-2 text-sm text-gray-700">${skill.name} (${skill.count} lượt)</span>
                     `;
                     content.appendChild(label);
@@ -582,15 +621,13 @@
                 .map(findSkillById)
                 .sort((a, b) => b.count - a.count);
 
-            const allRecSkills = new Set([...coreGap.map(s => s.id), ...personaGap.map(s => s.id), ...emergingGap.map(s => s.id)]);
-            const allRecSkillObjects = Array.from(allRecSkills).map(id => findSkillById(id));
+            // (ĐÃ XÓA) allRecSkillObjects và allRecSkills không còn cần thiết cho Mermaid
 
             // 2. Lưu kết quả vào biến toàn cục
             currentPlanData.results = {
                 coreGap,
                 emergingGap,
                 personaGap,
-                allRecSkillObjects,
                 personaDef
             };
 
@@ -604,72 +641,103 @@
                 loader.classList.remove('flex');
                 navigateToPage('hub'); // Hiển thị trang Hub
 
-                // 6. Chạy Mermaid
-                setTimeout(() => {
-                    try {
-                        if (document.querySelector('.mermaid')) {
-                            mermaid.run();
-                        }
-                    } catch (e) {
-                        console.error("Lỗi khi chạy Mermaid:", e);
-                    }
-                }, 100);
+                // (ĐÃ XÓA) Không cần chạy Mermaid
             }, 1500);
         }
 
         // === (MỚI) CÁC HÀM XÂY DỰNG TRANG (BUILDERS) ===
 
-        // Xây dựng Trang Hub (Trang điều khiển)
+        // (MỚI) Xây dựng Trang Hub (Bảng điều khiển)
         function buildReportHubPage() {
-            const { allRecSkillObjects, personaDef } = currentPlanData.results;
-            const mermaidCode = generateMermaidCode(allRecSkillObjects);
+            const { personaDef, coreGap, personaGap, emergingGap } = currentPlanData.results;
             const hubPage = document.getElementById('report-hub-page');
+            const totalMissing = coreGap.length + personaGap.length + emergingGap.length;
 
             let html = `
-                <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b-2 border-gray-200 pb-4 mb-8 gap-4">
-                    <h2 class="text-2xl md:text-3xl font-bold text-blue-700">Trung Tâm Lộ Trình</h2>
-                    <button class="nav-button w-full sm:w-auto bg-gray-200 text-gray-700 font-bold py-2 px-5 rounded-lg hover:bg-gray-300 transition shrink-0" data-page="selection">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b-2 border-slate-200 pb-4 mb-8 gap-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-indigo">
+                        Lộ Trình Của Bạn
+                    </h2>
+                    <button class="nav-button w-full sm:w-auto bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition shrink-0" data-page="selection">
                         &larr; Tạo Lộ Trình Mới
                     </button>
                 </div>
                 
-                <!-- Sơ đồ Mermaid -->
-                <section class="mb-8 border border-gray-200 bg-white rounded-lg p-6 shadow-sm">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Sơ Đồ Lộ Trình Đề Xuất</h3>
-                    <p class="text-gray-600 mb-6">Đây là bản đồ trực quan hóa các kỹ năng bạn nên học. Nhấn vào các mục bên dưới để khám phá chi tiết.</p>
-                    <div class="mermaid w-full overflow-x-auto">
-                        ${mermaidCode}
-                    </div>
+                <!-- Thẻ Vai Trò -->
+                <section class="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-8 shadow-sm animate-fade-in">
+                    <h3 class="text-xl font-bold text-gray-500 uppercase tracking-wider">Định Hướng Của Bạn</h3>
+                    <h4 class="text-3xl font-bold text-brand-blue my-2">${personaDef.title}</h4>
+                    <p class="text-lg text-gray-600 mt-2 mb-6 max-w-3xl">${personaDef.description}</p>
+                    <button class="nav-button bg-brand-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-brand-indigo transition transform hover:-translate-y-0.5" data-page="persona-detail">
+                        Xem Chi Tiết Vai Trò &rarr;
+                    </button>
                 </section>
 
-                <!-- Bảng điều hướng -->
+                <!-- (MỚI) Bảng điều hướng 3 bước -->
                 <section class="animate-fade-in" style="animation-delay: 200ms;">
-                    <h3 class="text-xl font-bold text-gray-800 mb-6">Khám Phá Chi Tiết Lộ Trình</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Thẻ Vai Trò -->
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 flex flex-col">
-                            <h4 class="text-lg font-bold text-blue-800">${personaDef.title}</h4>
-                            <p class="text-blue-700 mt-2 mb-4 flex-grow">${personaDef.description}</p>
-                            <button class="nav-button w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition" data-page="persona-detail">
-                                Xem Chi Tiết Vai Trò &rarr;
-                            </button>
-                        </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Lộ Trình Đề Xuất (${totalMissing} Kỹ Năng)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         
-                        <!-- Thẻ Điều Hướng Chung -->
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 space-y-4">
-                            <button class="nav-button w-full text-left bg-white border border-yellow-300 p-4 rounded-lg hover:shadow-md transition group" data-page="skill-group-detail" data-group="core">
-                                <h4 class="font-bold text-yellow-800">Bước 1: Nhóm Kỹ Năng Cốt Lõi</h4>
-                                <p class="text-sm text-gray-600 group-hover:text-black">Các kỹ năng bắt buộc phải có của mọi BA.</p>
-                            </button>
-                            <button class="nav-button w-full text-left bg-white border border-emerald-300 p-4 rounded-lg hover:shadow-md transition group" data-page="skill-group-detail" data-group="persona">
-                                <h4 class="font-bold text-emerald-800">Bước 2: Nhóm Kỹ Năng Chuyên Sâu</h4>
-                                <p class="text-sm text-gray-600 group-hover:text-black">Các kỹ năng dành riêng cho định hướng của bạn.</p>
-                            </button>
-                            <button class="nav-button w-full text-left bg-white border border-indigo-300 p-4 rounded-lg hover:shadow-md transition group" data-page="skill-group-detail" data-group="emerging">
-                                <h4 class="font-bold text-indigo-800">Bước 3: Nhóm Kỹ Năng Mới Nổi</h4>
-                                <p class="text-sm text-gray-600 group-hover:text-black">Đón đầu xu hướng và tăng lợi thế cạnh tranh.</p>
-                            </button>
+                        <!-- Card: Cốt Lõi -->
+                        <div class="flex flex-col bg-white border-2 border-yellow-300 rounded-2xl p-6 shadow-lg transition-transform transform hover:-translate-y-1 hover:shadow-xl">
+                            <div class="flex-grow">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="flex-shrink-0 bg-yellow-100 text-yellow-700 p-3 rounded-full">
+                                        <!-- Icon -->
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.717 50.717 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+                                    </span>
+                                    <h4 class="text-xl font-bold text-gray-800">Bước 1: Cốt Lõi</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-4">Các kỹ năng bắt buộc phải có của mọi BA.</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-3xl font-bold text-yellow-600 mb-4">${coreGap.length} <span class="text-lg font-normal text-gray-500">kỹ năng</span></p>
+                                <button class="nav-button w-full bg-yellow-500 text-yellow-900 font-bold py-2 px-4 rounded-lg hover:bg-yellow-600 transition" data-page="skill-group-detail" data-group="core" ${coreGap.length === 0 ? 'disabled' : ''}>
+                                    ${coreGap.length === 0 ? 'Đã Hoàn Thành' : 'Xem Chi Tiết'}
+                                </button>
+                            </div>
                         </div>
+
+                        <!-- Card: Chuyên Sâu -->
+                        <div class="flex flex-col bg-white border-2 border-emerald-300 rounded-2xl p-6 shadow-lg transition-transform transform hover:-translate-y-1 hover:shadow-xl">
+                            <div class="flex-grow">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="flex-shrink-0 bg-emerald-100 text-emerald-700 p-3 rounded-full">
+                                        <!-- Icon -->
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.51-2.52.51 2.52-2.51-2.225m2.51-2.225-2.225 2.51m2.225-2.51.51 2.52M7.5 15.25l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M9 12.75l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M12 9.75l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M15 12.75l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M16.5 15.25l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                                    </span>
+                                    <h4 class="text-xl font-bold text-gray-800">Bước 2: Chuyên Sâu</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-4">Kỹ năng dành riêng cho định hướng của bạn.</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-3xl font-bold text-emerald-600 mb-4">${personaGap.length} <span class="text-lg font-normal text-gray-500">kỹ năng</span></p>
+                                <button class="nav-button w-full bg-emerald-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-emerald-600 transition" data-page="skill-group-detail" data-group="persona" ${personaGap.length === 0 ? 'disabled' : ''}>
+                                    ${personaGap.length === 0 ? 'Đã Hoàn Thành' : 'Xem Chi Tiết'}
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card: Mới Nổi -->
+                        <div class="flex flex-col bg-white border-2 border-indigo-300 rounded-2xl p-6 shadow-lg transition-transform transform hover:-translate-y-1 hover:shadow-xl">
+                            <div class="flex-grow">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="flex-shrink-0 bg-indigo-100 text-indigo-700 p-3 rounded-full">
+                                        <!-- Icon -->
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047l-4.858 4.858a1.125 1.125 0 0 0 0 1.59l4.858 4.858a8.252 8.252 0 0 1 5.962-13.785 8.25 8.25 0 0 1 5.962 13.785l4.858-4.858a1.125 1.125 0 0 0 0-1.59l-4.858-4.858Z" /></svg>
+                                    </span>
+                                    <h4 class="text-xl font-bold text-gray-800">Bước 3: Mới Nổi</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-4">Đón đầu xu hướng và tăng lợi thế cạnh tranh.</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-3xl font-bold text-indigo-600 mb-4">${emergingGap.length} <span class="text-lg font-normal text-gray-500">kỹ năng</span></p>
+                                <button class="nav-button w-full bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-600 transition" data-page="skill-group-detail" data-group="emerging" ${emergingGap.length === 0 ? 'disabled' : ''}>
+                                    ${emergingGap.length === 0 ? 'Đã Hoàn Thành' : 'Xem Chi Tiết'}
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
             `;
@@ -683,11 +751,11 @@
             const page = document.getElementById('persona-detail-page');
 
             let html = `
-                <div class="flex justify-between items-center border-b-2 border-gray-200 pb-4 mb-8">
-                    <button class="nav-button bg-gray-200 text-gray-700 font-bold py-2 px-5 rounded-lg hover:bg-gray-300 transition" data-page="hub">
-                        &larr; Quay Về Hub
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b-2 border-slate-200 pb-4 mb-8 gap-4">
+                    <button class="nav-button bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition" data-page="hub">
+                        &larr; Quay Về Lộ Trình
                     </button>
-                    <h2 class="text-2xl md:text-3xl font-bold text-blue-700 text-right">${personaDef.title}</h2>
+                    <h2 class="text-2xl md:text-3xl font-bold text-brand-blue text-right">${personaDef.title}</h2>
                 </div>
                 
                 <p class="text-lg text-gray-600 leading-relaxed mb-8">${personaDef.description}</p>
@@ -704,7 +772,7 @@
                     <!-- Ví dụ tình huống -->
                     <div class="animate-slide-in-right" style="animation-delay: 200ms;">
                         <h3 class="text-xl font-bold text-gray-800 mb-4">Tình Huống Công Việc (Case Study)</h3>
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-5 text-gray-700 leading-relaxed shadow-sm">
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-gray-700 leading-relaxed shadow-sm">
                             ${personaDef.caseStudy}
                         </div>
                     </div>
@@ -717,18 +785,25 @@
         // Xây dựng Trang Chi tiết Nhóm Kỹ Năng
         function buildSkillGroupDetailPage(title, skills, color) {
             const page = document.getElementById('skill-group-detail-page');
+            // (MỚI) Ánh xạ màu sắc
+            const colors = {
+                yellow: { text: 'text-yellow-700', bg: 'bg-yellow-100', border: 'border-yellow-200' },
+                emerald: { text: 'text-emerald-700', bg: 'bg-emerald-100', border: 'border-emerald-200' },
+                indigo: { text: 'text-indigo-700', bg: 'bg-indigo-100', border: 'border-indigo-200' }
+            };
+            const theme = colors[color] || { text: 'text-gray-700', bg: 'bg-gray-100', border: 'border-gray-200' };
 
             let html = `
-                <div class="flex justify-between items-center border-b-2 border-gray-200 pb-4 mb-8">
-                    <button class="nav-button bg-gray-200 text-gray-700 font-bold py-2 px-5 rounded-lg hover:bg-gray-300 transition" data-page="hub">
-                        &larr; Quay Về Hub
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b-2 border-slate-200 pb-4 mb-8 gap-4">
+                    <button class="nav-button bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition" data-page="hub">
+                        &larr; Quay Về Lộ Trình
                     </button>
-                    <h2 class="text-2xl md:text-3xl font-bold text-${color}-700 text-right">${title}</h2>
+                    <h2 class="text-2xl md:text-3xl font-bold ${theme.text} text-right">${title}</h2>
                 </div>
             `;
 
             if (skills.length === 0) {
-                html += `<p class="text-green-700 font-medium text-lg">Tuyệt vời! Bạn đã hoàn thiện các kỹ năng trong nhóm này.</p>`;
+                html += `<p class="text-emerald-700 font-medium text-lg bg-emerald-50 p-6 rounded-lg">Tuyệt vời! Bạn đã hoàn thiện các kỹ năng trong nhóm này.</p>`;
             } else {
                 html += `<div class="space-y-6">`;
                 skills.forEach((skill, index) => {
@@ -736,9 +811,9 @@
                     const synergy = skillSynergies[skill.id];
 
                     html += `
-                        <div class="border border-gray-200 rounded-lg overflow-hidden animate-slide-in-right" style="animation-delay: ${index * 100}ms;">
-                            <div class="bg-${color}-100 p-4 border-b border-${color}-200">
-                                <h3 class="text-xl font-bold text-${color}-800">${skill.name}</h3>
+                        <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm animate-slide-in-right" style="animation-delay: ${index * 100}ms;">
+                            <div class="${theme.bg} p-4 border-b ${theme.border}">
+                                <h3 class="text-xl font-bold ${theme.text}">${skill.name}</h3>
                             </div>
                             <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -751,9 +826,9 @@
                                 </div>
                             </div>
                             ${synergy ? `
-                            <div class="p-4 bg-gray-50 border-t border-gray-200">
+                            <div class="p-4 bg-slate-50 border-t border-slate-200">
                                 <p class="text-sm text-gray-600">
-                                    <svg class="w-4 h-4 inline-block mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                    <svg class="w-4 h-4 inline-block mr-1 text-sky-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                     <strong>Bổ trợ cho:</strong> ${synergy.map(s_id => findSkillById(s_id)?.name || s_id).join(', ')}
                                 </p>
                             </div>
@@ -796,67 +871,7 @@
             });
         }
 
-        // Hàm tạo code Mermaid (bản đã sửa lỗi)
-        function generateMermaidCode(skills) {
-            if (!skills || skills.length === 0) {
-                return "graph TD;\n    A[Không có kỹ năng nào để đề xuất!];";
-            }
-            const safeId = (id) => id.replace(/[^a-zA-Z0-9]/g, '_');
-            let code = "graph TD;\n";
-            code += "    User(BẠN) ::: userStyle;\n\n";
-
-            code += "    subgraph G1 [\"Bước 1: Cốt Lõi\"]\n";
-            coreSkillIds.forEach(id => {
-                if (skills.some(s => s.id === id)) {
-                    code += `        ${safeId(id)}("${findSkillById(id).name}");\n`;
-                    code += `        User --> ${safeId(id)};\n`;
-                }
-            });
-            code += "    end\n\n";
-
-            code += "    subgraph G2 [\"Bước 2: Chuyên Sâu\"]\n";
-            personaDefinitions[currentPlanData.selectedPersona].keySkills.forEach(id => {
-                if (skills.some(s => s.id === id) && !coreSkillIds.includes(id)) {
-                    code += `        ${safeId(id)}("${findSkillById(id).name}");\n`;
-                }
-            });
-            code += "    end\n\n";
-            
-            code += "    subgraph G3 [\"Bước 3: Mới Nổi\"]\n";
-            emergingSkillIds.forEach(id => {
-                if (skills.some(s => s.id === id) && !coreSkillIds.includes(id)) {
-                    code += `        ${safeId(id)}("${findSkillById(id).name}");\n`;
-                }
-            });
-            code += "    end\n\n";
-
-            code += "    %% Liên kết bổ trợ\n";
-            skills.forEach(skill => {
-                const synergies = skillSynergies[skill.id];
-                if (synergies) {
-                    synergies.forEach(targetSkillId => {
-                        if (skills.some(s => s.id === targetSkillId)) {
-                            code += `    ${safeId(skill.id)} --> ${safeId(targetSkillId)};\n`;
-                        }
-                    });
-                }
-            });
-
-            code += "\n    %% Định nghĩa Styles\n";
-            code += "    classDef default fill:#fff,stroke:#ccc,stroke-width:2px,color:#333;\n";
-            code += "    classDef userStyle fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:white,font-weight:bold;\n";
-            coreSkillIds.forEach(id => {
-                if (skills.some(s => s.id === id)) code += `    class ${safeId(id)} fill:#fef9c3,stroke:#facc15,stroke-width:2px;\n`;
-            });
-            emergingSkillIds.forEach(id => {
-                if (skills.some(s => s.id === id)) code += `    class ${safeId(id)} fill:#e0e7ff,stroke:#818cf8,stroke-width:2px;\n`;
-            });
-            personaDefinitions[currentPlanData.selectedPersona].keySkills.forEach(id => {
-                if (skills.some(s => s.id === id)) code += `    class ${safeId(id)} fill:#d1fae5,stroke:#34d399,stroke-width:2px;\n`;
-            });
-
-            return code;
-        }
+        // (ĐÃ XÓA) Hàm generateMermaidCode
 
     </script>
 
