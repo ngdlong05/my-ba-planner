@@ -7,7 +7,6 @@
     <title>Công Cụ Hoạch Định Kỹ Năng BA</title>
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- (ĐÃ XÓA) Mermaid.js không còn cần thiết -->
     
     <!-- Cấu hình Tailwind với font Inter và màu sắc thương hiệu -->
     <script>
@@ -44,7 +43,7 @@
             },
         };
     </script>
-    <!-- CSS cho Loader và Giao diện (MỚI) -->
+    <!-- CSS cho Loader và Giao diện -->
     <style>
         body {
             background-color: #f8fafc; /* Màu nền xám nhạt (Slate-50) */
@@ -69,16 +68,16 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* (MỚI) Style cho các "trang" con */
+        /* Style cho các "trang" con */
         .page-container {
             background-color: white;
-            padding: 2rem 2.5rem; /* Tăng padding */
-            border-radius: 1.5rem; /* bo tròn nhiều hơn */
+            padding: 2rem 2.5rem;
+            border-radius: 1.5rem;
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.1);
             border: 1px solid #e2e8f0; /* border-slate-200 */
         }
 
-        /* (MỚI) Style cho các thẻ Persona */
+        /* Style cho các thẻ Persona */
         .persona-card {
             border: 2px solid #e2e8f0; /* border-slate-200 */
             transition: all 0.2s ease-in-out;
@@ -108,7 +107,7 @@
     <!-- Container chính -->
     <div class="container mx-auto max-w-7xl p-4 md:p-8">
 
-        <!-- (MỚI) Header với Gradient -->
+        <!-- Header với Gradient -->
         <header class="mb-10 p-8 rounded-3xl bg-gradient-to-r from-brand-blue to-brand-indigo shadow-lg text-white">
             <div class="flex items-center gap-4">
                 <!-- Icon Logo -->
@@ -124,7 +123,7 @@
 
         <!-- ===== TRANG LỰA CHỌN (BẮT ĐẦU) ===== -->
         <main id="selection-page" class="flex flex-col gap-8">
-            <!-- (MỚI) Bước 1: Chọn Định Hướng (Thiết kế Card) -->
+            <!-- Bước 1: Chọn Định Hướng (Thiết kế Card) -->
             <section class="page-container space-y-6">
                 <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-3">
                     Bước 1: Chọn Định Hướng (Tính Cách)
@@ -194,17 +193,17 @@
             </section>
         </main> <!-- Hết #selection-page -->
 
-        <!-- ===== (MỚI) TRUNG TÂM LỘ TRÌNH (HUB) - ẨN ===== -->
+        <!-- ===== TRUNG TÂM LỘ TRÌNH (HUB) - ẨN ===== -->
         <main id="report-hub-page" class="hidden page-container animate-fade-in">
             <!-- Sẽ được JS điền vào -->
         </main>
         
-        <!-- ===== (MỚI) TRANG CHI TIẾT VAI TRÒ - ẨN ===== -->
+        <!-- ===== TRANG CHI TIẾT VAI TRÒ - ẨN ===== -->
         <main id="persona-detail-page" class="hidden page-container animate-fade-in">
             <!-- Sẽ được JS điền vào -->
         </main>
         
-        <!-- ===== (MỚI) TRANG CHI TIẾT NHÓM KỸ NĂNG - ẨN ===== -->
+        <!-- ===== TRANG CHI TIẾT NHÓM KỸ NĂNG - ẨN ===== -->
         <main id="skill-group-detail-page" class="hidden page-container animate-fade-in">
             <!-- Sẽ được JS điền vào -->
         </main>
@@ -252,8 +251,6 @@
 
     <!-- Script chính của ứng dụng -->
     <script>
-        // (ĐÃ XÓA) mermaid.initialize
-
         // === DỮ LIỆU TỪ BÁO CÁO PHÂN TÍCH ===
         const allSkillsData = [
             // Technical Skills
@@ -313,7 +310,7 @@
 
             // Domain Skills
             { "id": "erp", "name": "ERP", "count": 24, "category": "Kỹ Năng Lĩnh Vực" },
-            { "id": "banking", "name": "Banking", "count": 17, "category": "Kỹ Năng Lĩnh V vực" },
+            { "id": "banking", "name": "Banking", "count": 17, "category": "Kỹ Năng Lĩnh Vực" },
             { "id": "crm", "name": "CRM", "count": 16, "category": "Kỹ Năng Lĩnh Vực" },
             { "id": "fintech", "name": "Fintech", "count": 13, "category": "Kỹ Năng Lĩnh Vực" },
             { "id": "finance", "name": "Finance", "count": 13, "category": "Kỹ Năng Lĩnh Vực" },
@@ -332,7 +329,7 @@
         const coreSkillIds = ['english', 'agile', 'sql', 'communication', 'scrum'];
         const emergingSkillIds = ['sql', 'power bi', 'ai'];
 
-        // (MỚI) Định nghĩa chi tiết vai trò
+        // Định nghĩa chi tiết vai trò
         const personaDefinitions = {
             technical: {
                 title: "BA Kỹ Thuật (Technical BA)",
@@ -372,7 +369,7 @@
             }
         };
 
-        // (MỚI) Giải thích chi tiết về kỹ năng
+        // Giải thích chi tiết về kỹ năng
         const skillDetails = {
             'sql': {
                 description: "Ngôn ngữ truy vấn có cấu trúc (SQL) là công cụ nền tảng để làm việc với bất kỳ cơ sở dữ liệu quan hệ nào.",
@@ -381,6 +378,10 @@
             'power bi': {
                 description: "Một công cụ trực quan hóa dữ liệu của Microsoft, giúp biến dữ liệu thô thành các biểu đồ và dashboard tương tác.",
                 howItHelps: "Giúp bạn trình bày kết quả phân tích một cách trực quan và thuyết phục. Thay vì gửi file Excel, bạn gửi một dashboard động. Điều này giúp các sếp (stakeholders) ra quyết định nhanh hơn và chính xác hơn."
+            },
+            'tableau': {
+                description: "Tương tự Power BI, Tableau là một công cụ trực quan hóa dữ liệu hàng đầu, rất mạnh về đồ họa và tính tương tác.",
+                howItHelps: "Giúp bạn khám phá và trình bày dữ liệu. Việc biết cả Power BI và Tableau là một lợi thế lớn, vì các công ty khác nhau sử dụng các công cụ khác nhau."
             },
             'ai': {
                 description: "Trí tuệ nhân tạo (AI) đang dần được tích hợp vào các công cụ BA để phân tích dự đoán, nhận diện mẫu và tự động hóa.",
@@ -420,7 +421,7 @@
             }
         };
 
-        // Mối liên hệ kỹ năng
+        // Mối liên hệ kỹ năng (A bổ trợ cho B, C...)
         const skillSynergies = {
             'sql': ['power bi', 'tableau', 'python', 'ai', 'database', 'etl'],
             'agile': ['scrum', 'jira', 'confluence'],
@@ -429,6 +430,17 @@
             'communication': ['stakeholder management', 'presentation', 'negotiation', 'management'],
             'python': ['ai', 'spark', 'big data'],
             'database': ['sql', 'data warehouse', 'etl']
+        };
+
+        // (MỚI) "Bộ não" Phụ thuộc (Học A TRƯỚC B)
+        // Định nghĩa: 'A': ['B', 'C'] có nghĩa là A là điều kiện tiên quyết cho B và C.
+        // B và C nên được học SAU A.
+        const skillPrereqs = {
+            'sql': ['power bi', 'tableau', 'etl', 'data warehouse', 'ai', 'python'], // Cần SQL trước khi học những cái này
+            'agile': ['scrum', 'jira', 'confluence', 'product owner'], // Cần Agile trước
+            'requirements': ['uml', 'bpmn', 'user stories'], // Cần hiểu về 'requirements' nói chung
+            'python': ['ai'], // Python là nền tảng cho AI
+            'database': ['sql'] // Hiểu về DB trước khi học SQL
         };
         
         // Biến toàn cục
@@ -498,10 +510,12 @@
         function findSkillById(id) {
             const skill = allSkillsData.find(s => s.id === id);
             if (!skill) {
+                // Xử lý các trường hợp đặc biệt không có trong allSkillsData nhưng có trong logic
                 const exceptions = {
-                    'stakeholder management': { id: 'stakeholder management', name: 'Stakeholder Management', count: 9 },
+                    'stakeholder management': { id: 'stakeholder management', name: 'Stakeholder Management', count: 9, category: "Kỹ Năng Mềm" },
+                    'user stories': { id: 'user stories', name: 'User Stories', count: 0, category: "Kỹ Năng Nghiệp Vụ" }, // Giả định count = 0 nếu không có
                 };
-                return exceptions[id] || { id: id, name: id, count: 'N/A' };
+                return exceptions[id] || { id: id, name: id.charAt(0).toUpperCase() + id.slice(1), count: 'N/A', category: 'N/A' };
             }
             return skill;
         }
@@ -523,7 +537,7 @@
 
             currentPlanData = {
                 selectedPersona: selectedPersonaValue,
-                userSkills: userSkills,
+                userSkills: userSkills, // Đây là một Set() chứa các ID
                 selectedPersonaLabel: selectedPersonaLabel,
                 userSkillNames: userSkillNames.sort()
             };
@@ -567,7 +581,7 @@
             setTimeout(runPlanGeneration, 300);
         }
 
-        // === (MỚI) HÀM ĐIỀU HƯỚNG TRANG CHÍNH ===
+        // === HÀM ĐIỀU HƯỚNG TRANG CHÍNH ===
         function navigateToPage(pageId, data = {}) {
             // Ẩn tất cả các trang
             document.getElementById('selection-page').classList.add('hidden');
@@ -588,7 +602,8 @@
                     document.getElementById('persona-detail-page').classList.remove('hidden');
                     break;
                 case 'skill-group-detail':
-                    buildSkillGroupDetailPage(data.title, data.skills, data.color);
+                    // (MỚI) Truyền userSkills vào để kiểm tra logic
+                    buildSkillGroupDetailPage(data.title, data.skills, data.color, currentPlanData.userSkills);
                     document.getElementById('skill-group-detail-page').classList.remove('hidden');
                     break;
             }
@@ -621,8 +636,6 @@
                 .map(findSkillById)
                 .sort((a, b) => b.count - a.count);
 
-            // (ĐÃ XÓA) allRecSkillObjects và allRecSkills không còn cần thiết cho Mermaid
-
             // 2. Lưu kết quả vào biến toàn cục
             currentPlanData.results = {
                 coreGap,
@@ -640,14 +653,12 @@
                 loader.classList.add('hidden');
                 loader.classList.remove('flex');
                 navigateToPage('hub'); // Hiển thị trang Hub
-
-                // (ĐÃ XÓA) Không cần chạy Mermaid
             }, 1500);
         }
 
-        // === (MỚI) CÁC HÀM XÂY DỰNG TRANG (BUILDERS) ===
+        // === CÁC HÀM XÂY DỰNG TRANG (BUILDERS) ===
 
-        // (MỚI) Xây dựng Trang Hub (Bảng điều khiển)
+        // Xây dựng Trang Hub (Bảng điều khiển)
         function buildReportHubPage() {
             const { personaDef, coreGap, personaGap, emergingGap } = currentPlanData.results;
             const hubPage = document.getElementById('report-hub-page');
@@ -673,7 +684,7 @@
                     </button>
                 </section>
 
-                <!-- (MỚI) Bảng điều hướng 3 bước -->
+                <!-- Bảng điều hướng 3 bước -->
                 <section class="animate-fade-in" style="animation-delay: 200ms;">
                     <h3 class="text-2xl font-bold text-gray-800 mb-6">Lộ Trình Đề Xuất (${totalMissing} Kỹ Năng)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -781,11 +792,56 @@
             page.innerHTML = html;
             addNavigationListeners(); // Gắn sự kiện cho nút "Quay Về"
         }
+        
+        // (MỚI) Hàm kiểm tra điều kiện tiên quyết
+        function getPrerequisiteStatus(skillId, userSkills) {
+            let missingPrereqs = [];
+            let foundation = true; // Giả sử là nền tảng
+            
+            // 1. Kiểm tra xem kỹ năng này CÓ PHẢI là điều kiện tiên quyết cho kỹ năng khác KHÔNG?
+            if (skillPrereqs[skillId]) {
+                 foundation = true; // Nếu nó là key trong prereqs, nó là nền tảng
+            } else {
+                 // 2. Kiểm tra xem kỹ năng này CÓ YÊU CẦU điều kiện tiên quyết KHÔNG?
+                for (const foundationSkill in skillPrereqs) {
+                    if (skillPrereqs[foundationSkill].includes(skillId)) {
+                        foundation = false; // Nó là kỹ năng phụ thuộc
+                        // 3. Kiểm tra xem user có thiếu điều kiện tiên quyết không
+                        if (!userSkills.has(foundationSkill)) {
+                            missingPrereqs.push(findSkillById(foundationSkill).name);
+                        }
+                    }
+                }
+            }
 
-        // Xây dựng Trang Chi tiết Nhóm Kỹ Năng
-        function buildSkillGroupDetailPage(title, skills, color) {
+            if (foundation) {
+                return { 
+                    priority: 1, 
+                    label: "Ưu Tiên 1: Nền Tảng",
+                    reason: "Đây là kỹ năng cốt lõi, làm nền tảng cho nhiều kỹ năng khác.",
+                    tagColor: "bg-green-100 text-green-800"
+                };
+            } else if (missingPrereqs.length > 0) {
+                return {
+                    priority: 3,
+                    label: "Ưu Tiên 3: Học Sau",
+                    reason: `<strong>Khuyến nghị:</strong> Nên học <strong>${missingPrereqs.join(', ')}</strong> trước. Kỹ năng này sẽ dễ tiếp thu hơn khi bạn đã có nền tảng.`,
+                    tagColor: "bg-red-100 text-red-800"
+                };
+            } else {
+                return {
+                    priority: 2,
+                    label: "Ưu Tiên 2: Bước Tiếp Theo",
+                    reason: "Bạn đã có đủ nền tảng. Đây là kỹ năng tiếp theo để phát triển.",
+                    tagColor: "bg-sky-100 text-sky-800"
+                };
+            }
+        }
+
+
+        // (MỚI) Xây dựng Trang Chi tiết Nhóm Kỹ Năng (LOGIC MỚI)
+        function buildSkillGroupDetailPage(title, skills, color, userSkills) {
             const page = document.getElementById('skill-group-detail-page');
-            // (MỚI) Ánh xạ màu sắc
             const colors = {
                 yellow: { text: 'text-yellow-700', bg: 'bg-yellow-100', border: 'border-yellow-200' },
                 emerald: { text: 'text-emerald-700', bg: 'bg-emerald-100', border: 'border-emerald-200' },
@@ -805,24 +861,45 @@
             if (skills.length === 0) {
                 html += `<p class="text-emerald-700 font-medium text-lg bg-emerald-50 p-6 rounded-lg">Tuyệt vời! Bạn đã hoàn thiện các kỹ năng trong nhóm này.</p>`;
             } else {
+                // (MỚI) Sắp xếp lại kỹ năng dựa trên logic ưu tiên
+                const sortedSkills = skills.map(skill => {
+                    return {
+                        ...skill,
+                        status: getPrerequisiteStatus(skill.id, userSkills)
+                    };
+                }).sort((a, b) => a.status.priority - b.status.priority); // Sắp xếp theo Ưu tiên 1, 2, 3
+
+
                 html += `<div class="space-y-6">`;
-                skills.forEach((skill, index) => {
+                sortedSkills.forEach((skill, index) => {
                     const detail = skillDetails[skill.id] || { description: "N/A", howItHelps: "Không có mô tả chi tiết." };
                     const synergy = skillSynergies[skill.id];
+                    const status = skill.status;
 
                     html += `
                         <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm animate-slide-in-right" style="animation-delay: ${index * 100}ms;">
-                            <div class="${theme.bg} p-4 border-b ${theme.border}">
+                            <div class="p-4 border-b ${theme.border} ${theme.bg} flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                                 <h3 class="text-xl font-bold ${theme.text}">${skill.name}</h3>
+                                <span class_name="text-sm font-bold px-3 py-1 rounded-full ${status.tagColor}">
+                                    ${status.label}
+                                </span>
                             </div>
-                            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <h4 class="font-semibold text-gray-700 mb-2">Mô Tả Kỹ Năng</h4>
-                                    <p class="text-gray-600">${detail.description}</p>
+                            <div class="p-6">
+                                <!-- (MỚI) Thêm giải thích 'Vì Sao' -->
+                                <div class="bg-slate-50 border-l-4 border-slate-400 text-slate-700 p-4 rounded-r-lg mb-6">
+                                    <p class="font-semibold">Vì sao?</p>
+                                    <p class_name="text-sm">${status.reason}</p>
                                 </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-700 mb-2">Giúp Gì Trong Công Việc?</h4>
-                                    <p class="text-gray-600">${detail.howItHelps}</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-700 mb-2">Mô Tả Kỹ Năng</h4>
+                                        <p class="text-gray-600">${detail.description}</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-700 mb-2">Giúp Gì Trong Công Việc?</h4>
+                                        <p class="text-gray-600">${detail.howItHelps}</p>
+                                    </div>
                                 </div>
                             </div>
                             ${synergy ? `
@@ -870,8 +947,6 @@
                 });
             });
         }
-
-        // (ĐÃ XÓA) Hàm generateMermaidCode
 
     </script>
 
