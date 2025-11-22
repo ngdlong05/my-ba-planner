@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BA Career Roadmap Tool - Professional Edition</title>
+    <title>Công Cụ Hoạch Định Kỹ Năng BA</title>
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Cấu hình Tailwind -->
+    <!-- Cấu hình Tailwind với font Inter và màu sắc thương hiệu -->
     <script>
         tailwind.config = {
             theme: {
@@ -17,178 +17,155 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        'brand-blue': '#0ea5e9', // sky-500
-                        'brand-dark': '#0f172a', // slate-900
+                        'brand-blue': '#2563eb', // blue-600
+                        'brand-indigo': '#4f46e5', // indigo-600
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.6s ease-out',
-                        'slide-up': 'slideUp 0.6s ease-out',
-                        'bounce-slow': 'bounce 3s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-in-right': 'slideInRight 0.5s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out'
                     },
                     keyframes: {
                         fadeIn: {
                             '0%': { opacity: 0 },
                             '100%': { opacity: 1 },
                         },
-                        slideUp: {
-                            '0%': { opacity: 0, transform: 'translateY(30px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        slideInRight: {
+                            '0%': { opacity: 0, transform: 'translateX(20px)' },
+                            '100%': { opacity: 1, transform: 'translateX(0)' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.95)', opacity: 0 },
+                            '100%': { transform: 'scale(1)', opacity: 1 },
                         }
                     }
                 },
             },
         };
     </script>
+    <!-- CSS cho Loader và Giao diện -->
     <style>
-        /* Background Image chuyên nghiệp cho BA */
         body {
-            background-image: linear-gradient(to bottom, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.98)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop');
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
+            background-color: #f8fafc; /* Màu nền xám nhạt (Slate-50) */
         }
-        
         /* Tùy chỉnh thanh cuộn */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 5px; border: 2px solid #f1f5f9; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8b2c1; }
         
-        .page-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            padding: 2.5rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+        /* CSS cho Loader */
+        #loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3b82f6; /* Blue-500 */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* Card selection styling */
-        .persona-card {
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Style cho các "trang" con */
+        .page-container {
             background-color: white;
+            padding: 2rem 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0; /* border-slate-200 */
+        }
+
+        /* Style cho các thẻ Persona */
+        .persona-card {
+            border: 2px solid #e2e8f0; /* border-slate-200 */
+            transition: all 0.2s ease-in-out;
+            background-color: #f8fafc; /* slate-50 */
         }
         .persona-radio:checked + .persona-card {
-            border-color: #0ea5e9; /* brand-blue */
-            background-color: #f0f9ff; /* sky-50 */
-            box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.15);
-            transform: translateY(-4px);
-        }
-        .persona-radio:checked + .persona-card .persona-icon {
-            background-color: #0ea5e9;
-            color: white;
-            transform: scale(1.1);
-        }
-        .persona-card:hover {
-            border-color: #cbd5e1;
+            border-color: #2563eb; /* brand-blue */
+            background-color: #eff6ff; /* blue-50 */
+            box-shadow: 0 4px 10px rgb(37 99 235 / 0.2);
             transform: translateY(-2px);
         }
-        .persona-icon { transition: all 0.3s; }
-
-        /* Custom Checkbox */
-        .custom-checkbox {
-            appearance: none;
-            background-color: #fff;
-            margin: 0;
-            font: inherit;
-            color: currentColor;
-            width: 1.25em;
-            height: 1.25em;
-            border: 2px solid #cbd5e1;
-            border-radius: 0.25em;
-            display: grid;
-            place-content: center;
-            transition: all 0.2s;
+        .persona-radio:checked + .persona-card .persona-icon {
+            background-color: #2563eb;
+            color: white;
         }
-        .custom-checkbox::before {
-            content: "";
-            width: 0.65em;
-            height: 0.65em;
-            transform: scale(0);
-            transition: 120ms transform ease-in-out;
-            box-shadow: inset 1em 1em white;
-            background-color: white;
-            transform-origin: center;
-            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        .persona-radio:not(:checked) + .persona-card:hover {
+            border-color: #94a3b8; /* slate-400 */
         }
-        .custom-checkbox:checked {
-            background-color: #0ea5e9;
-            border-color: #0ea5e9;
-        }
-        .custom-checkbox:checked::before {
-            transform: scale(1);
+        .persona-icon {
+            transition: all 0.2s ease-in-out;
         }
     </style>
 </head>
 
-<body class="font-sans text-slate-800 antialiased selection:bg-sky-200 selection:text-sky-900">
+<body class="font-sans antialiased">
 
-    <div class="container mx-auto max-w-6xl p-4 md:p-8">
+    <!-- Container chính -->
+    <div class="container mx-auto max-w-7xl p-4 md:p-8">
 
-        <!-- Header -->
-        <header class="flex flex-col md:flex-row justify-between items-center mb-10 bg-white/80 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-white">
-            <div class="flex items-center gap-5 mb-4 md:mb-0">
-                <div class="bg-gradient-to-br from-sky-500 to-blue-600 text-white p-4 rounded-2xl shadow-lg transform transition hover:rotate-6">
-                    <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                </div>
+        <!-- Header với Gradient -->
+        <header class="mb-10 p-8 rounded-3xl bg-gradient-to-r from-brand-blue to-brand-indigo shadow-lg text-white">
+            <div class="flex items-center gap-4">
+                <!-- Icon Logo -->
+                <svg class="h-12 w-12 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                </svg>
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight" id="app-title">BA Career Planner</h1>
-                    <p class="text-slate-500 text-base font-medium mt-1" id="app-subtitle">Data-driven roadmap & Actionable insights</p>
+                    <h1 class="text-3xl md:text-4xl font-bold">Công Cụ Hoạch Định Kỹ Năng BA</h1>
+                    <p class="text-lg text-blue-100 mt-2 opacity-90">Xây dựng lộ trình nghề nghiệp Business Analyst của riêng bạn dựa trên dữ liệu thị trường.</p>
                 </div>
-            </div>
-            
-            <!-- Language Switcher -->
-            <div class="flex bg-slate-200/50 p-1.5 rounded-xl backdrop-blur-sm">
-                <button onclick="switchLanguage('vi')" id="btn-vi" class="px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-sm bg-white text-sky-600">Tiếng Việt</button>
-                <button onclick="switchLanguage('en')" id="btn-en" class="px-5 py-2.5 rounded-lg text-sm font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 transition-all">English</button>
             </div>
         </header>
 
-        <!-- ===== TRANG LỰA CHỌN ===== -->
-        <main id="selection-page" class="flex flex-col gap-8 animate-slide-up">
-            
-            <!-- Bước 1: Chọn Định Hướng -->
-            <section class="page-container">
-                <h2 class="text-2xl font-bold text-slate-800 border-b border-slate-200 pb-4 mb-8 flex items-center gap-3">
-                    <span class="bg-sky-100 text-sky-600 w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-sm">1</span>
-                    <span id="step1-title">Chọn Định Hướng Phát Triển</span>
+        <!-- ===== TRANG LỰA CHỌN (BẮT ĐẦU) ===== -->
+        <main id="selection-page" class="flex flex-col gap-8">
+            <!-- Bước 1: Chọn Định Hướng (Thiết kế Card) -->
+            <section class="page-container space-y-6">
+                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-3">
+                    Bước 1: Chọn Định Hướng (Tính Cách)
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Technical -->
-                    <label class="relative group h-full">
+                    <!-- Card 1: Technical -->
+                    <label>
                         <input type="radio" name="persona" value="technical" class="persona-radio sr-only" checked>
-                        <div class="persona-card p-8 rounded-2xl h-full cursor-pointer hover:shadow-lg flex flex-col items-center text-center">
-                            <div class="persona-icon bg-slate-50 w-16 h-16 rounded-2xl flex items-center justify-center text-slate-600 mb-6 shadow-inner">
-                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                        <div class="persona-card flex flex-col items-center p-6 rounded-2xl cursor-pointer h-full">
+                            <div class="persona-icon bg-slate-100 text-slate-600 rounded-full p-3 mb-4">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5 0-4.5 16.5" />
+                                </svg>
                             </div>
-                            <h3 class="font-bold text-xl mb-3 text-slate-800" id="role-tech-title">BA Kỹ Thuật</h3>
-                            <p class="text-sm text-slate-500 leading-relaxed" id="role-tech-desc">Tập trung vào hệ thống, dữ liệu, API và giải pháp kỹ thuật.</p>
+                            <strong class="font-semibold text-lg text-gray-900 mb-1">BA Kỹ Thuật</strong>
+                            <p class="text-sm text-gray-500 text-center">Làm việc với dữ liệu, API, hệ thống.</p>
                         </div>
                     </label>
-                    <!-- Business -->
-                    <label class="relative group h-full">
+                    <!-- Card 2: Business -->
+                    <label>
                         <input type="radio" name="persona" value="business" class="persona-radio sr-only">
-                        <div class="persona-card p-8 rounded-2xl h-full cursor-pointer hover:shadow-lg flex flex-col items-center text-center">
-                            <div class="persona-icon bg-slate-50 w-16 h-16 rounded-2xl flex items-center justify-center text-slate-600 mb-6 shadow-inner">
-                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        <div class="persona-card flex flex-col items-center p-6 rounded-2xl cursor-pointer h-full">
+                            <div class="persona-icon bg-slate-100 text-slate-600 rounded-full p-3 mb-4">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m3 0h-3m-2.25 0l-3 2.25 3 2.25m0-4.5h3m-3 1.5l3 2.25-3 2.25m0-4.5h3m6.75 0l3 2.25-3 2.25m3 0h-3m-2.25 0l-3 2.25 3 2.25m0-4.5h3m-3 1.5l3 2.25-3 2.25m0-4.5h3" />
+                                </svg>
                             </div>
-                            <h3 class="font-bold text-xl mb-3 text-slate-800" id="role-biz-title">BA Nghiệp Vụ</h3>
-                            <p class="text-sm text-slate-500 leading-relaxed" id="role-biz-desc">Tập trung vào quy trình, tối ưu hóa vận hành và nghiệp vụ.</p>
+                            <strong class="font-semibold text-lg text-gray-900 mb-1">BA Nghiệp Vụ</strong>
+                            <p class="text-sm text-gray-500 text-center">Làm việc với quy trình, nghiệp vụ.</p>
                         </div>
                     </label>
-                    <!-- Leader -->
-                    <label class="relative group h-full">
+                    <!-- Card 3: Leader -->
+                    <label>
                         <input type="radio" name="persona" value="leader" class="persona-radio sr-only">
-                        <div class="persona-card p-8 rounded-2xl h-full cursor-pointer hover:shadow-lg flex flex-col items-center text-center">
-                            <div class="persona-icon bg-slate-50 w-16 h-16 rounded-2xl flex items-center justify-center text-slate-600 mb-6 shadow-inner">
-                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        <div class="persona-card flex flex-col items-center p-6 rounded-2xl cursor-pointer h-full">
+                            <div class="persona-icon bg-slate-100 text-slate-600 rounded-full p-3 mb-4">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0-3.05-3.05m0 0a9.094 9.094 0 0 0-3.05-3.05m3.05 3.05a9.094 9.094 0 0 1-3.05 3.05m0 0a9.094 9.094 0 0 1-3.05-3.05m-3.05 0a9.094 9.094 0 0 0-3.05 3.05m3.05-3.05a9.094 9.094 0 0 1 3.05-3.05M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
                             </div>
-                            <h3 class="font-bold text-xl mb-3 text-slate-800" id="role-lead-title">BA Lãnh Đạo</h3>
-                            <p class="text-sm text-slate-500 leading-relaxed" id="role-lead-desc">Tập trung vào quản lý con người, chiến lược và đàm phán.</p>
+                            <strong class="font-semibold text-lg text-gray-900 mb-1">BA Lãnh Đạo</strong>
+                            <p class="text-sm text-gray-500 text-center">Làm việc với con người, đàm phán.</p>
                         </div>
                     </label>
                 </div>
@@ -196,829 +173,854 @@
 
             <!-- Bước 2: Chọn Kỹ Năng -->
             <section class="page-container">
-                <h2 class="text-2xl font-bold text-slate-800 border-b border-slate-200 pb-4 mb-8 flex items-center gap-3">
-                    <span class="bg-sky-100 text-sky-600 w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-sm">2</span>
-                    <span id="step2-title">Đánh dấu Kỹ Năng Bạn Đã Có</span>
+                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-3 mb-6">
+                    Bước 2: Đánh dấu các Kỹ Năng Bạn Đã Có
                 </h2>
-                <p class="text-slate-500 mb-6 italic text-sm" id="skill-instruction">Hãy trung thực với bản thân để có lộ trình chính xác nhất.</p>
                 <div id="skills-accordion" class="space-y-4">
-                    <!-- JS sẽ render -->
+                    <!-- JS sẽ điền vào đây -->
                 </div>
             </section>
 
-            <!-- Bước 3: Nút Action -->
-            <div class="flex justify-end pb-12">
-                <button id="generate-btn" class="group bg-gradient-to-r from-sky-600 to-blue-700 text-white font-bold py-5 px-10 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition transform flex items-center gap-3 text-lg">
-                    <span id="btn-generate">Tạo Lộ Trình Cá Nhân Hóa</span>
-                    <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+            <!-- Bước 3: Nút tạo kế hoạch -->
+            <section class="page-container">
+                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-3 mb-6">
+                    Bước 3: Tạo Lộ Trình
+                </h2>
+                <p class="text-gray-600 mb-6">Sau khi hoàn thành Bước 1 và 2, hãy nhấn nút này để xem lộ trình phân tích dành riêng cho bạn.</p>
+                <button id="generate-btn" class="w-full bg-gradient-to-r from-brand-blue to-brand-indigo text-white font-bold py-4 px-6 rounded-xl hover:shadow-xl hover:opacity-90 transition shadow-lg text-lg transform hover:-translate-y-1">
+                    Tạo Kế Hoạch Phát Triển
                 </button>
-            </div>
+            </section>
+        </main> <!-- Hết #selection-page -->
 
+        <!-- ===== TRUNG TÂM LỘ TRÌNH (HUB) - ẨN ===== -->
+        <main id="report-hub-page" class="hidden page-container animate-fade-in">
+            <!-- Sẽ được JS điền vào -->
+        </main>
+        
+        <!-- ===== TRANG CHI TIẾT VAI TRÒ - ẨN ===== -->
+        <main id="persona-detail-page" class="hidden page-container animate-fade-in">
+            <!-- Sẽ được JS điền vào -->
+        </main>
+        
+        <!-- ===== TRANG CHI TIẾT NHÓM KỸ NĂNG - ẨN ===== -->
+        <main id="skill-group-detail-page" class="hidden page-container animate-fade-in">
+            <!-- Sẽ được JS điền vào -->
         </main>
 
-        <!-- ===== CÁC TRANG KẾT QUẢ (ẨN) ===== -->
-        <main id="report-hub-page" class="hidden animate-fade-in space-y-8 pb-12"></main>
-        <main id="persona-detail-page" class="hidden animate-fade-in space-y-8 pb-12"></main>
-        <main id="skill-group-detail-page" class="hidden animate-fade-in space-y-8 pb-12"></main>
+    </div> <!-- Hết container -->
 
-    </div>
-
-    <!-- ===== MODAL (ẨN) ===== -->
-    <div id="summary-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg transform scale-95 transition-transform duration-300 border border-slate-100 overflow-hidden" id="modal-content">
-            <div class="bg-slate-50 p-6 border-b border-slate-100">
-                <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
-                    <span id="modal-title">Xác nhận thông tin</span>
-                </h3>
+    <!-- ===== MODAL TỔNG QUAN (ẨN) ===== -->
+    <div id="summary-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300 opacity-0">
+        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col scale-95 transform transition-transform duration-300" id="modal-content">
+            <div class="p-6 border-b">
+                <h3 class="text-2xl font-bold text-gray-800">Tổng quan Lựa chọn của Bạn</h3>
             </div>
-            <div class="p-8 space-y-6">
+            <div class="p-6 space-y-6 overflow-y-auto">
+                <!-- Persona -->
                 <div>
-                    <p class="text-xs text-slate-400 uppercase font-bold tracking-widest mb-2" id="modal-role-label">Định Hướng</p>
-                    <div class="flex items-center gap-3">
-                        <div class="bg-sky-100 p-2 rounded-lg text-sky-600">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                        </div>
-                        <p id="modal-persona" class="text-xl font-bold text-slate-800"></p>
+                    <h4 class="text-lg font-semibold text-brand-blue">1. Định Hướng (Tính Cách)</h4>
+                    <p id="modal-persona" class="text-gray-700 text-lg font-medium"></p>
+                </div>
+                <!-- Skills -->
+                <div>
+                    <h4 class="text-lg font-semibold text-brand-blue">2. Kỹ Năng Hiện Có (<span id="modal-skill-count">0</span>)</h4>
+                    <div id="modal-skills-list" class="flex flex-wrap gap-2 mt-2 max-h-60 overflow-y-auto p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="text-gray-500">Bạn chưa chọn kỹ năng nào.</span>
                     </div>
                 </div>
-                <div>
-                    <p class="text-xs text-slate-400 uppercase font-bold tracking-widest mb-2" id="modal-skills-label">Kỹ năng đã chọn</p>
-                    <div id="modal-skills-list" class="flex flex-wrap gap-2 max-h-48 overflow-y-auto pr-2"></div>
-                </div>
             </div>
-            <div class="p-6 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
-                <button id="modal-close-btn" class="px-5 py-2.5 text-slate-600 hover:bg-white hover:shadow-sm rounded-xl transition font-bold text-sm">Quay lại</button>
-                <button id="modal-confirm-btn" class="px-6 py-2.5 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition font-bold shadow-lg shadow-sky-200 text-sm">Xác nhận & Phân tích</button>
+            <div class="p-6 bg-slate-50 border-t rounded-b-2xl flex flex-col sm:flex-row justify-end gap-4">
+                <button id="modal-close-btn" class="bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition">
+                    Chỉnh Sửa Lại
+                </button>
+                <button id="modal-confirm-btn" class="bg-gradient-to-r from-brand-blue to-brand-indigo text-white font-bold py-2 px-5 rounded-lg hover:opacity-90 transition">
+                    Xác nhận & Tạo Lộ Trình
+                </button>
             </div>
         </div>
     </div>
+    <!-- ===== HẾT MODAL ===== -->
 
-    <!-- Loader -->
-    <div id="loader-container" class="fixed inset-0 bg-white/90 backdrop-blur-lg flex flex-col items-center justify-center z-50 hidden transition-all duration-500">
-        <div class="relative">
-            <div class="w-16 h-16 border-4 border-sky-100 border-t-sky-600 rounded-full animate-spin mb-6"></div>
-            <div class="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-b-blue-400 rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 1.5s"></div>
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-2" id="loader-title">Đang xây dựng chiến lược...</h3>
-        <p class="text-slate-500 text-sm animate-pulse" id="loader-text">Phân tích dữ liệu thị trường & tối ưu hóa lộ trình</p>
+    <!-- ===== LOADER (ẨN) ===== -->
+    <div id="loader-container" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-[60] hidden flex-col">
+        <div id="loader"></div>
+        <p class="text-white mt-4 text-lg">Đang phân tích và xây dựng kế hoạch...</p>
     </div>
+    <!-- ===== HẾT LOADER ===== -->
 
+    <!-- Script chính của ứng dụng -->
     <script>
-        // === 1. DỮ LIỆU NGÔN NGỮ (TRANSLATIONS) ===
-        let currentLang = 'vi';
-
-        const translations = {
-            vi: {
-                appTitle: "Công Cụ Hoạch Định Kỹ Năng BA",
-                appSubtitle: "Xây dựng lộ trình nghề nghiệp Business Analyst chuyên nghiệp.",
-                step1: "Chọn Định Hướng Phát Triển",
-                roleTech: "BA Kỹ Thuật (Technical BA)",
-                roleTechDesc: "Tập trung vào hệ thống, dữ liệu, API, SQL và giải pháp kỹ thuật chuyên sâu.",
-                roleBiz: "BA Nghiệp Vụ (Business BA)",
-                roleBizDesc: "Tập trung vào quy trình, tối ưu hóa vận hành, tài chính và giải quyết bài toán kinh doanh.",
-                roleLead: "BA Lãnh Đạo (BA Lead)",
-                roleLeadDesc: "Tập trung vào quản lý con người, chiến lược sản phẩm, đàm phán và mentoring.",
-                step2: "Đánh dấu Kỹ Năng Bạn Đã Có",
-                skillInstruction: "Hãy trung thực với bản thân để có lộ trình chính xác nhất.",
-                btnGenerate: "Tạo Lộ Trình Cá Nhân Hóa",
-                modalTitle: "Xác nhận thông tin đầu vào",
-                modalRole: "Định Hướng Đã Chọn",
-                modalSkills: "Hồ Sơ Kỹ Năng Hiện Tại",
-                btnBack: "Chỉnh sửa",
-                btnConfirm: "Xác nhận & Phân tích",
-                loaderTitle: "Đang xây dựng chiến lược...",
-                loader: "Đang phân tích dữ liệu từ 200+ tin tuyển dụng...",
-                hubTitle: "Chiến Lược Phát Triển Sự Nghiệp",
-                btnNew: "Tạo Lộ Trình Mới",
-                yourRole: "Hồ Sơ Định Hướng",
-                btnViewRole: "Xem Mô Tả Công Việc Chi Tiết",
-                roadmapTitle: "Lộ Trình Hành Động Khuyến Nghị",
-                stepCore: "Giai Đoạn 1: Xây Dựng Cốt Lõi",
-                stepCoreDesc: "Nền tảng bắt buộc cho mọi BA chuyên nghiệp.",
-                stepSpec: "Giai Đoạn 2: Phát Triển Chuyên Sâu",
-                stepSpecDesc: "Kỹ năng định hình và nâng tầm vai trò của bạn.",
-                stepNew: "Giai Đoạn 3: Đón Đầu Xu Hướng",
-                stepNewDesc: "Gia tăng lợi thế cạnh tranh trong tương lai.",
-                btnViewDetail: "Xem Chi Tiết & Hành Động",
-                completed: "Đã Hoàn Thành Xuất Sắc",
-                skills: "kỹ năng cần học",
-                why: "Tại sao kỹ năng này quan trọng?",
-                desc: "Định nghĩa",
-                help: "Ứng dụng thực tế",
-                action: "Hành động ngay",
-                res: "Từ khóa/Tài liệu",
-                prereq: "Điều kiện tiên quyết:",
-                strategicAdvice: "Lời Khuyên Chiến Lược",
-                cats: {
-                    "Technical Skills": "Kỹ Năng Kỹ Thuật (Technical)",
-                    "Business Skills": "Kỹ Năng Nghiệp Vụ (Business)",
-                    "Soft Skills": "Kỹ Năng Mềm (Soft Skills)",
-                    "Tools Platforms": "Công Cụ & Nền Tảng (Tools)",
-                    "Domain Skills": "Kiến Thức Ngành (Domain)",
-                    "Languages": "Ngoại Ngữ (Languages)"
-                },
-                priorityLabel: ["", "Ưu tiên 1: Nền Tảng", "Ưu tiên 2: Tiếp Theo", "Ưu tiên 3: Học Sau"],
-                priorityReason: ["", "Kỹ năng gốc rễ, cần thiết để học các kỹ năng khác.", "Bạn đã có đủ nền tảng để học kỹ năng này.", "Nên học các kỹ năng nền tảng trước để dễ tiếp thu hơn."]
-            },
-            en: {
-                appTitle: "BA Career Planner",
-                appSubtitle: "Build your professional Business Analyst career roadmap.",
-                step1: "Select Your Career Path",
-                roleTech: "Technical BA",
-                roleTechDesc: "Focus on systems, data, SQL, APIs, and technical architecture.",
-                roleBiz: "Business BA",
-                roleBizDesc: "Focus on processes, operations, finance, and business value.",
-                roleLead: "BA Lead / Manager",
-                roleLeadDesc: "Focus on people management, product strategy, and negotiation.",
-                step2: "Select Your Current Skills",
-                skillInstruction: "Be honest for the most accurate roadmap.",
-                btnGenerate: "Generate Personalized Roadmap",
-                modalTitle: "Confirm Input Data",
-                modalRole: "Selected Path",
-                modalSkills: "Current Skill Profile",
-                btnBack: "Edit",
-                btnConfirm: "Confirm & Analyze",
-                loaderTitle: "Building Strategy...",
-                loader: "Analyzing data from 200+ job postings...",
-                hubTitle: "Career Development Strategy",
-                btnNew: "Create New Plan",
-                yourRole: "Career Profile",
-                btnViewRole: "View Detailed Job Description",
-                roadmapTitle: "Recommended Action Plan",
-                stepCore: "Phase 1: Build Core Foundation",
-                stepCoreDesc: "Mandatory foundation for every professional BA.",
-                stepSpec: "Phase 2: Specialize",
-                stepSpecDesc: "Skills that define and elevate your role.",
-                stepNew: "Phase 3: Future Proofing",
-                stepNewDesc: "Gain competitive advantage with trends.",
-                btnViewDetail: "View Details & Actions",
-                completed: "Successfully Completed",
-                skills: "skills to learn",
-                why: "Why is this important?",
-                desc: "Definition",
-                help: "Real-world Application",
-                action: "Actionable Steps",
-                res: "Keywords/Resources",
-                prereq: "Prerequisites:",
-                strategicAdvice: "Strategic Advice",
-                cats: {
-                    "Technical Skills": "Technical Skills",
-                    "Business Skills": "Business Skills",
-                    "Soft Skills": "Soft Skills",
-                    "Tools Platforms": "Tools & Platforms",
-                    "Domain Skills": "Domain Knowledge",
-                    "Languages": "Languages"
-                },
-                priorityLabel: ["", "Priority 1: Foundation", "Priority 2: Next Step", "Priority 3: Learn Later"],
-                priorityReason: ["", "Root skill, essential for learning others.", "You have the foundation ready for this.", "Learn foundation skills first for easier adoption."]
-            }
-        };
-
-        // === 2. DỮ LIỆU KỸ NĂNG (FULL DATASET) ===
+        // === DỮ LIỆU TỪ BÁO CÁO PHÂN TÍCH ===
         const allSkillsData = [
-            { id: "sql", name: "SQL", category: "Technical Skills" },
-            { id: "power bi", name: "Power BI", category: "Technical Skills" },
-            { id: "tableau", name: "Tableau", category: "Technical Skills" },
-            { id: "ai", name: "AI / Machine Learning", category: "Technical Skills" },
-            { id: "python", name: "Python", category: "Technical Skills" },
-            { id: "api", name: "API / Integration", category: "Technical Skills" },
-            { id: "database", name: "Database Design", category: "Technical Skills" },
-            { id: "etl", name: "ETL / Data Pipeline", category: "Technical Skills" },
-            { id: "azure", name: "Microsoft Azure", category: "Technical Skills" },
-            { id: "aws", name: "AWS Cloud", category: "Technical Skills" },
-            { id: "data warehouse", name: "Data Warehouse", category: "Technical Skills" },
-            
-            { id: "agile", name: "Agile Mindset", category: "Business Skills" },
-            { id: "scrum", name: "Scrum Framework", category: "Business Skills" },
-            { id: "requirements", name: "Requirements Elicitation", category: "Business Skills" },
-            { id: "bpmn", name: "BPMN / Process Modeling", category: "Business Skills" },
-            { id: "uml", name: "UML Diagrams", category: "Business Skills" },
-            { id: "user stories", name: "User Stories", category: "Business Skills" },
-            { id: "brd", name: "BRD / SRS Documentation", category: "Business Skills" },
-            { id: "use cases", name: "Use Cases", category: "Business Skills" },
+            // Technical Skills
+            { "id": "sql", "name": "SQL", "count": 50, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "power bi", "name": "Power BI", "count": 25, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "tableau", "name": "Tableau", "count": 17, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "ai", "name": "AI", "count": 17, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "python", "name": "Python", "count": 17, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "oracle", "name": "Oracle", "count": 14, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "api", "name": "API", "count": 13, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "etl", "name": "ETL", "count": 12, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "database", "name": "Database", "count": 10, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "azure", "name": "Azure", "count": 9, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "mysql", "name": "MySQL", "count": 8, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "cloud", "name": "Cloud", "count": 7, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "java", "name": "Java", "count": 6, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "aws", "name": "AWS", "count": 6, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "devops", "name": "DevOps", "count": 5, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "postgresql", "name": "PostgreSQL", "count": 5, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "spark", "name": "Spark", "count": 5, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "nosql", "name": "NoSQL", "count": 5, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "data warehouse", "name": "Data Warehouse", "count": 4, "category": "Kỹ Năng Kỹ Thuật" },
+            { "id": "big data", "name": "Big Data", "count": 4, "category": "Kỹ Năng Kỹ Thuật" },
 
-            { id: "communication", name: "Communication", category: "Soft Skills" },
-            { id: "analytical", name: "Analytical Thinking", category: "Soft Skills" },
-            { id: "stakeholder management", name: "Stakeholder Management", category: "Soft Skills" },
-            { id: "presentation", name: "Presentation", category: "Soft Skills" },
-            { id: "negotiation", name: "Negotiation", category: "Soft Skills" },
-            { id: "problem solving", name: "Problem Solving", category: "Soft Skills" },
-            { id: "critical thinking", name: "Critical Thinking", category: "Soft Skills" },
-            { id: "mentoring", name: "Mentoring / Coaching", category: "Soft Skills" },
+            // Business Skills
+            { "id": "agile", "name": "Agile", "count": 64, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "scrum", "name": "Scrum", "count": 44, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "jira", "name": "Jira", "count": 28, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "requirements", "name": "Requirements", "count": 26, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "business analysis", "name": "Business Analysis", "count": 24, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "confluence", "name": "Confluence", "count": 22, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "uml", "name": "UML", "count": 18, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "bpmn", "name": "BPMN", "count": 14, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "stakeholder", "name": "Stakeholder", "count": 13, "category": "Kỹ Năng Nghiệp Vụ" },
+            { "id": "product owner", "name": "Product Owner", "count": 10, "category": "Kỹ Năng Nghiệp Vụ" },
 
-            { id: "jira", name: "Jira", category: "Tools Platforms" },
-            { id: "confluence", name: "Confluence", category: "Tools Platforms" },
-            { id: "excel", name: "Excel (Advanced)", category: "Tools Platforms" },
-            { id: "figma", name: "Figma / Wireframing", category: "Tools Platforms" },
-            { id: "visio", name: "Visio / Draw.io", category: "Tools Platforms" },
-            { id: "sap", name: "SAP / ERP Tools", category: "Tools Platforms" },
+            // Soft Skills
+            { "id": "communication", "name": "Communication", "count": 50, "category": "Kỹ Năng Mềm" },
+            { "id": "analytical", "name": "Analytical", "count": 38, "category": "Kỹ Năng Mềm" },
+            { "id": "management", "name": "Management", "count": 28, "category": "Kỹ Năng Mềm" },
+            { "id": "presentation", "name": "Presentation", "count": 11, "category": "Kỹ Năng Mềm" },
+            { "id": "attention to detail", "name": "Attention to Detail", "count": 10, "category": "Kỹ Năng Mềm" },
+            { "id": "collaboration", "name": "Collaboration", "count": 9, "category": "Kỹ Năng Mềm" },
+            { "id": "critical thinking", "name": "Critical Thinking", "count": 9, "category": "Kỹ Năng Mềm" },
+            { "id": "stakeholder management", "name": "Stakeholder Management", "count": 9, "category": "Kỹ Năng Mềm" },
+            { "id": "negotiation", "name": "Negotiation", "count": 7, "category": "Kỹ Năng Mềm" },
+            { "id": "mentoring", "name": "Mentoring", "count": 5, "category": "Kỹ Năng Mềm" },
 
-            { id: "english", name: "English (Professional)", category: "Languages" },
-            { id: "banking", name: "Banking Domain", category: "Domain Skills" },
-            { id: "erp", name: "ERP Knowledge", category: "Domain Skills" },
-            { id: "fintech", name: "Fintech", category: "Domain Skills" },
-            { id: "finance", name: "Finance / Accounting", category: "Domain Skills" },
-            { id: "crm", name: "CRM Systems", category: "Domain Skills" }
+            // Tools Platforms
+            { "id": "excel", "name": "Excel", "count": 30, "category": "Công Cụ & Nền Tảng" },
+            { "id": "figma", "name": "Figma", "count": 26, "category": "Công Cụ & Nền Tảng" },
+            { "id": "visio", "name": "Visio", "count": 19, "category": "Công Cụ & Nền Tảng" },
+            { "id": "draw.io", "name": "Draw.io", "count": 13, "category": "Công Cụ & Nền Tảng" },
+            { "id": "teams", "name": "MS Teams", "count": 12, "category": "Công Cụ & Nền Tảng" },
+            { "id": "powerpoint", "name": "PowerPoint", "count": 8, "category": "Công Cụ & Nền Tảng" },
+            { "id": "sap", "name": "SAP", "count": 8, "category": "Công Cụ & Nền Tảng" },
+
+            // Domain Skills
+            { "id": "erp", "name": "ERP", "count": 24, "category": "Kỹ Năng Lĩnh Vực" },
+            { "id": "banking", "name": "Banking", "count": 17, "category": "Kỹ Năng Lĩnh Vực" },
+            { "id": "crm", "name": "CRM", "count": 16, "category": "Kỹ Năng Lĩnh Vực" },
+            { "id": "fintech", "name": "Fintech", "count": 13, "category": "Kỹ Năng Lĩnh Vực" },
+            { "id": "finance", "name": "Finance", "count": 13, "category": "Kỹ Năng Lĩnh Vực" },
+            { "id": "education", "name": "Education", "count": 9, "category": "Kỹ Năng Lĩnh Vực" },
+            { "id": "logistics", "name": "Logistics", "count": 7, "category": "Kỹ Năng Lĩnh Vực" },
+            { "id": "payment", "name": "Payment", "count": 6, "category": "Kỹ Năng Lĩnh Vực" },
+            { "id": "core banking", "name": "Core Banking", "count": 6, "category": "Kỹ Năng Lĩnh Vực" },
+
+            // Languages
+            { "id": "english", "name": "English", "count": 88, "category": "Ngoại Ngữ" },
+            { "id": "japanese", "name": "Japanese", "count": 4, "category": "Ngoại Ngữ" },
+            { "id": "chinese", "name": "Chinese", "count": 2, "category": "Ngoại Ngữ" }
         ];
 
-        // Logic phụ thuộc (Prerequisites Tree)
-        const skillPrereqs = {
-            'sql': ['power bi', 'tableau', 'ai', 'python', 'etl', 'data warehouse'],
-            'database': ['sql', 'data warehouse'],
-            'agile': ['scrum', 'jira', 'confluence'],
-            'requirements': ['uml', 'bpmn', 'user stories', 'use cases', 'brd'],
-            'communication': ['stakeholder management', 'negotiation', 'presentation', 'mentoring'],
-            'analytical': ['problem solving', 'critical thinking'],
-            'python': ['ai']
-        };
+        // Kỹ năng cốt lõi và mới nổi
+        const coreSkillIds = ['english', 'agile', 'sql', 'communication', 'scrum'];
+        const emergingSkillIds = ['sql', 'power bi', 'ai'];
 
-        const coreSkillIds = ['english', 'agile', 'sql', 'communication', 'requirements', 'analytical', 'problem solving', 'excel'];
-        const emergingSkillIds = ['power bi', 'ai', 'python', 'aws', 'azure', 'big data'];
-
-        // === CHI TIẾT KỸ NĂNG KHỔNG LỒ (MASSIVE SKILL DETAILS) ===
-        const skillDetails = {
-            'sql': {
-                vi: { 
-                    desc: "Ngôn ngữ truy vấn cấu trúc để làm việc với dữ liệu.", 
-                    help: "Giúp bạn tự lấy số liệu kiểm chứng mà không cần chờ Dev. Hiểu cấu trúc dữ liệu để viết tài liệu kỹ thuật tốt hơn.",
-                    action: "Cài đặt MySQL Workbench. Thực hành các câu lệnh SELECT, WHERE, GROUP BY, JOIN trên bộ dữ liệu mẫu Northwind.",
-                    res: "W3Schools SQL, HackerRank SQL"
-                },
-                en: { 
-                    desc: "Standard language for relational database management.", 
-                    help: "Allows independent data retrieval and verification. Crucial for data analysis and validating requirements.",
-                    action: "Install MySQL. Practice SELECT, JOINs, GROUP BY on sample datasets.",
-                    res: "W3Schools, Mode Analytics SQL Tutorial"
-                }
-            },
-            'power bi': {
-                vi: {
-                    desc: "Công cụ BI của Microsoft để trực quan hóa dữ liệu.",
-                    help: "Biến báo cáo Excel nhàm chán thành Dashboard tương tác. Giúp stakeholder ra quyết định nhanh dựa trên dữ liệu.",
-                    action: "Tải Power BI Desktop (Free). Kết nối với một file Excel và thử vẽ biểu đồ Bar, Line, Pie.",
-                    res: "Guy in a Cube (YouTube), Microsoft Learn"
-                },
-                en: {
-                    desc: "Business analytics service by Microsoft.",
-                    help: "Turn raw data into interactive insights. Essential for data-driven decision making.",
-                    action: "Download Power BI Desktop. Create a simple dashboard from an Excel source.",
-                    res: "Microsoft Power BI Documentation"
-                }
-            },
-            'python': {
-                vi: {
-                    desc: "Ngôn ngữ lập trình đa năng, mạnh về xử lý dữ liệu.",
-                    help: "Tự động hóa các tác vụ lặp lại, xử lý file Excel lớn mà Power BI bị chậm, hoặc phân tích dữ liệu nâng cao.",
-                    action: "Học cú pháp cơ bản (biến, vòng lặp). Thử dùng thư viện Pandas để đọc file CSV.",
-                    res: "Automate the Boring Stuff with Python"
-                },
-                en: {
-                    desc: "Programming language for data analysis and automation.",
-                    help: "Automate repetitive tasks and handle large datasets beyond Excel's limit.",
-                    action: "Learn basics + Pandas library. Read a CSV file using Python.",
-                    res: "Codecademy Python"
-                }
-            },
-            'api': {
-                vi: {
-                    desc: "Cơ chế cho phép các phần mềm giao tiếp với nhau.",
-                    help: "Hiểu cách FE và BE nói chuyện. Viết tài liệu đặc tả API (Swagger/OpenAPI) cho Dev.",
-                    action: "Tải Postman. Thử gọi một API công khai (như OpenWeatherMap) để xem JSON trả về.",
-                    res: "Postman Learning Center"
-                },
-                en: {
-                    desc: "Application Programming Interface.",
-                    help: "Understand system integration. Write clear API specifications for developers.",
-                    action: "Download Postman. Make a GET request to a public API.",
-                    res: "Restful API Design Guidelines"
-                }
-            },
-            'agile': {
-                vi: {
-                    desc: "Tư duy phát triển phần mềm linh hoạt.",
-                    help: "Thích nghi với thay đổi yêu cầu. Tập trung chuyển giao giá trị sớm cho khách hàng thay vì viết tài liệu quá nhiều.",
-                    action: "Đọc Agile Manifesto. So sánh Agile vs Waterfall.",
-                    res: "Agile Alliance"
-                },
-                en: {
-                    desc: "Iterative approach to software delivery.",
-                    help: "Adapt to change and deliver value faster.",
-                    action: "Read the Agile Manifesto.",
-                    res: "Agile Manifesto"
-                }
-            },
-            'scrum': {
-                vi: {
-                    desc: "Framework phổ biến nhất để thực hiện Agile.",
-                    help: "Hiểu vai trò của mình trong các sự kiện: Daily, Sprint Planning, Review, Retrospective.",
-                    action: "Tìm hiểu về 3 vai trò, 5 sự kiện, 3 tạo tác (Artifacts) trong Scrum.",
-                    res: "Scrum Guide 2020"
-                },
-                en: {
-                    desc: "Framework for developing complex products.",
-                    help: "Participate effectively in Sprint events.",
-                    action: "Read the Scrum Guide.",
-                    res: "Scrum.org"
-                }
-            },
-            'requirements': {
-                vi: {
-                    desc: "Kỹ năng khơi gợi và thu thập yêu cầu.",
-                    help: "Tránh việc xây dựng sai sản phẩm. Hiểu rõ 'User Need' (Cần) khác với 'User Want' (Muốn).",
-                    action: "Luyện tập kỹ thuật '5 Whys' để tìm nguyên nhân gốc rễ vấn đề.",
-                    res: "BABOK Guide - Elicitation"
-                },
-                en: {
-                    desc: "Eliciting and gathering requirements.",
-                    help: "Ensure the team builds the right thing.",
-                    action: "Practice '5 Whys' technique.",
-                    res: "IIBA BABOK"
-                }
-            },
-            'bpmn': {
-                vi: {
-                    desc: "Chuẩn mô hình hóa quy trình nghiệp vụ.",
-                    help: "Vẽ quy trình chuẩn hóa để cả Sếp (Business) và Dev (Tech) đều hiểu đúng luồng đi.",
-                    action: "Dùng Draw.io hoặc Camunda vẽ lại quy trình 'Rút tiền tại ATM'.",
-                    res: "BPMN 2.0 Poster"
-                },
-                en: {
-                    desc: "Business Process Model and Notation.",
-                    help: "Visualise business processes clearly for all stakeholders.",
-                    action: "Model an 'ATM Withdrawal' process using BPMN.",
-                    res: "Camunda BPMN Tutorial"
-                }
-            },
-            'user stories': {
-                vi: {
-                    desc: "Cách viết yêu cầu dưới góc nhìn người dùng.",
-                    help: "Giúp team hiểu giá trị mang lại cho user. Cấu trúc: As a... I want to... So that...",
-                    action: "Viết 5 User Stories cho tính năng 'Đăng nhập'. Đừng quên Acceptance Criteria.",
-                    res: "Mountain Goat Software"
-                },
-                en: {
-                    desc: "Requirements written from end-user perspective.",
-                    help: "Clarify value. Format: As a... I want to... So that...",
-                    action: "Write 5 User Stories for a 'Login' feature with AC.",
-                    res: "User Stories Applied (Mike Cohn)"
-                }
-            },
-            'jira': {
-                vi: {
-                    desc: "Công cụ quản lý dự án Agile phổ biến nhất.",
-                    help: "Quản lý Backlog, tạo User Story, theo dõi tiến độ Sprint và Bug.",
-                    action: "Tạo tài khoản Jira Free. Thử tạo một Project Scrum và tạo vài Ticket.",
-                    res: "Atlassian University"
-                },
-                en: {
-                    desc: "Project tracking software.",
-                    help: "Manage backlog, sprints, and bugs.",
-                    action: "Sign up for Jira Free. Create a Scrum project.",
-                    res: "Atlassian Documentation"
-                }
-            },
-            'figma': {
-                vi: {
-                    desc: "Công cụ thiết kế giao diện (UI/UX).",
-                    help: "Tạo Wireframe/Mockup để trực quan hóa yêu cầu cho Dev và Khách hàng xem trước.",
-                    action: "Vẽ một màn hình 'Trang chủ' đơn giản bằng các khối hộp trong Figma.",
-                    res: "Figma 101 for BAs"
-                },
-                en: {
-                    desc: "Interface design tool.",
-                    help: "Create wireframes/mockups to visualize requirements.",
-                    action: "Create a simple 'Home Screen' wireframe.",
-                    res: "Figma Community"
-                }
-            },
-            'english': {
-                vi: {
-                    desc: "Tiếng Anh chuyên ngành CNTT/Business.",
-                    help: "Đọc tài liệu gốc, làm việc với đối tác nước ngoài, tiếp cận kiến thức mới nhất.",
-                    action: "Đọc 1 bài báo trên Medium về BA mỗi ngày bằng tiếng Anh.",
-                    res: "Medium, IIBA Articles"
-                },
-                en: {
-                    desc: "Professional English.",
-                    help: "Access global knowledge base and work internationally.",
-                    action: "Read one BA article in English daily.",
-                    res: "Harvard Business Review, Medium"
-                }
-            },
-            'communication': {
-                vi: {
-                    desc: "Giao tiếp, lắng nghe và truyền đạt.",
-                    help: "Dầu bôi trơn cho dự án. Giúp giải quyết xung đột và đảm bảo mọi người hiểu đúng ý nhau.",
-                    action: "Tập tóm tắt lại ý của người khác sau mỗi cuộc họp (Meeting Minutes).",
-                    res: "Crucial Conversations (Book)"
-                },
-                en: {
-                    desc: "Effective communication skills.",
-                    help: "Ensure clarity and alignment among stakeholders.",
-                    action: "Practice writing clear Meeting Minutes.",
-                    res: "Effective Communication Courses"
-                }
-            },
-            'excel': {
-                vi: {
-                    desc: "Kỹ năng bảng tính nâng cao.",
-                    help: "Xử lý dữ liệu nhanh, Pivot Table, VLOOKUP để phân tích sơ bộ trước khi dùng tool xịn.",
-                    action: "Học cách dùng Pivot Table và hàm VLOOKUP/XLOOKUP thành thạo.",
-                    res: "ExcelJet"
-                },
-                en: {
-                    desc: "Advanced Spreadsheet skills.",
-                    help: "Quick data analysis using Pivot Tables and Lookups.",
-                    action: "Master Pivot Tables and XLOOKUP.",
-                    res: "Chandoo.org"
-                }
-            }
-            // Các kỹ năng khác sẽ dùng default nếu chưa định nghĩa
-        };
-
-        // Persona Data
-        const personaData = {
+        // Định nghĩa chi tiết vai trò
+        const personaDefinitions = {
             technical: {
-                keySkills: ['sql', 'api', 'database', 'python', 'tableau', 'azure', 'etl', 'data warehouse'],
-                vi: { title: "BA Kỹ Thuật", desc: "Cầu nối giữa Business và Dev Team, chuyên sâu về thiết kế hệ thống và dữ liệu.", resp: ["Viết đặc tả API & Database", "Truy vấn dữ liệu phức tạp (SQL)", "Phân tích tích hợp hệ thống", "Hỗ trợ Dev debug lỗi logic"] },
-                en: { title: "Technical BA", desc: "Bridge between Business and Dev, focusing on system design and data.", resp: ["API & DB Specifications", "Complex SQL Queries", "System Integration Analysis", "Technical Debugging Support"] }
+                title: "BA Kỹ Thuật (Technical BA)",
+                description: "Tập trung vào 'LÀM THẾ NÀO' (How). Vai trò này bắc cầu giữa nghiệp vụ và đội ngũ kỹ thuật. Bạn sẽ làm việc sâu với dữ liệu, API, và cấu trúc hệ thống.",
+                keySkills: ['sql', 'power bi', 'tableau', 'ai', 'python', 'database', 'api', 'etl'],
+                responsibilities: [
+                    "Phân tích và đặc tả yêu cầu phi chức năng (non-functional requirements) như hiệu suất, bảo mật.",
+                    "Làm việc với CSDL (Database) để hiểu mô hình dữ liệu (data model).",
+                    "Đặc tả API và các luồng tích hợp hệ thống (integration flows).",
+                    "Hỗ trợ Dev Team gỡ lỗi (debug) và kiểm thử (testing) các tính năng phức tạp."
+                ],
+                caseStudy: "<strong>Ví dụ công việc:</strong> Khi công ty muốn tích hợp một cổng thanh toán mới, Technical BA sẽ là người ngồi xuống với đội ngũ kỹ thuật của bên thứ ba, đọc tài liệu API của họ, và sau đó thiết kế ra một sơ đồ trình tự (Sequence Diagram) mô tả chính xác cách hệ thống của công ty gọi và nhận dữ liệu từ API đó, bao gồm cả việc xử lý lỗi."
             },
             business: {
-                keySkills: ['requirements', 'bpmn', 'user stories', 'excel', 'figma', 'process modeling', 'use cases', 'brd'],
-                vi: { title: "BA Nghiệp Vụ", desc: "Tối ưu hóa quy trình và giải quyết bài toán kinh doanh cốt lõi.", resp: ["Vẽ lưu đồ quy trình (BPMN)", "Khơi gợi & Quản lý yêu cầu", "Viết tài liệu BRD/SRS", "UAT Testing với người dùng"] },
-                en: { title: "Business BA", desc: "Process optimization and solving business problems.", resp: ["Process Mapping (BPMN)", "Requirement Elicitation", "BRD/SRS Writing", "User Acceptance Testing"] }
+                title: "BA Nghiệp Vụ (Business BA)",
+                description: "Tập trung vào 'CÁI GÌ' (What) và 'TẠI SAO' (Why). Vai trò này tập trung vào việc hiểu sâu các quy trình kinh doanh, xác định vấn đề và cơ hội.",
+                keySkills: ['agile', 'scrum', 'requirements', 'business analysis', 'bpmn', 'uml', 'erp', 'banking', 'fintech'],
+                responsibilities: [
+                    "Phỏng vấn các bên liên quan (stakeholders) để tìm ra 'nỗi đau' (pain point) và nhu cầu thực sự.",
+                    "Vẽ sơ đồ quy trình nghiệp vụ (Business Process Model) bằng BPMN hoặc UML.",
+                    "Viết tài liệu đặc tả yêu cầu (BRD, User Stories) một cách rõ ràng, đầy đủ.",
+                    "Tổ chức các buổi họp 'grooming' (làm mịn) backlog với team."
+                ],
+                caseStudy: "<strong>Ví dụ công việc:</strong> Khi phòng Kế toán phàn nàn rằng quy trình duyệt chi đang quá chậm, Business BA sẽ là người tổ chức các buổi phỏng vấn, ngồi xuống 'shadow' (quan sát) họ làm việc, vẽ ra quy trình hiện tại (As-Is), tìm ra các điểm nghẽn, và thiết kế một quy trình mới (To-Be) được tự động hóa trên phần mềm ERP, giúp giảm thời gian duyệt chi từ 3 ngày xuống còn 4 giờ."
             },
             leader: {
-                keySkills: ['stakeholder management', 'presentation', 'negotiation', 'jira', 'confluence', 'mentoring', 'communication', 'agile'],
-                vi: { title: "BA Lãnh Đạo", desc: "Quản lý kỳ vọng, con người và định hướng chiến lược sản phẩm.", resp: ["Đàm phán phạm vi dự án", "Quản lý Stakeholder khó tính", "Xây dựng Roadmap sản phẩm", "Đào tạo & Mentoring team BA"] },
-                en: { title: "BA Lead", desc: "Managing expectations, people, and product strategy.", resp: ["Scope Negotiation", "Stakeholder Management", "Product Roadmap", "Team Mentoring"] }
+                title: "BA Lãnh Đạo (People BA / BA Lead)",
+                description: "Tập trung vào 'AI' (Who) và 'CON NGƯỜI'. Vai trò này nhấn mạnh kỹ năng giao tiếp, đàm phán và quản lý.",
+                keySkills: ['communication', 'management', 'stakeholder', 'stakeholder management', 'presentation', 'negotiation', 'mentoring', 'collaboration'],
+                responsibilities: [
+                    "Quản lý và điều phối một nhóm các BA khác trong dự án lớn.",
+                    "Xây dựng và duy trì mối quan hệ với các bên liên quan cấp cao (C-level, Giám đốc dự án).",
+                    "Tổ chức và thực hiện các buổi thuyết trình (Presentation) và Demo sản phẩm.",
+                    "Đào tạo (mentoring) và phát triển các thành viên BA trong nhóm."
+                ],
+                caseStudy: "<strong>Ví dụ công việc:</strong> Trong một dự án phần mềm lớn, khi hai phòng ban (Marketing và Sales) có những yêu cầu mâu thuẫn nhau về tính năng của CRM, BA Lead sẽ là người tổ chức một buổi họp, đứng ra làm trung gian (facilitator), giúp hai bên đàm phán (negotiate) và đi đến một giải pháp dung hòa (win-win) mà vẫn đảm bảo mục tiêu chung của dự án."
             }
         };
 
+        // (*** ĐÃ CẬP NHẬT CHI TIẾT ***)
+        // Giải thích chi tiết về kỹ năng
+        const skillDetails = {
+            'sql': {
+                description: "Ngôn ngữ truy vấn có cấu trúc (SQL) là công cụ nền tảng để làm việc với bất kỳ cơ sở dữ liệu quan hệ nào (như MySQL, PostgreSQL, Oracle).",
+                howItHelps: "Cho phép bạn *tự mình* lấy và xác minh dữ liệu ngay lập tức mà không cần chờ Dev. Bạn có thể kiểm tra giả thuyết nghiệp vụ (ví dụ: 'Bao nhiêu % người dùng đã bỏ giỏ hàng?'), hiểu sâu về cấu trúc data, và viết báo cáo chính xác. Đây là kỹ năng phân biệt một BA 'tốt' và một BA 'xuất sắc'."
+            },
+            'power bi': {
+                description: "Một công cụ trực quan hóa dữ liệu (Data Visualization) của Microsoft, giúp biến dữ liệu thô từ Excel/SQL thành biểu đồ và dashboard tương tác.",
+                howItHelps: "Giúp bạn trình bày kết quả phân tích một cách trực quan và *thuyết phục*. Thay vì gửi file Excel 10,000 dòng, bạn gửi một dashboard động cho phép sếp của bạn tự lọc/xem. Điều này giúp các stakeholders ra quyết định nhanh hơn và chính xác hơn."
+            },
+            'tableau': {
+                description: "Tương tự Power BI, Tableau là một công cụ trực quan hóa dữ liệu hàng đầu, rất mạnh về đồ họa và tính tương tác linh hoạt.",
+                howItHelps: "Giúp bạn khám phá và trình bày dữ liệu. Việc biết cả Power BI và Tableau là một lợi thế lớn, vì các công ty khác nhau sử dụng các công cụ khác nhau. Nếu bạn đã biết SQL, học công cụ này sẽ rất nhanh."
+            },
+            'ai': {
+                description: "Trí tuệ nhân tạo (AI) và Học máy (ML) đang dần được tích hợp vào các sản phẩm để phân tích dự đoán, nhận diện mẫu và tự động hóa.",
+                howItHelps: "Là một BA hiểu về AI, bạn có thể đề xuất các giải pháp *thông minh hơn* (ví dụ: chatbot hỗ trợ khách hàng, hệ thống gợi ý sản phẩm như Shopee, Netflix) thay vì chỉ các tính năng cơ bản. Đây là kỹ năng 'đón đầu' giúp bạn có lợi thế cạnh tranh rất lớn."
+            },
+            'english': {
+                description: "Ngoại ngữ, đặc biệt là tiếng Anh, là kỹ năng quan trọng nhất theo dữ liệu (88 lượt đề cập).",
+                howItHelps: "Toàn bộ tài liệu chuyên ngành (BABOK), tài liệu API kỹ thuật, các khóa học tốt nhất (IIBA, PMI) đều bằng tiếng Anh. Giỏi tiếng Anh giúp bạn tiếp cận nguồn tri thức vô tận, tự đọc tài liệu và làm việc trực tiếp với các đối tác, khách hàng global mà không cần phiên dịch."
+            },
+            'agile': {
+                description: "Là một *phương pháp luận* (mindset) phát triển phần mềm linh hoạt, tập trung vào việc lặp lại (iteration) và phản hồi liên tục, thay vì làm toàn bộ dự án trong 1 năm (Waterfall).",
+                howItHelps: "Hầu hết các công ty công nghệ hiện nay đều chạy Agile. Hiểu Agile giúp bạn hòa nhập ngay lập tức vào quy trình, biết cách viết User Story, tham gia các buổi họp (Sprint Planning, Retrospective) và giao sản phẩm nhanh chóng, giảm rủi ro làm sai yêu cầu."
+            },
+            'scrum': {
+                description: "Một 'framework' (khung làm việc) *cụ thể* và phổ biến nhất trong Agile, với các vai trò (Scrum Master, Product Owner, Dev Team) và sự kiện (Daily, Sprint, Review...) rõ ràng.",
+                howItHelps: "Biết Scrum (vốn là con của Agile) giúp bạn hiểu rõ vai trò của mình trong 'guồng máy' của team, cách team cam kết công việc, và làm thế nào để tối ưu hóa việc chuyển giao giá trị cho khách hàng sau mỗi 1-2 tuần (Sprint)."
+            },
+            'communication': {
+                description: "Kỹ năng giao tiếp là khả năng truyền đạt, lắng nghe, đặt câu hỏi và thấu hiểu thông tin một cách hiệu quả.",
+                howItHelps: "Đây là 'dầu bôi trơn' cho mọi hoạt động của BA. Bạn dùng nó để *phỏng vấn* stakeholder tìm ra 'nỗi đau', *đàm phán* yêu cầu khi có xung đột, *giải quyết xung đột* giữa các phòng ban, và *trình bày* giải pháp. Không có kỹ năng này, mọi kỹ thuật khác đều vô nghĩa."
+            },
+            'python': {
+                description: "Ngôn ngữ lập trình đa năng, rất mạnh trong mảng Phân tích Dữ liệu, Tự động hóa và AI.",
+                howItHelps: "Đối với Technical BA, Python giúp bạn làm những việc mà SQL/Excel không làm được: tự động hóa các tác vụ lặp lại (ví dụ: tự động lấy dữ liệu từ web), xử lý các tập dữ liệu cực lớn, và thậm chí xây dựng các mô hình AI/ML đơn giản để phân tích dự đoán."
+            },
+            'requirements': {
+                description: "Kỹ năng khơi gợi (Elicitation) và quản lý yêu cầu là cốt lõi của nghề BA. Đây là việc tìm ra stakeholder muốn gì, cần gì.",
+                howItHelps: "Giúp bạn đặt đúng câu hỏi (ví dụ: 5 Whys) để tìm ra nhu cầu *'chìm'* (ẩn) của người dùng, phân biệt giữa 'Muốn' (Want) và 'Cần' (Need), và viết ra các yêu cầu rõ ràng, không mập mờ, để developer có thể lập trình đúng ngay từ đầu, tránh làm lại."
+            },
+            'bpmn': {
+                description: "Business Process Model and Notation là một *tiêu chuẩn vàng* (ngôn ngữ chung) để vẽ sơ đồ quy trình nghiệp vụ.",
+                howItHelps: "Giúp bạn mô hình hóa các quy trình phức tạp (ví dụ: quy trình duyệt nghỉ phép) một cách trực quan và đồng nhất. Một biểu đồ BPMN chuẩn có thể được hiểu bởi cả sếp nghiệp vụ (để thấy luồng đi) và dev kỹ thuật (để cấu hình hệ thống), tránh hiểu lầm."
+            },
+            'management': {
+                description: "Kỹ năng quản lý, bao gồm quản lý thời gian, phạm vi (scope) dự án và quản lý con người/kỳ vọng.",
+                howItHelps: "Khi bạn lên cấp (Senior/Lead), bạn không chỉ làm BA mà còn phải quản lý. Kỹ năng này giúp bạn lập kế hoạch cho team BA, theo dõi tiến độ, *ngăn chặn 'scope creep'* (yêu cầu phát sinh vô tội vạ) và đảm bảo dự án/sản phẩm đi đúng hướng, đúng hẹn."
+            },
+            // (MỚI BỔ SUNG)
+            'jira': {
+                description: "Là công cụ (tool) phổ biến nhất để quản lý dự án Agile/Scrum. Nó giúp theo dõi User Story, bugs, và tiến độ công việc.",
+                howItHelps: "Biết Jira là điều gần như bắt buộc. Nó giúp bạn tạo và quản lý 'backlog' (danh sách yêu cầu), gán việc cho Dev, theo dõi trạng thái (To Do, In Progress, Done) và tạo báo cáo tiến độ Sprint. Đây là công cụ làm việc hàng ngày của BA."
+            },
+            'confluence': {
+                description: "Là một công cụ 'wiki' (tương tự Google Docs) thường đi chung với Jira. Đây là nơi lưu trữ tài liệu, tài liệu đặc tả (BRD), và kiến thức dự án.",
+                howItHelps: "Giúp bạn tổ chức và chia sẻ tài liệu một cách tập trung. Thay vì gửi file Word qua email, mọi tài liệu (đặc tả yêu cầu, hướng dẫn sử dụng, biên bản họp) đều nằm trên Confluence, giúp mọi người trong team (kể cả người mới) dễ dàng tìm kiếm và tra cứu."
+            },
+            'analytical': {
+                description: "Kỹ năng phân tích là khả năng chia nhỏ một vấn đề lớn, phức tạp thành các phần nhỏ hơn để hiểu và giải quyết nó.",
+                howItHelps: "Đây là 'bộ não' của BA. Khi sếp nói 'Doanh thu đang giảm', kỹ năng này giúp bạn đặt câu hỏi: 'Giảm ở đâu? Khi nào? Tại sao?'. Bạn sẽ dùng nó để phân tích dữ liệu, quy trình, tìm ra *nguyên nhân gốc rễ* của vấn đề thay vì chỉ xử lý triệu chứng."
+            },
+            'excel': {
+                description: "Microsoft Excel không chỉ là bảng tính, mà là công cụ phân tích dữ liệu nhanh và mạnh mẽ nhất (với Pivot Table, VLOOKUP, Power Query).",
+                howItHelps: "Trước khi cần đến SQL hay Power BI, Excel là công cụ nhanh nhất để bạn xử lý, làm sạch và phân tích các bộ dữ liệu nhỏ/trung bình. Bạn sẽ dùng nó hàng ngày để tạo báo cáo nhanh, lập danh sách yêu cầu, và trình bày các phân tích đơn giản."
+            },
+            'figma': {
+                description: "Công cụ thiết kế giao diện (UI/UX) hàng đầu, cho phép BA tạo ra các bản 'mockup' (thiết kế) và 'prototype' (mẫu thử tương tác được).",
+                howItHelps: "Giúp bạn biến ý tưởng và yêu cầu thành một bản thiết kế trực quan. Thay vì mô tả bằng lời, bạn cho stakeholder *thấy* sản phẩm sẽ trông như thế nào. Một prototype tốt (dù chỉ là trắng đen) có giá trị hơn 10 trang tài liệu mô tả."
+            },
+            'uml': {
+                description: "Ngôn ngữ mô hình hóa thống nhất (UML) là một bộ các biểu đồ chuẩn (như Use Case, Sequence, Class Diagram) để mô tả hệ thống.",
+                howItHelps: "Giúp bạn mô tả hệ thống ở nhiều góc nhìn. Bạn dùng 'Use Case Diagram' để chỉ ra ai làm gì với hệ thống. Bạn dùng 'Sequence Diagram' (quan trọng với Technical BA) để chỉ ra các hệ thống 'nói chuyện' với nhau như thế nào. Đây là ngôn ngữ chung giữa BA và Dev."
+            },
+            'stakeholder management': {
+                description: "Kỹ năng quản lý các bên liên quan, tức là xác định, phân tích và làm việc hiệu quả với tất cả những người bị ảnh hưởng bởi dự án.",
+                howItHelps: "Một dự án luôn có nhiều người (Sếp, User, Dev, Tester...). Mỗi người có một mong muốn và quyền lực khác nhau. Kỹ năng này giúp bạn biết ai là người 'gật đầu' cuối cùng, ai cần được báo cáo hàng ngày, ai chỉ cần thông báo, từ đó đảm bảo mọi người đều ủng hộ dự án."
+            },
+            'presentation': {
+                description: "Kỹ năng thuyết trình là khả năng trình bày thông tin, giải pháp một cách rõ ràng và thuyết phục trước đám đông (stakeholders, team).",
+                howItHelps: "BA thường xuyên phải 'demo' sản phẩm cho khách hàng, trình bày giải pháp cho sếp, hoặc đào tạo (training) cho người dùng. Một bài thuyết trình tốt sẽ giúp 'bán' ý tưởng của bạn, nhận được sự đồng thuận và làm cho người dùng cuối hào hứng với sản phẩm mới."
+            },
+            'database': {
+                description: "Hiểu biết về cơ sở dữ liệu (CSDL) là hiểu cách dữ liệu được tổ chức, lưu trữ và mối quan hệ giữa chúng (ví dụ: 1 khách hàng có nhiều đơn hàng).",
+                howItHelps: "Đây là *nền tảng* để học SQL. Khi bạn hiểu về 'primary key', 'foreign key', bạn sẽ biết cách 'JOIN' các bảng lại với nhau. Nó giúp bạn hiểu hệ thống ở mức sâu hơn, biết dữ liệu nằm ở đâu và tại sao nó lại như vậy."
+            },
+            'api': {
+                description: "Giao diện lập trình ứng dụng (API) là cách để hai hệ thống phần mềm 'nói chuyện' với nhau (ví dụ: app Shopee gọi API của ngân hàng để thanh toán).",
+                howItHelps: "Là một Technical BA, bạn sẽ phải đọc tài liệu API (để hiểu cách gửi/nhận dữ liệu) và viết đặc tả API. Đây là kỹ năng mấu chốt khi làm việc với các hệ thống phức tạp, có nhiều tích hợp (integration)."
+            },
+            'erp': {
+                description: "Hệ thống hoạch định nguồn lực doanh nghiệp (ERP) là một phần mềm khổng lồ quản lý *mọi thứ* trong công ty (Kế toán, Nhân sự, Kho, Bán hàng...). SAP là một ví dụ.",
+                howItHelps: "Nếu bạn làm BA cho mảng ERP, bạn sẽ làm việc với các quy trình nghiệp vụ *cực kỳ* phức tạp và cốt lõi của doanh nghiệp. Đây là một mảng BA có tính đặc thù cao, đòi hỏi sự hiểu biết nghiệp vụ sâu sắc."
+            },
+            'banking': {
+                description: "Kỹ năng lĩnh vực (domain) về Ngân hàng, bao gồm hiểu biết về các sản phẩm (thẻ, vay, tiền gửi) và quy trình (core banking, thanh toán).",
+                howItHelps: "Giúp bạn nói 'chung ngôn ngữ' với nghiệp vụ ngân hàng. Bạn sẽ hiểu ngay các thuật ngữ như 'CIF', 'tất toán', 'lãi suất thả nổi' là gì mà không cần hỏi lại, giúp việc khơi gợi yêu cầu nhanh và chính xác hơn rất nhiều. Đây là một lĩnh vực 'hot' cho BA."
+            }
+        };
+
+        // Mối liên hệ kỹ năng (A bổ trợ cho B, C...)
+        const skillSynergies = {
+            'sql': ['power bi', 'tableau', 'python', 'ai', 'database', 'etl'],
+            'agile': ['scrum', 'jira', 'confluence'],
+            'scrum': ['agile', 'jira'],
+            'requirements': ['uml', 'bpmn', 'figma', 'visio', 'business analysis'],
+            'communication': ['stakeholder management', 'presentation', 'negotiation', 'management'],
+            'python': ['ai', 'spark', 'big data'],
+            'database': ['sql', 'data warehouse', 'etl']
+        };
+
+        // "Bộ não" Phụ thuộc (Học A TRƯỚC B)
+        // Định nghĩa: 'A': ['B', 'C'] có nghĩa là A là điều kiện tiên quyết cho B và C.
+        // B và C nên được học SAU A.
+        const skillPrereqs = {
+            'sql': ['power bi', 'tableau', 'etl', 'data warehouse', 'ai', 'python'], // Cần SQL trước khi học những cái này
+            'agile': ['scrum', 'jira', 'confluence', 'product owner'], // Cần Agile trước
+            'requirements': ['uml', 'bpmn', 'user stories', 'business analysis'], // Cần hiểu về 'requirements' nói chung
+            'python': ['ai'], // Python là nền tảng cho AI
+            'database': ['sql'], // Hiểu về DB trước khi học SQL
+            'communication': ['stakeholder management', 'presentation', 'negotiation'] // Giao tiếp là nền tảng
+        };
+        
+        // Biến toàn cục
         let currentPlanData = {};
 
-        // === 3. HÀM XỬ LÝ NGÔN NGỮ ===
-        function switchLanguage(lang) {
-            currentLang = lang;
-            const t = translations[lang];
-            const btnVi = document.getElementById('btn-vi');
-            const btnEn = document.getElementById('btn-en');
-            
-            if (lang === 'vi') {
-                btnVi.className = "px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-sm bg-white text-sky-600";
-                btnEn.className = "px-5 py-2.5 rounded-lg text-sm font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 transition-all";
-            } else {
-                btnEn.className = "px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-sm bg-white text-sky-600";
-                btnVi.className = "px-5 py-2.5 rounded-lg text-sm font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 transition-all";
-            }
-
-            document.getElementById('app-title').innerText = t.appTitle;
-            document.getElementById('app-subtitle').innerText = t.appSubtitle;
-            document.getElementById('step1-title').innerText = t.step1;
-            document.getElementById('role-tech-title').innerText = t.roleTech;
-            document.getElementById('role-tech-desc').innerText = t.roleTechDesc;
-            document.getElementById('role-biz-title').innerText = t.roleBiz;
-            document.getElementById('role-biz-desc').innerText = t.roleBizDesc;
-            document.getElementById('role-lead-title').innerText = t.roleLead;
-            document.getElementById('role-lead-desc').innerText = t.roleLeadDesc;
-            document.getElementById('step2-title').innerText = t.step2;
-            document.getElementById('skill-instruction').innerText = t.skillInstruction;
-            document.getElementById('btn-generate').firstElementChild.innerText = t.btnGenerate;
-            document.getElementById('modal-title').innerText = t.modalTitle;
-            document.getElementById('modal-role-label').innerText = t.modalRole;
-            document.getElementById('modal-skills-label').innerText = t.modalSkills;
-            document.getElementById('modal-close-btn').innerText = t.btnBack;
-            document.getElementById('modal-confirm-btn').innerText = t.btnConfirm;
-            document.getElementById('loader-text').innerText = t.loader;
-            document.getElementById('loader-title').innerText = t.loaderTitle;
-
+        // === KHỞI TẠO GIAO DIỆN ===
+        document.addEventListener('DOMContentLoaded', () => {
             populateSkillsAccordion();
-            if (!document.getElementById('report-hub-page').classList.contains('hidden')) {
-                buildReportHubPage();
-            }
-        }
+            document.getElementById('generate-btn').addEventListener('click', showSummaryModal);
+            document.getElementById('modal-close-btn').addEventListener('click', hideSummaryModal);
+            document.getElementById('modal-confirm-btn').addEventListener('click', confirmAndGenerate);
+        });
 
-        // === 4. LOGIC CHÍNH ===
-        
+        // Hàm điền các kỹ năng vào accordion
         function populateSkillsAccordion() {
             const container = document.getElementById('skills-accordion');
-            container.innerHTML = ''; 
-            
-            const cats = {};
-            allSkillsData.forEach(skill => {
-                if (!cats[skill.category]) cats[skill.category] = [];
-                cats[skill.category].push(skill);
-            });
+            const skillsByCategory = allSkillsData.reduce((acc, skill) => {
+                const category = skill.category;
+                if (!acc[category]) {
+                    acc[category] = [];
+                }
+                acc[category].push(skill);
+                return acc;
+            }, {});
 
-            const t = translations[currentLang];
+            const categoryOrder = ["Kỹ Năng Mềm", "Kỹ Năng Nghiệp Vụ", "Kỹ Năng Kỹ Thuật", "Công Cụ & Nền Tảng", "Kỹ Năng Lĩnh Vực", "Ngoại Ngữ"];
             
-            Object.keys(cats).forEach(catKey => {
-                const skills = cats[catKey];
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'border border-slate-200 rounded-xl bg-white overflow-hidden shadow-sm';
-                
-                const displayCat = t.cats[catKey] || catKey;
+            for (const category of categoryOrder) {
+                if (!skillsByCategory[category]) continue;
 
+                // Sắp xếp kỹ năng theo số lượt (count) giảm dần
+                const skills = skillsByCategory[category].sort((a,b) => b.count - a.count);
+                const section = document.createElement('div');
+                section.className = 'border border-gray-200 rounded-lg';
+
+                // Tạo header cho accordion
                 const header = document.createElement('button');
-                header.className = 'w-full flex justify-between items-center p-5 bg-slate-50 hover:bg-white transition-colors text-left font-bold text-slate-700 border-b border-slate-100';
+                header.className = 'w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100 transition rounded-t-lg';
                 header.innerHTML = `
-                    <span>${displayCat}</span>
-                    <svg class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    <span class="font-semibold text-gray-700">${category}</span>
+                    <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 `;
 
+                // Tạo nội dung (danh sách checkbox)
                 const content = document.createElement('div');
-                content.className = 'p-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 hidden';
-
+                content.className = 'p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 border-t border-gray-200 hidden';
+                
                 skills.forEach(skill => {
                     const label = document.createElement('label');
-                    label.className = 'flex items-center gap-3 p-3 rounded-lg hover:bg-sky-50 cursor-pointer transition border border-transparent hover:border-sky-100';
+                    label.className = 'flex items-center p-2 rounded hover:bg-slate-50 cursor-pointer';
                     label.innerHTML = `
-                        <input type="checkbox" value="${skill.id}" class="custom-checkbox text-sky-600">
-                        <span class="text-sm font-medium text-slate-700">${skill.name}</span>
+                        <input type="checkbox" class="skill-checkbox h-4 w-4 rounded text-brand-blue" value="${skill.id}">
+                        <span class="ml-2 text-sm text-gray-700">${skill.name} (${skill.count} lượt)</span>
                     `;
                     content.appendChild(label);
                 });
 
+                // Thêm sự kiện click để mở/đóng
                 header.addEventListener('click', () => {
                     content.classList.toggle('hidden');
                     header.querySelector('svg').classList.toggle('rotate-180');
                 });
-
-                groupDiv.appendChild(header);
-                groupDiv.appendChild(content);
-                container.appendChild(groupDiv);
-            });
-        }
-
-        document.getElementById('generate-btn').addEventListener('click', () => {
-            const modal = document.getElementById('summary-modal');
-            const roleVal = document.querySelector('input[name="persona"]:checked').value;
-            const roleName = translations[currentLang][roleVal === 'technical' ? 'roleTech' : roleVal === 'business' ? 'roleBiz' : 'roleLead'];
-            
-            document.getElementById('modal-persona').innerText = roleName;
-            
-            const selectedSkills = Array.from(document.querySelectorAll('.custom-checkbox:checked')).map(cb => {
-                return cb.nextElementSibling.innerText;
-            });
-            
-            const list = document.getElementById('modal-skills-list');
-            list.innerHTML = selectedSkills.length 
-                ? selectedSkills.map(s => `<span class="bg-sky-100 text-sky-800 px-3 py-1.5 rounded-md text-xs font-bold border border-sky-200">${s}</span>`).join('')
-                : `<span class="text-slate-400 italic">${currentLang === 'vi' ? 'Chưa chọn kỹ năng nào' : 'No skills selected'}</span>`;
-
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-        });
-
-        document.getElementById('modal-close-btn').addEventListener('click', () => {
-            const modal = document.getElementById('summary-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        });
-
-        document.getElementById('modal-confirm-btn').addEventListener('click', () => {
-            document.getElementById('summary-modal').classList.add('hidden');
-            runAnalysis();
-        });
-
-        function runAnalysis() {
-            const loader = document.getElementById('loader-container');
-            loader.classList.remove('hidden');
-            
-            const roleVal = document.querySelector('input[name="persona"]:checked').value;
-            const userSkills = new Set(Array.from(document.querySelectorAll('.custom-checkbox:checked')).map(cb => cb.value));
-            
-            const coreMissing = coreSkillIds.filter(id => !userSkills.has(id));
-            const roleMissing = personaData[roleVal].keySkills.filter(id => !userSkills.has(id));
-            const newMissing = emergingSkillIds.filter(id => !userSkills.has(id));
-
-            currentPlanData = { roleVal, coreMissing, roleMissing, newMissing, userSkills };
-
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                document.getElementById('selection-page').classList.add('hidden');
-                document.getElementById('report-hub-page').classList.remove('hidden');
-                buildReportHubPage();
-                window.scrollTo(0, 0);
-            }, 2000); // Giả lập thời gian phân tích
-        }
-
-        function buildReportHubPage() {
-            const t = translations[currentLang];
-            const hub = document.getElementById('report-hub-page');
-            const { roleVal, coreMissing, roleMissing, newMissing } = currentPlanData;
-            const pData = personaData[roleVal][currentLang];
-            
-            // Logic lời khuyên chiến lược
-            let strategyAdvice = "";
-            const totalMissing = coreMissing.length + roleMissing.length + newMissing.length;
-            if (totalMissing > 15) {
-                strategyAdvice = currentLang === 'vi' ? "Bạn đang ở giai đoạn khởi đầu. Đừng quá áp lực, hãy tập trung toàn lực vào Giai đoạn 1 (Cốt lõi) trong 3 tháng tới." : "You are at the beginning. Focus entirely on Phase 1 (Core) for the next 3 months.";
-            } else if (totalMissing > 5) {
-                strategyAdvice = currentLang === 'vi' ? "Nền tảng của bạn khá ổn. Hãy bắt đầu các dự án thực tế (Portfolio) với các kỹ năng chuyên sâu để tạo sự khác biệt." : "Your foundation is solid. Start building a Portfolio with specialized skills.";
-            } else {
-                strategyAdvice = currentLang === 'vi' ? "Hồ sơ của bạn rất mạnh! Hãy tập trung vào kỹ năng Lãnh đạo và các công nghệ mới (AI) để bứt phá thu nhập." : "Strong profile! Focus on Leadership and AI to maximize your value.";
+                
+                section.appendChild(header);
+                section.appendChild(content);
+                container.appendChild(section);
             }
-
-            hub.innerHTML = `
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight">${t.hubTitle}</h2>
-                    <button onclick="resetApp()" class="text-sm font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 bg-white px-4 py-2 rounded-lg shadow-sm hover:shadow transition">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                        ${t.btnNew}
-                    </button>
-                </div>
-
-                <!-- Role Card -->
-                <div class="page-container bg-gradient-to-br from-sky-50 to-blue-50 border-sky-200 overflow-hidden relative">
-                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-sky-100 rounded-full opacity-50 blur-2xl"></div>
-                    <div class="relative z-10">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-xs font-black text-sky-500 uppercase tracking-widest mb-2">${t.yourRole}</h3>
-                                <h4 class="text-4xl font-black text-slate-800 mb-3">${pData.title}</h4>
-                                <p class="text-lg text-slate-600 mb-6 max-w-3xl font-medium">${pData.desc}</p>
-                            </div>
-                            <div class="hidden md:block bg-white/60 p-4 rounded-xl backdrop-blur-sm border border-white/50 shadow-sm">
-                                <p class="text-xs font-bold text-slate-400 uppercase mb-1">${t.strategicAdvice}</p>
-                                <p class="text-sm font-semibold text-slate-700 max-w-xs italic">"${strategyAdvice}"</p>
-                            </div>
-                        </div>
-                        <div class="bg-white/80 p-5 rounded-2xl shadow-sm border border-white/60">
-                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                ${pData.resp.map(r => `<li class="flex items-center gap-2 text-sm font-medium text-slate-700"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>${r}</li>`).join('')}
-                            </ul>
-                        </div>
-                        <div class="mt-6 flex justify-end">
-                             <button onclick="showDetail('2')" class="text-sm font-bold text-sky-700 hover:text-sky-900 flex items-center gap-1 hover:underline transition">${t.btnViewRole} →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 class="text-2xl font-bold text-slate-800 mt-10 mb-6 flex items-center gap-2">
-                    <span class="bg-slate-800 w-2 h-8 rounded-full"></span>
-                    ${t.roadmapTitle}
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    ${renderStepCard(1, t.stepCore, t.stepCoreDesc, coreMissing, 'yellow')}
-                    ${renderStepCard(2, t.stepSpec, t.stepSpecDesc, roleMissing, 'sky')}
-                    ${renderStepCard(3, t.stepNew, t.stepNewDesc, newMissing, 'indigo')}
-                </div>
-            `;
         }
 
-        function renderStepCard(step, title, desc, missingList, color) {
-            const t = translations[currentLang];
-            const isDone = missingList.length === 0;
-            const count = missingList.length;
-            
-            const styles = {
-                yellow: { border: 'border-amber-400', bg: 'bg-amber-50', text: 'text-amber-900', icon: 'text-amber-500', btn: 'bg-amber-500 hover:bg-amber-600' },
-                sky: { border: 'border-sky-400', bg: 'bg-sky-50', text: 'text-sky-900', icon: 'text-sky-500', btn: 'bg-sky-500 hover:bg-sky-600' },
-                indigo: { border: 'border-indigo-400', bg: 'bg-indigo-50', text: 'text-indigo-900', icon: 'text-indigo-500', btn: 'bg-indigo-500 hover:bg-indigo-600' }
-            };
-            
-            const style = styles[color];
-            
-            const btnContent = isDone 
-                ? `<span class="flex items-center justify-center gap-2 text-green-600"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>${t.completed}</span>`
-                : `<button onclick="showDetail('${step}')" class="w-full py-3 rounded-xl ${style.btn} text-white font-bold shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">${t.btnViewDetail} <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></button>`;
-
-            return `
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-full hover:shadow-md transition-shadow relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1.5 ${style.bg.replace('bg-', 'bg-gradient-to-r from-white via-') + '-400 to-white'}"></div>
-                    <div class="flex-grow">
-                        <div class="flex items-start justify-between mb-4">
-                            <div>
-                                <h4 class="font-bold text-xl text-slate-800 mb-1">${title}</h4>
-                                <p class="text-xs text-slate-500 font-medium uppercase tracking-wide">${desc}</p>
-                            </div>
-                            <div class="${style.bg} p-2 rounded-lg ${style.icon}">
-                                <span class="text-2xl font-black">${isDone ? '✓' : count}</span>
-                            </div>
-                        </div>
-                        <div class="space-y-2 mb-6">
-                            ${missingList.slice(0, 3).map(id => `<div class="text-sm text-slate-600 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>${allSkillsData.find(s=>s.id===id)?.name}</div>`).join('')}
-                            ${count > 3 ? `<div class="text-xs text-slate-400 font-medium pl-3.5">+ ${count - 3} ${t.skills}</div>` : ''}
-                        </div>
-                    </div>
-                    <div class="mt-auto pt-4 border-t border-slate-50">
-                        ${btnContent}
-                    </div>
-                </div>
-            `;
-        }
-
-        function showDetail(step) {
-            const t = translations[currentLang];
-            let skills = [];
-            let title = "";
-            let desc = "";
-            
-            if(step == 1) { skills = currentPlanData.coreMissing; title = t.stepCore; desc = t.stepCoreDesc; }
-            if(step == 2) { skills = currentPlanData.roleMissing; title = t.stepSpec; desc = t.stepSpecDesc; }
-            if(step == 3) { skills = currentPlanData.newMissing; title = t.stepNew; desc = t.stepNewDesc; }
-
-            const page = document.getElementById('skill-group-detail-page');
-            document.getElementById('report-hub-page').classList.add('hidden');
-            page.classList.remove('hidden');
-            window.scrollTo(0, 0);
-
-            page.innerHTML = `
-                <div class="flex items-center gap-4 mb-8">
-                    <button onclick="backToHub()" class="bg-white border border-slate-200 p-2.5 rounded-xl text-slate-500 hover:text-sky-600 hover:border-sky-200 hover:shadow-sm transition">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-                    </button>
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-800">${title}</h2>
-                        <p class="text-sm text-slate-500 font-medium">${desc}</p>
-                    </div>
-                </div>
-                <div class="space-y-6">
-                    ${skills.length === 0 
-                        ? `<div class="text-center p-12 bg-white rounded-2xl border border-dashed border-slate-300"><p class="text-lg text-slate-400 font-medium">🎉 ${t.completed}</p></div>` 
-                        : skills.map(id => renderSkillItem(id)).join('')}
-                </div>
-            `;
-        }
-
-        function renderSkillItem(id) {
-            const t = translations[currentLang];
+        // Hàm tìm kỹ năng bằng ID (cập nhật để xử lý tốt hơn)
+        function findSkillById(id) {
             const skill = allSkillsData.find(s => s.id === id);
-            const detailRaw = skillDetails[id] || { vi: {desc: "Đang cập nhật...", help: "...", action: "...", res: "Google"}, en: {desc: "Updating...", help: "...", action: "...", res: "Google"} };
-            const detail = detailRaw[currentLang];
-            
-            const prereqList = skillPrereqs[id] || [];
-            const missingPrereqs = prereqList.filter(pId => !currentPlanData.userSkills.has(pId));
-            
-            let statusBadge = '';
-            let borderClass = 'border-l-4 border-l-sky-500'; // Default Blue
-            
-            if(missingPrereqs.length > 0) {
-                borderClass = 'border-l-4 border-l-red-400';
-                statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-bold bg-red-100 text-red-700">⚠️ ${t.priorityLabel[3]}</span>`;
-            } else if (Object.values(skillPrereqs).flat().includes(id)) {
-                borderClass = 'border-l-4 border-l-emerald-500';
-                statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-700">🌱 ${t.priorityLabel[1]}</span>`;
+            if (!skill) {
+                // Xử lý các trường hợp đặc biệt (kỹ năng logic) không có trong allSkillsData
+                const exceptions = {
+                    'stakeholder management': { id: 'stakeholder management', name: 'Stakeholder Management', count: 9, category: "Kỹ Năng Mềm" },
+                    'user stories': { id: 'user stories', name: 'User Stories', count: 0, category: "Kỹ Năng Nghiệp Vụ" }, // Giả định count = 0 nếu không có
+                };
+                return exceptions[id] || { id: id, name: id.charAt(0).toUpperCase() + id.slice(1), count: 'N/A', category: 'N/A' };
+            }
+            return skill;
+        }
+
+
+        // === CÁC HÀM XỬ LÝ MODAL ===
+        function showSummaryModal() {
+            const modal = document.getElementById('summary-modal');
+            const modalContent = document.getElementById('modal-content');
+
+            // Lấy dữ liệu từ form
+            const selectedPersonaValue = document.querySelector('input[name="persona"]:checked').value;
+            const selectedPersonaLabel = document.querySelector(`input[value="${selectedPersonaValue}"]`).closest('label').querySelector('strong').textContent;
+            const userSkills = new Set();
+            const userSkillNames = [];
+            document.querySelectorAll('.skill-checkbox:checked').forEach(cb => {
+                userSkills.add(cb.value);
+                userSkillNames.push(cb.nextElementSibling.textContent.split(' (')[0]);
+            });
+
+            // Lưu dữ liệu vào biến toàn cục để chuẩn bị tạo kế hoạch
+            currentPlanData = {
+                selectedPersona: selectedPersonaValue,
+                userSkills: userSkills, // Đây là một Set() chứa các ID
+                selectedPersonaLabel: selectedPersonaLabel,
+                userSkillNames: userSkillNames.sort()
+            };
+
+            // Hiển thị dữ liệu lên modal
+            document.getElementById('modal-persona').textContent = selectedPersonaLabel;
+            const skillsListContainer = document.getElementById('modal-skills-list');
+            document.getElementById('modal-skill-count').textContent = userSkillNames.length;
+
+            if (userSkillNames.length > 0) {
+                skillsListContainer.innerHTML = '';
+                userSkillNames.forEach(name => {
+                    const skillTag = document.createElement('span');
+                    skillTag.className = 'bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full';
+                    skillTag.textContent = name;
+                    skillsListContainer.appendChild(skillTag);
+                });
             } else {
-                statusBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-bold bg-sky-100 text-sky-700">🚀 ${t.priorityLabel[2]}</span>`;
+                skillsListContainer.innerHTML = '<span class="text-gray-500 italic">Bạn chưa chọn kỹ năng nào.</span>';
             }
 
-            return `
-                <div class="page-container p-0 overflow-hidden ${borderClass} shadow-md hover:shadow-lg transition-shadow">
-                    <div class="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-800 flex items-center gap-3">
-                                ${skill.name}
-                                ${statusBadge}
-                            </h3>
-                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider mt-1 block">${t.cats[skill.category] || skill.category}</span>
+            // Hiệu ứng mở modal
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function hideSummaryModal() {
+            const modal = document.getElementById('summary-modal');
+            const modalContent = document.getElementById('modal-content');
+
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function confirmAndGenerate() {
+            hideSummaryModal();
+            setTimeout(runPlanGeneration, 300); // Chờ modal đóng rồi mới chạy
+        }
+
+        // === HÀM ĐIỀU HƯỚNG TRANG CHÍNH ===
+        function navigateToPage(pageId, data = {}) {
+            // Ẩn tất cả các trang
+            document.getElementById('selection-page').classList.add('hidden');
+            document.getElementById('report-hub-page').classList.add('hidden');
+            document.getElementById('persona-detail-page').classList.add('hidden');
+            document.getElementById('skill-group-detail-page').classList.add('hidden');
+
+            // Xử lý và hiển thị trang được yêu cầu
+            switch (pageId) {
+                case 'selection':
+                    document.getElementById('selection-page').classList.remove('hidden');
+                    break;
+                case 'hub':
+                    document.getElementById('report-hub-page').classList.remove('hidden');
+                    break;
+                case 'persona-detail':
+                    buildPersonaDetailPage();
+                    document.getElementById('persona-detail-page').classList.remove('hidden');
+                    break;
+                case 'skill-group-detail':
+                    // Truyền userSkills vào để kiểm tra logic
+                    buildSkillGroupDetailPage(data.title, data.skills, data.color, currentPlanData.userSkills);
+                    document.getElementById('skill-group-detail-page').classList.remove('hidden');
+                    break;
+            }
+            window.scrollTo(0, 0); // Cuộn lên đầu trang
+        }
+
+        // === HÀM TẠO KẾ HOẠCH (BỘ NÃO) ===
+        function runPlanGeneration() {
+            const loader = document.getElementById('loader-container');
+            const { selectedPersona, userSkills } = currentPlanData;
+            
+            // Hiển thị loader
+            loader.classList.remove('hidden');
+            loader.classList.add('flex');
+            document.getElementById('selection-page').classList.add('hidden');
+
+            // 1. Phân tích thiếu hụt (Gap Analysis)
+            const coreGap = coreSkillIds
+                .filter(id => !userSkills.has(id)) // Lọc ra ID chưa có
+                .map(findSkillById) // Chuyển ID thành đối tượng skill
+                .sort((a,b) => b.count - a.count); // Sắp xếp theo độ phổ biến
+
+            const emergingGap = emergingSkillIds
+                .filter(id => !userSkills.has(id))
+                .map(findSkillById)
+                .sort((a,b) => b.count - a.count);
+                
+            const personaDef = personaDefinitions[selectedPersona];
+            const personaGap = personaDef.keySkills
+                .filter(id => !userSkills.has(id))
+                .map(findSkillById)
+                .sort((a, b) => b.count - a.count);
+
+            // 2. Lưu kết quả vào biến toàn cục
+            currentPlanData.results = {
+                coreGap,
+                emergingGap,
+                personaGap,
+                personaDef
+            };
+
+            // 3. Giả lập thời gian xử lý
+            setTimeout(() => {
+                // 4. Xây dựng trang Hub
+                buildReportHubPage();
+
+                // 5. Ẩn loader, hiện trang Hub
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+                navigateToPage('hub'); // Hiển thị trang Hub
+            }, 1500);
+        }
+
+        // === CÁC HÀM XÂY DỰNG TRANG (BUILDERS) ===
+
+        // Xây dựng Trang Hub (Bảng điều khiển)
+        function buildReportHubPage() {
+            const { personaDef, coreGap, personaGap, emergingGap } = currentPlanData.results;
+            const hubPage = document.getElementById('report-hub-page');
+            const totalMissing = coreGap.length + personaGap.length + emergingGap.length;
+
+            let html = `
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b-2 border-slate-200 pb-4 mb-8 gap-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-indigo">
+                        Lộ Trình Của Bạn
+                    </h2>
+                    <button class="nav-button w-full sm:w-auto bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition shrink-0" data-page="selection">
+                        &larr; Tạo Lộ Trình Mới
+                    </button>
+                </div>
+                
+                <!-- Thẻ Vai Trò -->
+                <section class="mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-8 shadow-sm animate-fade-in">
+                    <h3 class="text-xl font-bold text-gray-500 uppercase tracking-wider">Định Hướng Của Bạn</h3>
+                    <h4 class="text-3xl font-bold text-brand-blue my-2">${personaDef.title}</h4>
+                    <p class="text-lg text-gray-600 mt-2 mb-6 max-w-3xl">${personaDef.description}</p>
+                    <button class="nav-button bg-brand-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-brand-indigo transition transform hover:-translate-y-0.5" data-page="persona-detail">
+                        Xem Chi Tiết Vai Trò &rarr;
+                    </button>
+                </section>
+
+                <!-- Bảng điều hướng 3 bước -->
+                <section class="animate-fade-in" style="animation-delay: 200ms;">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Lộ Trình Đề Xuất (${totalMissing} Kỹ Năng)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        
+                        <!-- Card: Cốt Lõi -->
+                        <div class="flex flex-col bg-white border-2 border-yellow-300 rounded-2xl p-6 shadow-lg transition-transform transform hover:-translate-y-1 hover:shadow-xl">
+                            <div class="flex-grow">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="flex-shrink-0 bg-yellow-100 text-yellow-700 p-3 rounded-full">
+                                        <!-- Icon -->
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.717 50.717 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+                                    </span>
+                                    <h4 class="text-xl font-bold text-gray-800">Bước 1: Cốt Lõi</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-4">Các kỹ năng bắt buộc phải có của mọi BA.</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-3xl font-bold text-yellow-600 mb-4">${coreGap.length} <span class="text-lg font-normal text-gray-500">kỹ năng</span></p>
+                                <button class="nav-button w-full bg-yellow-500 text-yellow-900 font-bold py-2 px-4 rounded-lg hover:bg-yellow-600 transition" data-page="skill-group-detail" data-group="core" ${coreGap.length === 0 ? 'disabled' : ''}>
+                                    ${coreGap.length === 0 ? 'Đã Hoàn Thành' : 'Xem Chi Tiết'}
+                                </button>
+                            </div>
                         </div>
-                        ${missingPrereqs.length > 0 
-                            ? `<div class="text-xs text-red-600 bg-red-50 px-3 py-2 rounded-lg font-medium border border-red-100">
-                                ${t.prereq} <span class="font-bold">${missingPrereqs.map(pid => allSkillsData.find(s=>s.id===pid)?.name).join(', ')}</span>
-                               </div>` 
-                            : ''}
+
+                        <!-- Card: Chuyên Sâu -->
+                        <div class="flex flex-col bg-white border-2 border-emerald-300 rounded-2xl p-6 shadow-lg transition-transform transform hover:-translate-y-1 hover:shadow-xl">
+                            <div class="flex-grow">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="flex-shrink-0 bg-emerald-100 text-emerald-700 p-3 rounded-full">
+                                        <!-- Icon -->
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.51-2.52.51 2.52-2.51-2.225m2.51-2.225-2.225 2.51m2.225-2.51.51 2.52M7.5 15.25l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M9 12.75l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M12 9.75l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M15 12.75l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M16.5 15.25l-1.03-1.03m0 0 .51-2.52.51 2.52-1.03 1.03m-1.03-1.03.51 2.52M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                                    </span>
+                                    <h4 class="text-xl font-bold text-gray-800">Bước 2: Chuyên Sâu</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-4">Kỹ năng dành riêng cho định hướng của bạn.</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-3xl font-bold text-emerald-600 mb-4">${personaGap.length} <span class="text-lg font-normal text-gray-500">kỹ năng</span></p>
+                                <button class="nav-button w-full bg-emerald-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-emerald-600 transition" data-page="skill-group-detail" data-group="persona" ${personaGap.length === 0 ? 'disabled' : ''}>
+                                    ${personaGap.length === 0 ? 'Đã Hoàn Thành' : 'Xem Chi Tiết'}
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card: Mới Nổi -->
+                        <div class="flex flex-col bg-white border-2 border-indigo-300 rounded-2xl p-6 shadow-lg transition-transform transform hover:-translate-y-1 hover:shadow-xl">
+                            <div class="flex-grow">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="flex-shrink-0 bg-indigo-100 text-indigo-700 p-3 rounded-full">
+                                        <!-- Icon -->
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047l-4.858 4.858a1.125 1.125 0 0 0 0 1.59l4.858 4.858a8.252 8.252 0 0 1 5.962-13.785 8.25 8.25 0 0 1 5.962 13.785l4.858-4.858a1.125 1.125 0 0 0 0-1.59l-4.858-4.858Z" /></svg>
+                                    </span>
+                                    <h4 class="text-xl font-bold text-gray-800">Bước 3: Mới Nổi</h4>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-4">Đón đầu xu hướng và tăng lợi thế cạnh tranh.</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-3xl font-bold text-indigo-600 mb-4">${emergingGap.length} <span class="text-lg font-normal text-gray-500">kỹ năng</span></p>
+                                <button class="nav-button w-full bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-600 transition" data-page="skill-group-detail" data-group="emerging" ${emergingGap.length === 0 ? 'disabled' : ''}>
+                                    ${emergingGap.length === 0 ? 'Đã Hoàn Thành' : 'Xem Chi Tiết'}
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
-                    
-                    <div class="p-6 bg-slate-50/50">
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="space-y-4">
-                                <div>
-                                    <p class="text-xs font-extrabold text-slate-400 uppercase mb-1 flex items-center gap-1"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ${t.desc}</p>
-                                    <p class="text-sm text-slate-700 leading-relaxed">${detail.desc}</p>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-extrabold text-slate-400 uppercase mb-1 flex items-center gap-1"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg> ${t.help}</p>
-                                    <p class="text-sm text-slate-700 leading-relaxed">${detail.help}</p>
-                                </div>
-                            </div>
-                            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
-                                <p class="text-xs font-extrabold text-sky-600 uppercase mb-3 flex items-center gap-1"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg> ${t.action}</p>
-                                <p class="text-sm text-slate-800 font-medium mb-4">${detail.action}</p>
-                                <div class="pt-4 border-t border-slate-100">
-                                    <p class="text-xs font-bold text-slate-400 uppercase mb-1">${t.res}</p>
-                                    <p class="text-xs text-sky-600 font-medium bg-sky-50 inline-block px-2 py-1 rounded border border-sky-100">${detail.res}</p>
-                                </div>
-                            </div>
+                </section>
+            `;
+            hubPage.innerHTML = html;
+            addNavigationListeners(); // Gắn sự kiện cho các nút mới
+        }
+
+        // Xây dựng Trang Chi tiết Vai Trò
+        function buildPersonaDetailPage() {
+            const { personaDef } = currentPlanData.results;
+            const page = document.getElementById('persona-detail-page');
+
+            let html = `
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b-2 border-slate-200 pb-4 mb-8 gap-4">
+                    <button class="nav-button bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition" data-page="hub">
+                        &larr; Quay Về Lộ Trình
+                    </button>
+                    <h2 class="text-2xl md:text-3xl font-bold text-brand-blue text-right">${personaDef.title}</h2>
+                </div>
+                
+                <p class="text-lg text-gray-600 leading-relaxed mb-8">${personaDef.description}</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Trách nhiệm chính -->
+                    <div class="animate-slide-in-right" style="animation-delay: 100ms;">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Trách Nhiệm Chính Thường Gặp</h3>
+                        <ul class="space-y-3 list-disc list-inside text-gray-700">
+                            ${personaDef.responsibilities.map(r => `<li>${r}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <!-- Ví dụ tình huống -->
+                    <div class="animate-slide-in-right" style="animation-delay: 200ms;">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Tình Huống Công Việc (Case Study)</h3>
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-gray-700 leading-relaxed shadow-sm">
+                            ${personaDef.caseStudy}
                         </div>
                     </div>
                 </div>
             `;
+            page.innerHTML = html;
+            addNavigationListeners(); // Gắn sự kiện cho nút "Quay Về"
+        }
+        
+        // (ĐÃ CẬP NHẬT) Hàm kiểm tra điều kiện tiên quyết
+        function getPrerequisiteStatus(skillId, userSkills) {
+            let missingPrereqs = [];
+            let foundation = true; // Giả sử là nền tảng
+            
+            // 1. Kiểm tra xem kỹ năng này CÓ PHẢI là điều kiện tiên quyết cho kỹ năng khác KHÔNG?
+            if (skillPrereqs[skillId]) {
+                 foundation = true; // Nếu nó là key trong prereqs, nó là nền tảng
+            } else {
+                 // 2. Kiểm tra xem kỹ năng này CÓ YÊU CẦU điều kiện tiên quyết KHÔNG?
+                for (const foundationSkill in skillPrereqs) {
+                    if (skillPrereqs[foundationSkill].includes(skillId)) {
+                        foundation = false; // Nó là kỹ năng phụ thuộc
+                        // 3. Kiểm tra xem user có thiếu điều kiện tiên quyết không
+                        if (!userSkills.has(foundationSkill)) {
+                            missingPrereqs.push(findSkillById(foundationSkill).name);
+                        }
+                    }
+                }
+            }
+
+            // Trả về kết quả
+            if (foundation) {
+                return { 
+                    priority: 1, 
+                    label: "Ưu Tiên 1: Nền Tảng",
+                    reason: "Đây là kỹ năng cốt lõi, làm nền tảng cho nhiều kỹ năng khác. Bạn nên bắt đầu từ đây.",
+                    tagColor: "bg-green-100 text-green-800"
+                };
+            } else if (missingPrereqs.length > 0) {
+                // Nếu thiếu điều kiện
+                return {
+                    priority: 3,
+                    label: "Ưu Tiên 3: Học Sau",
+                    reason: `<strong>Khuyến nghị:</strong> Nên học <strong>${missingPrereqs.join(', ')}</strong> trước. Kỹ năng này sẽ dễ tiếp thu hơn khi bạn đã có nền tảng.`,
+                    tagColor: "bg-red-100 text-red-800"
+                };
+            } else {
+                // Nếu đủ điều kiện
+                return {
+                    priority: 2,
+                    label: "Ưu Tiên 2: Bước Tiếp Theo",
+                    reason: "Bạn đã có đủ nền tảng (ví dụ: " + Object.keys(skillPrereqs).filter(key => skillPrereqs[key].includes(skillId)).map(s_id => findSkillById(s_id).name).join(', ') + "). Đây là kỹ năng tiếp theo để phát triển.",
+                    tagColor: "bg-sky-100 text-sky-800"
+                };
+            }
         }
 
-        function backToHub() {
-            document.getElementById('skill-group-detail-page').classList.add('hidden');
-            document.getElementById('report-hub-page').classList.remove('hidden');
+
+        // (ĐÃ CẬP NHẬT) Xây dựng Trang Chi tiết Nhóm Kỹ Năng (LOGIC MỚI)
+        function buildSkillGroupDetailPage(title, skills, color, userSkills) {
+            const page = document.getElementById('skill-group-detail-page');
+            const colors = {
+                yellow: { text: 'text-yellow-700', bg: 'bg-yellow-100', border: 'border-yellow-200' },
+                emerald: { text: 'text-emerald-700', bg: 'bg-emerald-100', border: 'border-emerald-200' },
+                indigo: { text: 'text-indigo-700', bg: 'bg-indigo-100', border: 'border-indigo-200' }
+            };
+            const theme = colors[color] || { text: 'text-gray-700', bg: 'bg-gray-100', border: 'border-gray-200' };
+
+            // Header của trang chi tiết
+            let html = `
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b-2 border-slate-200 pb-4 mb-8 gap-4">
+                    <button class="nav-button bg-slate-200 text-slate-700 font-bold py-2 px-5 rounded-lg hover:bg-slate-300 transition" data-page="hub">
+                        &larr; Quay Về Lộ Trình
+                    </button>
+                    <h2 class="text-2xl md:text-3xl font-bold ${theme.text} text-right">${title}</h2>
+                </div>
+            `;
+
+            if (skills.length === 0) {
+                html += `<p class="text-emerald-700 font-medium text-lg bg-emerald-50 p-6 rounded-lg">Tuyệt vời! Bạn đã hoàn thiện các kỹ năng trong nhóm này.</p>`;
+            } else {
+                // Sắp xếp lại kỹ năng dựa trên logic ưu tiên (1, 2, 3)
+                const sortedSkills = skills.map(skill => {
+                    return {
+                        ...skill,
+                        status: getPrerequisiteStatus(skill.id, userSkills)
+                    };
+                }).sort((a, b) => a.status.priority - b.status.priority); // Sắp xếp theo Ưu tiên 1, 2, 3
+
+
+                html += `<div class="space-y-6">`;
+                sortedSkills.forEach((skill, index) => {
+                    const detail = skillDetails[skill.id] || { description: "Chưa có mô tả chi tiết.", howItHelps: "Chưa có mô tả chi tiết." };
+                    const synergy = skillSynergies[skill.id];
+                    const status = skill.status;
+
+                    html += `
+                        <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm animate-slide-in-right" style="animation-delay: ${index * 100}ms;">
+                            <!-- Header của thẻ kỹ năng -->
+                            <div class="p-4 border-b ${theme.border} ${theme.bg} flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                                <h3 class="text-xl font-bold ${theme.text}">${skill.name}</h3>
+                                <span class="text-sm font-bold px-3 py-1 rounded-full ${status.tagColor} shrink-0">
+                                    ${status.label}
+                                </span>
+                            </div>
+                            <!-- Nội dung thẻ kỹ năng -->
+                            <div class="p-6">
+                                <!-- Thêm giải thích 'Vì Sao' -->
+                                <div class="bg-slate-50 border-l-4 border-slate-400 text-slate-700 p-4 rounded-r-lg mb-6">
+                                    <p class="font-semibold">Lý Do Ưu Tiên:</p>
+                                    <p class="text-sm">${status.reason}</p>
+                                </div>
+                                
+                                <!-- Chi tiết -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-700 mb-2">Mô Tả Kỹ Năng</h4>
+                                        <p class="text-gray-600">${detail.description}</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-700 mb-2">Giúp Gì Trong Công Việc?</h4>
+                                        <p class="text-gray-600">${detail.howItHelps}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Chân trang (Bổ trợ) -->
+                            ${synergy ? `
+                            <div class="p-4 bg-slate-50 border-t border-slate-200">
+                                <p class="text-sm text-gray-600">
+                                    <svg class="w-4 h-4 inline-block mr-1 text-sky-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                    <strong>Bổ trợ cho:</strong> ${synergy.map(s_id => findSkillById(s_id)?.name || s_id).join(', ')}
+                                </p>
+                            </div>
+                            ` : ''}
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+
+            page.innerHTML = html;
+            addNavigationListeners(); // Gắn sự kiện cho nút "Quay Về"
         }
 
-        function resetApp() {
-            location.reload();
+        // Gắn sự kiện cho các nút điều hướng (quan trọng)
+        function addNavigationListeners() {
+            // Hủy sự kiện cũ và gắn lại để tránh lỗi
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.replaceWith(button.cloneNode(true));
+            });
+            
+            // Gắn sự kiện mới
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const page = e.currentTarget.dataset.page;
+                    const group = e.currentTarget.dataset.group;
+                    
+                    if (page === 'skill-group-detail') {
+                        const { coreGap, personaGap, emergingGap } = currentPlanData.results;
+                        // Điều hướng đến trang chi tiết kỹ năng
+                        if (group === 'core') {
+                            navigateToPage('skill-group-detail', { title: 'Chi Tiết Kỹ Năng Cốt Lõi', skills: coreGap, color: 'yellow' });
+                        } else if (group === 'persona') {
+                            navigateToPage('skill-group-detail', { title: 'Chi Tiết Kỹ Năng Chuyên Sâu', skills: personaGap, color: 'emerald' });
+                        } else if (group === 'emerging') {
+                            navigateToPage('skill-group-detail', { title: 'Chi Tiết Kỹ Năng Mới Nổi', skills: emergingGap, color: 'indigo' });
+                        }
+                    } else {
+                        // Điều hướng đến các trang khác (hub, selection, persona-detail)
+                        navigateToPage(page);
+                    }
+                });
+            });
         }
 
-        // Init
-        populateSkillsAccordion();
     </script>
+
 </body>
+
 </html>
